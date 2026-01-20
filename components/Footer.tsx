@@ -1,0 +1,111 @@
+import React from 'react';
+import { Mail, Phone, Leaf, Facebook, Linkedin, Youtube } from 'lucide-react';
+import { siteContent } from '../data/data';
+
+export const Footer: React.FC = () => {
+  const { brand } = siteContent;
+  
+  const getSocialIcon = (iconName: string) => {
+    switch(iconName) {
+      case 'facebook': return <Facebook className="w-5 h-5" />;
+      // case 'linkedin': return <Linkedin className="w-5 h-5" />;
+      case 'youtube': return <Youtube className="w-5 h-5" />;      
+      default: return null;
+    }
+  };
+
+  return (
+    <footer className="glass-panel border-t border-white/10 mt-20 relative z-10">
+      <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          
+          {/* Brand */}
+          <div className="col-span-1">
+             <div className="flex items-center gap-2 mb-4">
+              <Leaf className="text-brand-green h-6 w-6" />
+              <span className="text-xl font-bold text-white">{brand.name}</span>
+            </div>
+            <p className="text-glass-muted text-sm leading-relaxed mb-6">
+              {brand.description}
+            </p>
+            
+            {/* Newsletter */}
+            <div className="space-y-4 max-w-sm">
+               <h4 className="text-white font-bold text-sm tracking-wide">{siteContent.newsletter?.title}</h4>
+               <p className="text-xs text-glass-muted">{siteContent.newsletter?.description}</p>
+               <form className="flex flex-col sm:flex-row gap-2">
+                 <input 
+                   type="email" 
+                   placeholder={siteContent.newsletter?.placeholder} 
+                   className="flex-1 bg-white/5 border border-white/10 rounded-lg px-4 py-2 text-sm text-white focus:outline-none focus:border-brand-green/50 placeholder:text-white/20"
+                 />
+                 <button 
+                   type="button" 
+                   className="bg-brand-green text-brand-dark font-bold text-xs uppercase px-4 py-2 rounded-lg hover:bg-white hover:text-brand-green transition-colors"
+                 >
+                   {siteContent.newsletter?.buttonText}
+                 </button>
+               </form>
+            </div>
+          </div>         
+
+          {/* Contact */}
+          <div className="col-span-1">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Contacto</h3>
+            <ul className="space-y-3">
+              <li className="flex items-center text-glass-muted hover:text-white transition-colors">
+                <Mail className="h-5 w-5 mr-2 text-brand-green shrink-0" />
+                <span>{brand.contact.email}</span>
+              </li>
+              <li className="flex items-center text-glass-muted hover:text-white transition-colors">
+                <Phone className="h-5 w-5 mr-2 text-brand-green shrink-0" />
+                <span>{brand.contact.phone}</span>
+              </li>
+            </ul>
+          </div>
+
+           {/* Locations */}
+          <div className="col-span-1">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Ubicaciones</h3>
+            <ul className="space-y-4">
+              {brand.contact.locations?.map((loc, idx) => (
+                <li key={idx} className="flex flex-col text-glass-muted hover:text-white transition-colors">
+                  <span className="font-bold text-brand-green text-xs uppercase mb-1">{loc.country}</span>
+                  <span className="text-sm leading-snug">{loc.address}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Quick Links */}
+          <div className="col-span-1">
+            <h3 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Legal</h3>
+            <ul className="space-y-2">
+              <li><a href="#" className="text-glass-muted hover:text-brand-green text-sm transition-colors">Política de Privacidad</a></li>
+              <li><a href="#" className="text-glass-muted hover:text-brand-green text-sm transition-colors">Términos y Condiciones</a></li>
+            </ul>
+          </div>
+        </div>
+        
+        <div className="mt-8 border-t border-white/10 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <p className="text-xs text-glass-muted">
+            &copy; {new Date().getFullYear()} {brand.name}. Todos los derechos reservados.
+          </p>
+
+          <div className="flex items-center gap-4">
+            {brand.social.socialLinks?.map((link, idx) => (
+              <a 
+                key={idx} 
+                href={link.href} 
+                className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-white hover:bg-brand-green hover:text-brand-dark transition-all duration-300 hover:scale-110"
+                aria-label={link.label}
+              >
+                {getSocialIcon(link.icon)}
+              </a>
+            ))}
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+};

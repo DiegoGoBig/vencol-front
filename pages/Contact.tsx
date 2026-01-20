@@ -1,0 +1,162 @@
+import React from 'react';
+import { GlassCard } from '../components/ui/GlassCard';
+import { Send, MapPin, Mail, Phone } from 'lucide-react';
+import { siteContent } from '../data/data';
+import { SEO } from '../components/SEO';
+
+export const Contact: React.FC = () => {
+  const { contact } = siteContent;
+  return (
+    <div className="pb-20 relative z-10">
+      <SEO 
+        title={contact.meta.title} 
+        description={contact.meta.description} 
+      />
+
+{/* Hero Section */}
+      <div className="relative h-[60vh] min-h-[500px] flex items-center justify-center overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img 
+            src={contact.hero.bgimage} 
+            alt="About Hero" 
+            className="w-full h-full object-cover"
+          />
+          <div className="absolute inset-0 bg-brand-dark/80 backdrop-blur-[2px]" />
+          <div className="absolute inset-0 bg-gradient-to-b from-transparent to-brand-dark" />
+        </div>
+
+        {/* Content */}
+        <div className="relative z-10 max-w-5xl mx-auto px-4 text-center mt-16">
+          <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md mb-8">
+            <span className="w-2 h-2 rounded-full bg-brand-green animate-pulse" />
+            <span className="text-sm font-medium text-brand-green uppercase tracking-wider">{contact.hero.badge}</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight">
+            {contact.hero.title}
+          </h1>
+          
+          <p className="text-xl md:text-2xl text-glass-muted max-w-3xl mx-auto leading-relaxed">
+            {contact.hero.description}
+          </p>
+        </div>
+      </div>
+
+      <div className="max-w-7xl pt-10 mx-auto px-4 sm:px-6 lg:px-8">
+               
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
+          
+          {/* Contact Form (Left) */}
+          <GlassCard className="lg:row-span-2 bg-gradient-to-br from-emerald-950/50 to-brand-green/10 border-white/5">
+            {/* <h3 className="text-2xl font-bold text-white mb-6 leading-tight">{contact.form.title}</h3> */}
+            <form className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="firstName" className="block text-sm font-medium text-gray-300 mb-2">{contact.form.firstName}</label>
+                  <input 
+                    type="text" 
+                    id="firstName" 
+                    className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-colors placeholder-gray-500"
+                    placeholder="John"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="lastName" className="block text-sm font-medium text-gray-300 mb-2">{contact.form.lastName}</label>
+                  <input 
+                    type="text" 
+                    id="lastName" 
+                    className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-colors placeholder-gray-500"
+                    placeholder="Doe"
+                  />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div>
+                  <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">{contact.form.email}</label>
+                  <input 
+                    type="email" 
+                    id="email" 
+                    className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-colors placeholder-gray-500"
+                    placeholder="tu@empresa.com"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="topic" className="block text-sm font-medium text-gray-300 mb-2">{contact.form.topic}</label>
+                  <input 
+                    type="text" 
+                    id="topic" 
+                    className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-colors placeholder-gray-500"
+                    placeholder="Consulta General"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">{contact.form.message}</label>
+                <textarea 
+                  id="message" 
+                  rows={4} 
+                  className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:ring-1 focus:ring-brand-green transition-colors placeholder-gray-500"
+                  placeholder="Escribe tu mensaje aquí..."
+                ></textarea>
+              </div>
+              
+              <button type="button" className="w-full bg-brand-green text-brand-dark font-bold py-4 rounded-lg shadow-lg hover:bg-white hover:text-brand-green transition-all flex justify-center items-center gap-2">
+                {contact.form.submit}
+              </button>
+            </form>
+          </GlassCard>
+
+          {/* Contact Info (Right) */}
+          <div className="space-y-8 pt-4">
+             <div>
+               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-white/10 bg-white/5 text-xs font-semibold text-white tracking-wider mb-4">
+                 <Send className="w-3 h-3" />
+                 {contact.infoSection?.badge}
+               </div>
+               <h2 className="text-4xl font-bold text-white mb-4 leading-tight">
+                 {contact.infoSection?.title}
+               </h2>
+               <p className="text-glass-muted text-lg">
+                 {contact.infoSection?.description}
+               </p>
+             </div>
+
+             <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Dynamically Map Locations */}
+                {siteContent.brand.contact.locations?.slice(0, 2).map((loc, idx) => (
+                  <div key={idx} className="space-y-2">
+                     <div className="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center mb-2">
+                       <MapPin className="text-brand-green w-5 h-5" />
+                     </div>
+                     <h4 className="text-white font-bold">{loc.country}</h4>
+                     <p className="text-sm text-glass-muted leading-relaxed">{loc.address}</p>
+                  </div>
+                ))}
+
+                {/* Email */}
+                <div className="space-y-2">
+                   <div className="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center mb-2">
+                     <Mail className="text-brand-green w-5 h-5" />
+                   </div>
+                   <h4 className="text-white font-bold">Email</h4>
+                   <p className="text-sm text-glass-muted">{siteContent.brand.contact.email}</p>
+                </div>
+
+                {/* Phone */}
+                <div className="space-y-2">
+                   <div className="w-10 h-10 rounded-full bg-brand-green/10 flex items-center justify-center mb-2">
+                     <Phone className="text-brand-green w-5 h-5" />
+                   </div>
+                   <h4 className="text-white font-bold">Teléfono</h4>
+                   <p className="text-sm text-glass-muted">{siteContent.brand.contact.phone}</p>
+                </div>
+             </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};

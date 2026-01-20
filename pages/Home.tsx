@@ -396,9 +396,9 @@ export const Home: React.FC = () => {
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1580913428739-9e67d2ce8b23?auto=format&fit=crop&q=80&w=2000"
+            src={home.blogPreview.bgImage}
             alt="Blog Background" 
-            className="w-full h-full object-cover opacity-40 grayscale" 
+            className="w-full h-full object-cover opacity-80 " 
           />
           <div className="absolute inset-0 bg-brand-dark/80 mix-blend-multiply"></div>
           <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-transparent to-brand-dark/50"></div>

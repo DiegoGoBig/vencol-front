@@ -235,7 +235,8 @@ export const siteContent = {
     blogPreview: {
       title: "Lo que ves importa. Lo que NO ves, aún más.",
       subtitle: " Nuestras soluciones lo absorben, lo retienen y mantienen la frescura visible.",
-      cta: "Aprende más"
+      cta: "Aprende más",
+      bgImage: "https://plum-starling-379018.hostingersite.com/wp-content/uploads/2026/01/hero_3.jpg"
     }
   },
   about: {

@@ -8,6 +8,13 @@ import { SEO } from '../components/SEO';
 export const Home: React.FC = () => {
   const { home, meta } = siteContent;
   const [currentImage, setCurrentImage] = useState(0);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const handleScroll = () => setScrollY(window.scrollY);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
 
   useEffect(() => {
@@ -33,7 +40,10 @@ export const Home: React.FC = () => {
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
         
         {/* Background Slider */}
-        <div className="absolute inset-0 z-0">
+        <div 
+          className="absolute inset-0 z-0"
+          style={{ transform: `translateY(${scrollY * 0.5}px)` }}
+        >
           {home.hero.images.map((img, index) => (
             <div
               key={index}

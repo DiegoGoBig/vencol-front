@@ -8,7 +8,9 @@ export interface NavLink {
 export interface BlogPost {
   id: number;
   title: string;
+  slug: string;
   excerpt: string;
+  content: string;
   date: string;
   image: string;
   category: string;
@@ -27,6 +29,7 @@ export interface Service {
   icon: LucideIcon;
   features: string[];
   images: string[];
+  menuTitle: string;
 }
 
 export interface Stat {
@@ -37,4 +40,14 @@ export interface Stat {
 export interface FaqItem {
   question: string;
   answer: string;
+}
+
+export interface WPPage {
+  id: number;
+  slug: string;
+  title: string;
+  content: string;
+  excerpt: string;
+  date: string;
+  image: string;
 }

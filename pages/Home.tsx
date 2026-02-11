@@ -280,7 +280,7 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             
             {/* Left Column: Heading & Image */}
-            <div className="sticky top-24">
+            <div className="lg:sticky lg:top-24">
                <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-brand-green text-xs font-bold tracking-wider backdrop-blur-md mb-6 uppercase">
                    <MessageCircle className="w-3 h-3 mr-2" /> 
                    {home.faq.badge}

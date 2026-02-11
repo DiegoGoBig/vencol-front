@@ -21,7 +21,7 @@ export const siteContent = {
     slogan: "Hacemos visible la frescura",
     description: "Líderes en empaques sostenibles para alimentos. Ofrecemos soluciones innovadoras y ecológicas que protegen tus productos y el medio ambiente.",
     contact: {
-      email: "info@vencol.com",
+      email: "servicioalcliente@vencol.com",
       phone: "+1 (786) 258-4495",
       address: "Miami, FL",
       locations: [
@@ -34,9 +34,10 @@ export const siteContent = {
     social: {
       whatsapp: "+1 (786) 258-4495",
       socialLinks: [
-        { label: "Facebook", href: "#", icon: "facebook" },
-        { label: "Linkedin", href: "#", icon: "linkedin" },
-        { label: "Youtube", href: "#", icon: "youtube" },
+        { label: "Facebook", href: "https://www.facebook.com/vencolcolombia/", icon: "facebook" },
+        { label: "Linkedin", href: "https://www.linkedin.com/company/103810333/admin/feed/posts/", icon: "linkedin" },        
+        { label: "Instagram", href: "https://www.instagram.com/vencol_internacional/", icon: "instagram" },
+        { label: "TikTok", href: "https://www.tiktok.com/@vencol_internacional", icon: "tiktok" },
       ]
     }
   },
@@ -266,6 +267,7 @@ export const siteContent = {
         id: '1',
         slug: 'bolsas-termoencogibles-cryovac',
         title: "Bolsas/fundas termoencogibles Cryovac",
+        menuTitle: "Bolsas/fundas termoencogibles",
         description: "Seguridad alimentaria de alto rendimiento. Barrera superior contra oxígeno y humedad.",
         longDescription: "Las bolsas termoencogibles Cryovac representan el estándar de oro en la industria del empaque de proteínas. Diseñadas con tecnología multicapa patentada, estas bolsas se encogen al contacto con el calor para ajustarse como una segunda piel al producto, eliminando el oxígeno residual y maximizando la vida útil. Son ideales para carnes frescas, procesadas y quesos, ofreciendo una resistencia excepcional a la punción y una claridad óptica que resalta la frescura natural del alimento.",
         subtitle1: "Barrera superior contra oxígeno y humedad.",
@@ -289,6 +291,7 @@ export const siteContent = {
         id: '2',
         slug: 'film-termoformado',
         title: "Film de Empaque Termoformado Cryovac",
+        menuTitle: "Film de Empaque Termoformado",
         description: "Tecnología de vanguardia. Selladura hermética y resistencia mecánica superior.",
         longDescription: "Nuestros films para termoformado están diseñados para máquinas de alto rendimiento, permitiendo crear envases a medida directamente en la línea de producción. Ofrecemos tanto films flexibles como semirrígidos, con propiedades de termoformado profundo que garantizan un espesor uniforme en las esquinas. Esta solución optimiza los costos logísticos y mejora la presentación en el lineal, permitiendo una visibilidad 360° del producto.",
         subtitle1: "Tecnología de vanguardia para tus empaques",
@@ -313,6 +316,7 @@ export const siteContent = {
         id: '3',
         slug: 'absorbentes-tipo-almohadilla',
         title: "Absorbentes Tipo Almohadilla Aprobadas Globalmente",
+        menuTitle: "Absorbentes Tipo Almohadilla",
         description: "Frescura máxima y presentación impecable. Optimizan la conservación y evitan derrames.",
         longDescription: "Las almohadillas absorbentes Vencol (representando a Novipax) son esenciales para el control de líquidos (mioglobina) en bandejas de autoservicio. No solo mejoran la estética evitando el aspecto 'sangriento', sino que reducen la carga bacteriana al atrapar la humedad libre donde proliferan los microorganismos. Disponibles en diversas capacidades de absorción y colores para integrarse con el empaque.",
         subtitle1: "Frescura máxima y una presentación impecable",
@@ -338,6 +342,7 @@ export const siteContent = {
         id: '4',
         slug: 'foils-para-etiquetas',
         title: "Foils para elaboración de etiquetas",
+        menuTitle: "Foils para elaboración de etiquetas",
         description: "Visibilidad y resistencia. Soportan procesos de congelación y cocción.",
         longDescription: "Nuestros foils para etiquetas están diseñados para resistir las condiciones más exigentes de la cadena de frío. Ya sea para congelación profunda, refrigeración húmeda o procesos de cocción, garantizamos que la información de tu marca, códigos de barras y fechas de vencimiento permanezcan legibles e intactos desde la planta hasta la mesa del consumidor.",
         subtitle1: "Visibilidad y resistencia en cualquier condición",
@@ -360,6 +365,7 @@ export const siteContent = {
         id: '5',
         slug: 'foils-de-marcacion',
         title: "Foils de marcación",
+        menuTitle: "Foils de marcación",
         description: "Codificación precisa. Cintas de transferencia térmica para trazabilidad perfecta.",
         longDescription: "Asegura la trazabilidad de tus productos con nuestros foils de marcación para impresión de datos variables (lote, fecha de caducidad, códigos QR). Ofrecemos cintas (ribbons) de cera, cera-resina y resina pura, compatibles con las principales impresoras del mercado (Zebra, Videojet, Markem, etc.), garantizando nitidez y anclaje sobre films flexibles y etiquetas.",
         subtitle1: "Máxima protección y diseño para tus productos",
@@ -394,7 +400,9 @@ export const siteContent = {
       {
         id: 1,
         title: "¿Qué es la mioglobina?",
+        slug: "que-es-la-mioglobina",
         excerpt: "El líquido rojo no es sangre, es agua con proteínas. Descubre cómo afecta la frescura y la percepción del cliente.",
+        content: "<p>El líquido rojo que vemos en las bandejas de carne <strong>no es sangre</strong>. Se trata de mioglobina, una proteína presente en el tejido muscular que, al entrar en contacto con el agua, genera ese característico color rojo.</p><p>La mioglobina cumple una función vital en el músculo: almacenar oxígeno. Cuando la carne es cortada y empacada, esta proteína se libera y se mezcla con el agua del tejido, creando lo que conocemos como exudado.</p><h3>¿Por qué importa controlar la mioglobina?</h3><p>El exceso de exudado en la bandeja genera una percepción negativa en el consumidor. Un producto que \"sangra\" se percibe como menos fresco, aunque su calidad sea óptima. Además, el líquido acumulado es un caldo de cultivo para bacterias, acelerando el deterioro.</p><p>Las almohadillas absorbentes Vencol están diseñadas específicamente para retener este exudado, manteniendo la bandeja limpia y el producto con una apariencia fresca y apetecible.</p>",
         date: "Oct 24, 2023",
         image: "https://picsum.photos/id/431/400/250",
         category: "Educativo"
@@ -402,7 +410,9 @@ export const siteContent = {
       {
         id: 2,
         title: "Innovación en Empaques",
+        slug: "innovacion-en-empaques",
         excerpt: "Nuevas tecnologías Cryovac para extender la vida útil de productos cárnicos y reducir devoluciones.",
+        content: "<p>La industria del empaque de alimentos está en constante evolución. Las nuevas tecnologías <strong>Cryovac</strong> permiten extender la vida útil de los productos cárnicos hasta en un 40%, reduciendo significativamente las devoluciones y el desperdicio alimentario.</p><h3>Tecnología multicapa</h3><p>Los films multicapa de última generación combinan barreras contra el oxígeno, la humedad y los rayos UV, creando un microambiente controlado que preserva las propiedades organolépticas del alimento.</p><p>Estas innovaciones no solo benefician al productor con menos pérdidas, sino que mejoran la experiencia del consumidor final, quien recibe un producto más fresco y con mejor presentación.</p>",
         date: "Nov 12, 2023",
         image: "https://picsum.photos/id/225/400/250",
         category: "Tecnología"
@@ -410,7 +420,9 @@ export const siteContent = {
       {
         id: 3,
         title: "Sostenibilidad Alimentaria",
+        slug: "sostenibilidad-alimentaria",
         excerpt: "Cómo la reducción de desperdicios impacta positivamente en el medio ambiente y en tu rentabilidad.",
+        content: "<p>Cada año se desperdician millones de toneladas de alimentos en el mundo. Una parte significativa de este desperdicio ocurre por empaques inadecuados que no logran preservar la frescura del producto.</p><h3>El rol del empaque sostenible</h3><p>Un empaque eficiente no solo protege el alimento, sino que reduce la huella de carbono al disminuir la cantidad de producto que termina en vertederos. En Vencol trabajamos con materiales que optimizan el uso de recursos sin comprometer la protección.</p><p>La sostenibilidad y la rentabilidad van de la mano: menos desperdicio significa más producto vendido y menos costos por devoluciones.</p>",
         date: "Dic 05, 2023",
         image: "https://picsum.photos/id/292/400/250",
         category: "Medio Ambiente"
@@ -418,7 +430,9 @@ export const siteContent = {
       {
         id: 4,
         title: "Tendencias 2025 en Retail",
+        slug: "tendencias-2025-en-retail",
         excerpt: "Lo que los supermercados líderes están exigiendo a sus proveedores de frescos.",
+        content: "<p>El retail de alimentos frescos está cambiando rápidamente. Los supermercados líderes están exigiendo estándares cada vez más altos a sus proveedores, enfocándose en tres pilares fundamentales.</p><h3>1. Transparencia en el empaque</h3><p>Los consumidores quieren ver lo que compran. Los empaques con alta claridad óptica y sin condensación son la nueva norma.</p><h3>2. Vida útil extendida</h3><p>Las cadenas buscan proveedores que garanticen mayor shelf life para reducir mermas y optimizar la rotación de inventario.</p><h3>3. Sostenibilidad certificada</h3><p>Certificaciones ambientales y materiales reciclables ya no son opcionales, son requisitos de entrada para las grandes superficies.</p>",
         date: "Ene 15, 2024",
         image: "https://picsum.photos/id/112/400/250",
         category: "Mercado"
@@ -426,7 +440,9 @@ export const siteContent = {
       {
         id: 5,
         title: "Seguridad Alimentaria",
+        slug: "seguridad-alimentaria",
         excerpt: "Protocolos esenciales para evitar la contaminación cruzada en plantas de procesamiento.",
+        content: "<p>La seguridad alimentaria es la piedra angular de cualquier operación de procesamiento de alimentos. La contaminación cruzada sigue siendo uno de los mayores riesgos para la industria.</p><h3>Protocolos esenciales</h3><p>Desde la selección del material de empaque hasta el sellado final, cada etapa debe cumplir con estrictos estándares de higiene. Los materiales certificados para contacto con alimentos son fundamentales.</p><p>En Vencol, todos nuestros productos cuentan con certificación FDA y están diseñados para minimizar el riesgo de contaminación, protegiendo tanto al productor como al consumidor final.</p>",
         date: "Feb 02, 2024",
         image: "https://picsum.photos/id/75/400/250",
         category: "Seguridad"

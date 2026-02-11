@@ -73,7 +73,7 @@ export const Navbar: React.FC = () => {
                       </button>
                       
                       {/* Dropdown Content */}
-                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-72 bg-black backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 shadow-2xl z-50">
+                      <div className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-96 bg-black backdrop-blur-xl border border-white/10 rounded-xl overflow-hidden opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 shadow-2xl z-50">
                         <div className="py-2">
                           {solutionsData.map((solution) => (
                             <Link 
@@ -160,7 +160,7 @@ export const Navbar: React.FC = () => {
                           to={`/soluciones/${solution.slug}`}
                           className="block px-3 py-2 text-md text-gray-400 hover:text-brand-green hover:bg-white/5 rounded-lg transition-colors"
                         >
-                          {solution.title}
+                          {solution.menuTitle}
                         </Link>
                       ))}
                     </div>

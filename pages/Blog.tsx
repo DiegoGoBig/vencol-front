@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { GlassCard } from '../components/ui/GlassCard';
 import { siteContent } from '../data/data';
 import { SEO } from '../components/SEO';
@@ -52,26 +53,28 @@ export const Blog: React.FC = () => {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {posts.map((post) => (
-              <GlassCard key={post.id} hoverEffect className="p-0 overflow-hidden flex flex-col group h-full">
-                <div className="relative h-56 overflow-hidden">
-                  <img 
-                    src={post.image} 
-                    alt={post.title} 
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute top-4 right-4 bg-brand-green/90 px-3 py-1 rounded-full text-xs font-bold text-black uppercase tracking-wide">
-                    {post.category}
+              <Link key={post.id} to={`/blog/${post.slug}`} className="block h-full">
+                <GlassCard hoverEffect className="p-0 overflow-hidden flex flex-col group h-full">
+                  <div className="relative h-56 overflow-hidden">
+                    <img 
+                      src={post.image} 
+                      alt={post.title} 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute top-4 right-4 bg-brand-green/90 px-3 py-1 rounded-full text-xs font-bold text-black uppercase tracking-wide">
+                      {post.category}
+                    </div>
                   </div>
-                </div>
-                <div className="p-6 flex-grow flex flex-col">
-                  <div className="text-xs text-gray-400 mb-2">{post.date}</div>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-brand-green transition-colors">{post.title}</h3>
-                  <p className="text-glass-muted text-sm line-clamp-3 mb-4 flex-grow">{post.excerpt}</p>
-                  <button className="text-left text-brand-green text-sm font-semibold hover:text-white transition-colors mt-auto">
-                    Leer artículo completo &rarr;
-                  </button>
-                </div>
-              </GlassCard>
+                  <div className="p-6 flex-grow flex flex-col">
+                    <div className="text-xs text-gray-400 mb-2">{post.date}</div>
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-brand-green transition-colors">{post.title}</h3>
+                    <p className="text-glass-muted text-sm line-clamp-3 mb-4 flex-grow">{post.excerpt}</p>
+                    <span className="text-left text-brand-green text-sm font-semibold hover:text-white transition-colors mt-auto">
+                      Leer artículo completo &rarr;
+                    </span>
+                  </div>
+                </GlassCard>
+              </Link>
             ))}
           </div>
         )}

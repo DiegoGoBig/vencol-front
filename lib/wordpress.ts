@@ -1,12 +1,14 @@
-import { BlogPost } from '../types';
+import { BlogPost, WPPage } from '../types';
 
 const WP_API_URL = 'https://cms.gobigagency.co/vencol/wp-json/wp/v2';
 
 interface WPPost {
   id: number;
   date: string;
+  slug: string;
   title: { rendered: string };
   excerpt: { rendered: string };
+  content: { rendered: string };
   featured_media: number;
   _embedded?: {
     'wp:featuredmedia'?: Array<{ source_url: string }>;
@@ -38,11 +40,29 @@ function mapWPPostToBlogPost(post: WPPost): BlogPost {
 
   return {
     id: post.id,
+    slug: post.slug,
     title: stripHtml(post.title.rendered),
     excerpt: stripHtml(post.excerpt.rendered),
+    content: post.content.rendered,
     date: formatDate(post.date),
     image: featuredImage,
     category,
+  };
+}
+
+function mapWPPageToWPPage(page: WPPost): WPPage {
+  const featuredImage =
+    page._embedded?.['wp:featuredmedia']?.[0]?.source_url ||
+    '';
+
+  return {
+    id: page.id,
+    slug: page.slug,
+    title: stripHtml(page.title.rendered),
+    content: page.content.rendered,
+    excerpt: stripHtml(page.excerpt.rendered),
+    date: formatDate(page.date),
+    image: featuredImage,
   };
 }
 
@@ -57,4 +77,18 @@ export async function fetchBlogPosts(perPage = 10): Promise<BlogPost[]> {
 
   const posts: WPPost[] = await res.json();
   return posts.map(mapWPPostToBlogPost);
+}
+
+export async function fetchWPPageBySlug(slug: string): Promise<WPPage | null> {
+  const res = await fetch(
+    `${WP_API_URL}/pages?slug=${encodeURIComponent(slug)}&_embed`
+  );
+
+  if (!res.ok) {
+    throw new Error(`WordPress API error: ${res.status}`);
+  }
+
+  const pages: WPPost[] = await res.json();
+  if (pages.length === 0) return null;
+  return mapWPPageToWPPage(pages[0]);
 }

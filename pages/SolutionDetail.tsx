@@ -78,10 +78,17 @@ export const SolutionDetail: React.FC = () => {
             {/* Main Info */}
             <div className="lg:col-span-2 space-y-8">
               <GlassCard className="p-8 md:p-10">
-                <h2 className="text-3xl font-bold text-white mb-6">Descripción Detallada</h2>
+                <h2 className="text-2xl font-bold text-white mb-6">Descripción Detallada</h2>
+                <h3 className="text-3xl font-bold text-white mb-6">{solution.subtitle1}</h3>
                 <p className="text-lg text-gray-300 leading-8">
-                  {solution.longDescription}
+                  {solution.subtitle1Description}
                 </p>
+                  <br/>
+                <h3 className="text-3xl font-bold text-white mb-6">{solution.subtitle2}</h3>
+                <p className="text-lg text-gray-300 leading-8">
+                  {solution.subtitle2Description}
+                </p>
+
               </GlassCard>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -90,21 +97,21 @@ export const SolutionDetail: React.FC = () => {
                     <img 
                       src={solution.image} 
                       alt="Detail view" 
-                      className="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                       <span className="text-white font-bold">Aplicación en Planta</span>
+                       {/* <span className="text-white font-bold">Aplicación en Planta</span> */}
                     </div>
                  </div>
                  <div className="rounded-2xl overflow-hidden h-64 border border-white/10 relative group">
                      {/* Using a different random image for variety */}
                     <img 
-                      src={`https://picsum.photos/seed/${solution.slug}/600/400`}
+                      src={solution.image2} 
                       alt="Product Result" 
-                      className="w-full h-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                      className="w-full h-full object-cover transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                       <span className="text-white font-bold">Resultado Final</span>
+                       {/* <span className="text-white font-bold">Resultado Final</span> */}
                     </div>
                  </div>
               </div>

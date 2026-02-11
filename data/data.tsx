@@ -71,9 +71,9 @@ export const siteContent = {
         secondary: "Hablemos"
       },
       images: [
-        "https://plum-starling-379018.hostingersite.com/wp-content/uploads/2026/01/hero_1.jpg",
-        "https://plum-starling-379018.hostingersite.com/wp-content/uploads/2026/01/hero_2.jpg",
-        "https://plum-starling-379018.hostingersite.com/wp-content/uploads/2026/01/hero_3.jpg"
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-8-scaled.png",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/hero_2.webp",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/hero_3.webp"
       ]
     },
     about: {
@@ -91,7 +91,7 @@ export const siteContent = {
         "Cadena de suministro confiable y certificada"
       ],
       cta: "Conoce más",
-      image: "https://plum-starling-379018.hostingersite.com/wp-content/uploads/2026/01/Asesoria-Tecnica-y-Comercial.png",
+      image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Asesoria-Tecnica-y-Comercial.webp",
       experienceBadge: {
         text: "Experiencia",
         value: "+10 Años"
@@ -104,11 +104,11 @@ export const siteContent = {
       },
       subtitle: "Tecnología de preservación probada por la industria.",
       logos: [
-        "https://vencol.com/wp-content/uploads/elementor/thumbs/SEE_2-1-qz6m2v8i6jqxwcl94lxo7jjx1yelc8htqixpb7kpa8.png", 
-        "https://vencol.com/wp-content/uploads/elementor/thumbs/Sealed-Air_2-qz6l0bupz2zpvwki5y8bz9nk98ctqzi0fs10yspse8.png", 
-        "https://vencol.com/wp-content/uploads/elementor/thumbs/Novipax_2-1-qz6m2uanzppnkqmma3j1n1sggkj84je3eea7txm3gg.png", 
-        "https://plum-starling-379018.hostingersite.com/wp-content/uploads/2026/01/Grupo-Bios-scaled.jpg", 
-        "https://vencol.com/wp-content/uploads/elementor/thumbs/Cryovac_2-qz6l7wfx11cvetkjy8252cv8iz19r7k6597u51hm9s.png"
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Grupo-Bios-scaled.jpg", 
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Cryovac.jpg", 
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/SEE.jpg", 
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Sealed-Air.jpg", 
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Novipax.jpg"
       ]
     },
     threePs: {
@@ -186,20 +186,20 @@ export const siteContent = {
       },
       items: [
         {
-          question: "¿El líquido rojo en las bandejas es sangre?",
-          answer: "No, es agua con proteínas (mioglobina). Cuando no se controla, se convierte en un caldo perfecto para bacterias. Nuestras soluciones lo absorben y retienen para garantizar la inocuidad."
+          question: "¿Para qué sirve exactamente la almohadilla que viene dentro del empaque?",
+          answer: "Es una tecnología de absorción diseñada para retener el exceso de líquidos (exudado) que la carne libera de forma natural. Su función es doble: mantiene el producto con una apariencia limpia y apetecible, y evita que el líquido acumulado acelere la proliferación de bacterias, garantizando así una mayor seguridad alimentaria."
         },
         {
-          question: "¿Cómo extienden la vida útil de los alimentos?",
-          answer: "Utilizamos una combinación de films de barrera multicapa y almohadillas absorbentes tecnológicas que controlan la atmósfera interna y la humedad, retrasando significativamente el crecimiento bacteriano y la oxidación."
+          question: "¿La almohadilla afecta el sabor o la calidad de la carne?",
+          answer: "No, lass almohadillas que utilizamos en Vencol están aprobadas para el contacto con alimentos. Son inertes y están diseñadas solo para absorber el líquido sobrante, preservando el sabor, la textura y la jugosidad original  sin transferir ningún tipo de residuo."
         },
         {
-          question: "¿Ofrecen soporte técnico para la maquinaria?",
-          answer: "Sí, contamos con un equipo especializado que realiza diagnósticos en planta, calibración de equipos de sellado y capacitación a su personal para asegurar el máximo rendimiento de los insumos."
+          question: "¿El empaque es resistente a la congelación?",
+          answer: "Sí. Nuestros films y etiquetas están diseñados para soportar condiciones extremas. El material no se rompe ni pierde sus propiedades de barrera, protegiendo la integridad del alimento en todo momento."
         },
         {
-          question: "¿Realizan envíos a nivel internacional?",
-          answer: "Absolutamente. Actualmente atendemos operaciones en 5 países de América y gestionamos la logística para cumplir con los estándares de exportación necesarios."
+          question: "¿Cómo ayuda este empaque a reducir el desperdicio en mi hogar/negocio?",
+          answer: "Gracias a la alta barrera contra el oxígeno y la humedad, la vida útil del producto se extiende significativamente. Esto le da más días para consumir la carne antes de que se deteriore, reduciendo drásticamente la probabilidad de tener que desechar producto por mal estado."
         }
       ] as FaqItem[]
     },
@@ -265,9 +265,13 @@ export const siteContent = {
       {
         id: '1',
         slug: 'bolsas-termoencogibles-cryovac',
-        title: "Bolsas Termoencogibles Cryovac",
+        title: "Bolsas/fundas termoencogibles Cryovac",
         description: "Seguridad alimentaria de alto rendimiento. Barrera superior contra oxígeno y humedad.",
         longDescription: "Las bolsas termoencogibles Cryovac representan el estándar de oro en la industria del empaque de proteínas. Diseñadas con tecnología multicapa patentada, estas bolsas se encogen al contacto con el calor para ajustarse como una segunda piel al producto, eliminando el oxígeno residual y maximizando la vida útil. Son ideales para carnes frescas, procesadas y quesos, ofreciendo una resistencia excepcional a la punción y una claridad óptica que resalta la frescura natural del alimento.",
+        subtitle1: "Barrera superior contra oxígeno y humedad.",
+        subtitle1Description: "Nuestras soluciones de empaque te brindan una barrera técnica superior contra el oxígeno y la humedad. Esta protección avanzada previene la contaminación y extiende la vida útil de tus productos, para que mantengas su frescura por mucho más tiempo.",
+        subtitle2: "Innovación para tu Conservación y Calidad.",
+        subtitle2Description: "Diseñadas para una amplia gama de alimentos, estas bolsas aseguran la integridad de tus productos en cada etapa. Su tecnología te permite llevar sabor, textura y estándares de calidad intactos hasta las manos de tu consumidor final.",
         icon: Package,
         features: [
           "Alta barrera al oxígeno para prevenir la oxidación.",
@@ -276,14 +280,19 @@ export const siteContent = {
           "Compatibles con sistemas de vacío rotativos y de cámara.",
           "Disponibles en múltiples calibres según el tipo de hueso o corte."
         ],
-        image: "https://images.unsplash.com/photo-1607623814075-e51df1bdc82f?auto=format&fit=crop&q=80&w=1200"
+        image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-1-scaled.png",
+        image2: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Productos-Cryovac.webp"
       },
       {
         id: '2',
         slug: 'film-termoformado',
-        title: "Film de Empaque Termoformado",
+        title: "Film de Empaque Termoformado Cryovac",
         description: "Tecnología de vanguardia. Selladura hermética y resistencia mecánica superior.",
         longDescription: "Nuestros films para termoformado están diseñados para máquinas de alto rendimiento, permitiendo crear envases a medida directamente en la línea de producción. Ofrecemos tanto films flexibles como semirrígidos, con propiedades de termoformado profundo que garantizan un espesor uniforme en las esquinas. Esta solución optimiza los costos logísticos y mejora la presentación en el lineal, permitiendo una visibilidad 360° del producto.",
+        subtitle1: "Tecnología de vanguardia para tus empaques",
+        subtitle1Description: "Maximiza la protección y la presentación de tus productos con nuestros films de alto rendimiento. Gracias a su combinación de resistencia y flexibilidad, tienes la solución perfecta para adaptarte a cualquier aplicación que necesites.",
+        subtitle2: "Calidad y resistencia en cada rollo",
+        subtitle2Description: "Nuestros films están diseñados para darte una selladura hermética superior, protegiendo tus productos contra la contaminación y el deterioro. Además, su claridad excepcional logra que tu marca destaque con una apariencia impecable en el punto de venta.",
         icon: Layers,
         features: [
           "Formabilidad excepcional para cavidades profundas.",
@@ -292,14 +301,19 @@ export const siteContent = {
           "Estructuras de alta barrera para atmósfera modificada (MAP).",
           "Reducción de micraje sin sacrificar resistencia (Sostenibilidad)."
         ],
-        image: "https://images.unsplash.com/photo-1595411425732-e69c1ce81eb1?auto=format&fit=crop&q=80&w=1200"
+        image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-2-scaled.jpg",
+        image2: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Film-Cryovac.webp"
       },
       {
         id: '3',
         slug: 'absorbentes-tipo-almohadilla',
-        title: "Absorbentes Tipo Almohadilla",
+        title: "Absorbentes Tipo Almohadilla Aprobadas Globalmente",
         description: "Frescura máxima y presentación impecable. Optimizan la conservación y evitan derrames.",
         longDescription: "Las almohadillas absorbentes Vencol (representando a Novipax) son esenciales para el control de líquidos (mioglobina) en bandejas de autoservicio. No solo mejoran la estética evitando el aspecto 'sangriento', sino que reducen la carga bacteriana al atrapar la humedad libre donde proliferan los microorganismos. Disponibles en diversas capacidades de absorción y colores para integrarse con el empaque.",
+        subtitle1: "Frescura máxima y una presentación impecable",
+        subtitle1Description: "Optimiza la conservación de tus productos y reduce el uso de envoltorios innecesarios. Nuestras almohadillas mejoran la apariencia visual de tus alimentos y evitan derrames durante la distribución, asegurando que todo llegue a su destino libre de contaminación y en perfectas condiciones.",
+        subtitle2: "Protección, estética y respaldo para tu negocio",
+        subtitle2Description: "Gracias a la tecnología de vanguardia de nuestros fabricantes, ponemos a tu alcance la variedad de soluciones más completa del mercado. Además, te brindamos atención especializada y acompañamiento constante, cuidando cada detalle desde que haces tu pedido hasta que lo recibes.",
         icon: Droplets,
         features: [
           "Núcleo de celulosa virgen y polímeros superabsorbentes.",
@@ -308,14 +322,19 @@ export const siteContent = {
           "Disponibles en formatos precortados o en rollo.",
           "Certificación FDA para contacto directo con alimentos."
         ],
-        image: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200"
+        image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-4-scaled.jpg",
+        image2: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Absorbentes.webp"
       },
       {
         id: '4',
         slug: 'foils-para-etiquetas',
-        title: "Foils para Etiquetas",
+        title: "Foils para elaboración de etiquetas",
         description: "Visibilidad y resistencia. Soportan procesos de congelación y cocción.",
         longDescription: "Nuestros foils para etiquetas están diseñados para resistir las condiciones más exigentes de la cadena de frío. Ya sea para congelación profunda, refrigeración húmeda o procesos de cocción, garantizamos que la información de tu marca, códigos de barras y fechas de vencimiento permanezcan legibles e intactos desde la planta hasta la mesa del consumidor.",
+        subtitle1: "Visibilidad y resistencia en cualquier condición",
+        subtitle1Description: "Asegura que tu marca se mantenga visible y atractiva, incluso en los entornos más exigentes. Nuestras películas de etiquetado están diseñadas para soportar desde procesos de congelación hasta cocción, garantizando que la información de tu producto permanezca siempre legible e intacta.",
+        subtitle2: "Innovación para comunicar el valor de tu producto",
+        subtitle2Description: "Con nuestras soluciones de etiquetado, tu producto no solo luce impecable, sino que conecta de forma efectiva con tus consumidores. Fortalece tu presencia en el mercado comunicando calidad y confianza a través de una presentación profesional en cada empaque.",
         icon: Tag,
         features: [
           "Adhesivos especiales para superficies frías y húmedas.",
@@ -324,14 +343,18 @@ export const siteContent = {
           "Materiales sintéticos resistentes al desgarro.",
           "Cumplimiento con normativas de etiquetado alimentario."
         ],
-        image: "https://images.unsplash.com/photo-1616401784845-180882ba9ba8?auto=format&fit=crop&q=80&w=1200"
+        image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Etiquetas.webp"
       },
       {
         id: '5',
         slug: 'foils-de-marcacion',
-        title: "Foils de Marcación (Data Variable)",
+        title: "Foils de marcación",
         description: "Codificación precisa. Cintas de transferencia térmica para trazabilidad perfecta.",
         longDescription: "Asegura la trazabilidad de tus productos con nuestros foils de marcación para impresión de datos variables (lote, fecha de caducidad, códigos QR). Ofrecemos cintas (ribbons) de cera, cera-resina y resina pura, compatibles con las principales impresoras del mercado (Zebra, Videojet, Markem, etc.), garantizando nitidez y anclaje sobre films flexibles y etiquetas.",
+        subtitle1: "Máxima protección y diseño para tus productos",
+        subtitle1Description: "Maximiza la seguridad y la imagen de tus productos con nuestros films de empaque de alto rendimiento. Gracias a su combinación de resistencia y flexibilidad, tienes en tus manos la solución perfecta para adaptarte a cualquier aplicación que tu negocio necesite.",
+        subtitle2: "Calidad y durabilidad en cada rollo",
+        subtitle2Description: "Nuestros films están diseñados para darte una selladura hermética superior, protegiendo tus alimentos contra la contaminación y el deterioro. Al mismo tiempo, logran que tu marca destaque con una apariencia impecable y profesional en el punto de venta.",
         icon: PenTool,
         features: [
           "Alta definición para códigos de barras y textos pequeños.",
@@ -340,7 +363,8 @@ export const siteContent = {
           "Formulaciones libres de metales pesados.",
           "Cabezales de impresión protegidos gracias al back-coating."
         ],
-        image: "https://images.unsplash.com/photo-1562254492-377a3ac57694?auto=format&fit=crop&q=80&w=1200"
+        image: "https://images.unsplash.com/photo-1562254492-377a3ac57694?auto=format&fit=crop&q=80&w=1200",
+        image2: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Marcacion.webp"
       }
     ] as Service[]
   },

@@ -20,9 +20,14 @@ export interface Service {
   title: string;
   description: string; // Short description for the card
   longDescription: string; // Full description for the detail page
+  subtitle1: string;
+  subtitle1Description: string;
+  subtitle2: string;
+  subtitle2Description: string;
   icon: LucideIcon;
   features: string[];
   image: string;
+  image2: string;
 }
 
 export interface Stat {

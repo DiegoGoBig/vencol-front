@@ -4,6 +4,8 @@ import { ArrowRight, CheckCircle2, Quote, Check, Sparkles, ChevronDown, MessageC
 import { GlassCard } from '../components/ui/GlassCard';
 import { siteContent } from '../data/data';
 import { SEO } from '../components/SEO';
+import { fetchBlogPosts } from '../lib/wordpress';
+import { BlogPost } from '../types';
 
 export const Home: React.FC = () => {
   const { home, meta } = siteContent;
@@ -16,6 +18,15 @@ export const Home: React.FC = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
   const [openFaqIndex, setOpenFaqIndex] = useState<number | null>(0);
+  const [blogPosts, setBlogPosts] = useState<BlogPost[]>(siteContent.blog.posts);
+
+  useEffect(() => {
+    fetchBlogPosts()
+      .then((wpPosts) => {
+        if (wpPosts.length > 0) setBlogPosts(wpPosts);
+      })
+      .catch((err) => console.warn('WP blog fetch failed, using fallback:', err));
+  }, []);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -193,13 +204,13 @@ export const Home: React.FC = () => {
           
           <div className="animate-marquee whitespace-nowrap flex gap-16 items-center py-4">
              {home.partners.logos.map((logo, index) => (
-                <div key={`p1-${index}`} className="flex-shrink-0 w-48 h-20 bg-white/5 rounded-xl flex items-center justify-center p-4 hover:bg-white/10 transition-colors border border-white/5 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 duration-300">
-                  <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain brightness-0 invert" />
+                <div key={`p1-${index}`} className="flex-shrink-0 w-32 h-32 bg-white rounded-xl flex items-center justify-center p-4 transition-colors border border-white/5 grayscale hover:grayscale-0 hover:opacity-100 duration-300">
+                  <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain" />
                 </div>
              ))}
              {home.partners.logos.map((logo, index) => (
-                <div key={`p2-${index}`} className="flex-shrink-0 w-48 h-20 bg-white/5 rounded-xl flex items-center justify-center p-4 hover:bg-white/10 transition-colors border border-white/5 grayscale hover:grayscale-0 opacity-60 hover:opacity-100 duration-300">
-                  <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain brightness-0 invert" />
+                <div key={`p2-${index}`} className="flex-shrink-0 w-32 h-32 bg-white rounded-xl flex items-center justify-center p-4 transition-colors border border-white/5 grayscale hover:grayscale-0 hover:opacity-100 duration-300">
+                  <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain" />
                 </div>
              ))}
           </div>
@@ -416,7 +427,7 @@ export const Home: React.FC = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {siteContent.blog.posts.slice(0, 3).map((post) => (
+            {blogPosts.slice(0, 3).map((post) => (
               <GlassCard key={post.id} hoverEffect className="p-0 overflow-hidden group border-white/10 bg-black/40 backdrop-blur-xl">
                 <div className="relative h-48 overflow-hidden">
                   <img 

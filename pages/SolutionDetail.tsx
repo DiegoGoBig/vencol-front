@@ -33,7 +33,7 @@ export const SolutionDetail: React.FC = () => {
       <SEO 
         title={solution.title} 
         description={solution.description} 
-        image={solution.image} 
+        image={solution.images[0]} 
         url={`${siteContent.meta.siteUrl}/soluciones/${solution.slug}`}
       />
       
@@ -41,7 +41,7 @@ export const SolutionDetail: React.FC = () => {
       <div className="relative h-[60vh] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img 
-            src={solution.image} 
+            src={solution.images[0]} 
             alt={solution.title} 
             className="w-full h-full object-cover"
           />
@@ -91,29 +91,17 @@ export const SolutionDetail: React.FC = () => {
 
               </GlassCard>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                 {/* This would be an ideal place for technical specs or an image gallery in the future */}
-                 <div className="rounded-2xl overflow-hidden h-64 border border-white/10 relative group">
-                    <img 
-                      src={solution.image} 
-                      alt="Detail view" 
-                      className="w-full h-full object-cover transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                       {/* <span className="text-white font-bold">Aplicación en Planta</span> */}
-                    </div>
-                 </div>
-                 <div className="rounded-2xl overflow-hidden h-64 border border-white/10 relative group">
-                     {/* Using a different random image for variety */}
-                    <img 
-                      src={solution.image2} 
-                      alt="Product Result" 
-                      className="w-full h-full object-cover transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
-                       {/* <span className="text-white font-bold">Resultado Final</span> */}
-                    </div>
-                 </div>
+              <div className={`grid grid-cols-1 ${solution.images.length > 1 ? 'md:grid-cols-2' : ''} gap-6`}>
+                 {solution.images.map((img, idx) => (
+                   <div key={idx} className="rounded-2xl overflow-hidden h-64 border border-white/10 relative group">
+                     <img 
+                       src={img} 
+                       alt={`${solution.title} - ${idx + 1}`} 
+                       className="w-full h-full object-cover transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                     />
+                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6" />
+                   </div>
+                 ))}
               </div>
             </div>
 

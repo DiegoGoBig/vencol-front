@@ -280,8 +280,10 @@ export const siteContent = {
           "Compatibles con sistemas de vacío rotativos y de cámara.",
           "Disponibles en múltiples calibres según el tipo de hueso o corte."
         ],
-        image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-1-scaled.png",
-        image2: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Productos-Cryovac.webp"
+        images: [
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-1-scaled.png",
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Productos-Cryovac.webp"
+        ]
       },
       {
         id: '2',
@@ -301,8 +303,11 @@ export const siteContent = {
           "Estructuras de alta barrera para atmósfera modificada (MAP).",
           "Reducción de micraje sin sacrificar resistencia (Sostenibilidad)."
         ],
-        image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-2-scaled.jpg",
-        image2: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Film-Cryovac.webp"
+        images: [
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-2-scaled.jpg",
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Film-Cryovac.webp",
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-6-scaled.jpg"
+        ]
       },
       {
         id: '3',
@@ -322,8 +327,12 @@ export const siteContent = {
           "Disponibles en formatos precortados o en rollo.",
           "Certificación FDA para contacto directo con alimentos."
         ],
-        image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-4-scaled.jpg",
-        image2: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Absorbentes.webp"
+        images: [
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-4-scaled.jpg",
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Absorbentes.webp",
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-5-scaled.png",
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-5-scaled.jpg"
+        ]
       },
       {
         id: '4',
@@ -343,7 +352,9 @@ export const siteContent = {
           "Materiales sintéticos resistentes al desgarro.",
           "Cumplimiento con normativas de etiquetado alimentario."
         ],
-        image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Etiquetas.webp"
+        images: [
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Etiquetas.webp"
+        ]
       },
       {
         id: '5',
@@ -363,8 +374,10 @@ export const siteContent = {
           "Formulaciones libres de metales pesados.",
           "Cabezales de impresión protegidos gracias al back-coating."
         ],
-        image: "https://images.unsplash.com/photo-1562254492-377a3ac57694?auto=format&fit=crop&q=80&w=1200",
-        image2: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Marcacion.webp"
+        images: [
+          "https://images.unsplash.com/photo-1562254492-377a3ac57694?auto=format&fit=crop&q=80&w=1200",
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Marcacion.webp"
+        ]
       }
     ] as Service[]
   },

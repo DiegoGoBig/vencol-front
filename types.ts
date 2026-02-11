@@ -26,8 +26,7 @@ export interface Service {
   subtitle2Description: string;
   icon: LucideIcon;
   features: string[];
-  image: string;
-  image2: string;
+  images: string[];
 }
 
 export interface Stat {

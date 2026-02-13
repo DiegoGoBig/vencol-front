@@ -72,9 +72,9 @@ export const siteContent = {
         secondary: "Hablemos"
       },
       images: [
-        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-8-scaled.png",
-        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/hero_2.webp",
-        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/hero_3.webp"
+        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-8-scaled.png",
+        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/hero_2.webp",
+        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/hero_3.webp"
       ]
     },
     about: {
@@ -92,7 +92,7 @@ export const siteContent = {
         "Cadena de suministro confiable y certificada"
       ],
       cta: "Conoce más",
-      image: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Asesoria-Tecnica-y-Comercial.webp",
+      image: "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Asesoria-Tecnica-y-Comercial.webp",
       experienceBadge: {
         text: "Experiencia",
         value: "+10 Años"
@@ -105,11 +105,11 @@ export const siteContent = {
       },
       subtitle: "Tecnología de preservación probada por la industria.",
       logos: [
-        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Grupo-Bios-scaled.jpg", 
-        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Cryovac.jpg", 
-        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/SEE.jpg", 
-        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Sealed-Air.jpg", 
-        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Novipax.jpg"
+        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Grupo-Bios-scaled.jpg", 
+        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Cryovac.jpg", 
+        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/SEE.jpg", 
+        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Sealed-Air.jpg", 
+        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Novipax.jpg"
       ]
     },
     threePs: {
@@ -283,8 +283,8 @@ export const siteContent = {
           "Disponibles en múltiples calibres según el tipo de hueso o corte."
         ],
         images: [
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-1-scaled.png",
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Productos-Cryovac.webp"
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-1-scaled.png",
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Productos-Cryovac.webp"
         ]
       },
       {
@@ -307,9 +307,9 @@ export const siteContent = {
           "Reducción de micraje sin sacrificar resistencia (Sostenibilidad)."
         ],
         images: [
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-2-scaled.jpg",
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Film-Cryovac.webp",
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-6-scaled.jpg"
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-2-scaled.jpg",
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Film-Cryovac.webp",
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-6-scaled.jpg"
         ]
       },
       {
@@ -332,10 +332,10 @@ export const siteContent = {
           "Certificación FDA para contacto directo con alimentos."
         ],
         images: [
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-4-scaled.jpg",
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Absorbentes.webp",
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-5-scaled.png",
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-5-scaled.jpg"
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-4-scaled.jpg",
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Absorbentes.webp",
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-5-scaled.png",
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-foto-5-scaled.jpg"
         ]
       },
       {
@@ -358,8 +358,8 @@ export const siteContent = {
           "Cumplimiento con normativas de etiquetado alimentario."
         ],
         images: [
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Etiquetas.webp",
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-imagen-3.jpeg"
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Etiquetas.webp",
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-imagen-3.jpeg"
         ]
       },
       {
@@ -383,7 +383,7 @@ export const siteContent = {
         ],
         images: [
           "https://images.unsplash.com/photo-1562254492-377a3ac57694?auto=format&fit=crop&q=80&w=1200",
-          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-imagen-4.jpeg-1-scaled.png"
+          "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-imagen-4.jpeg-1-scaled.png"
         ]
       }
     ] as Service[]

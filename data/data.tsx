@@ -382,7 +382,7 @@ export const siteContent = {
           "Cabezales de impresión protegidos gracias al back-coating."
         ],
         images: [
-          "https://images.unsplash.com/photo-1562254492-377a3ac57694?auto=format&fit=crop&q=80&w=1200",
+          "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Foils-Marcacion.webp",
           "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/vencol-imagen-4.jpeg-1-scaled.png"
         ]
       }

@@ -86,13 +86,13 @@ export const BlogDetail: React.FC = () => {
           <div className="absolute inset-0 bg-gradient-to-t from-brand-dark via-brand-dark/50 to-transparent" />
         </div>
 
-        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
+        <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full flex flex-col items-center text-center">
           <Link to="/blog" className="inline-flex items-center text-glass-muted hover:text-white mb-6 transition-colors group">
             <ArrowLeft className="w-4 h-4 mr-2 group-hover:-translate-x-1 transition-transform" />
             Volver al Blog
           </Link>
 
-          <div className="flex flex-wrap items-center gap-4 mb-4">
+          <div className="flex flex-wrap items-center justify-center gap-4 mb-4">
             <span className="bg-brand-green/90 px-3 py-1 rounded-full text-xs font-bold text-black uppercase tracking-wide inline-flex items-center gap-1.5">
               <Tag className="w-3 h-3" />
               {post.category}
@@ -124,7 +124,7 @@ export const BlogDetail: React.FC = () => {
                 <div 
                   className="prose prose-invert prose-lg max-w-none
                     prose-headings:text-white prose-headings:font-bold
-                    prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4 prose-h2:border-b prose-h2:border-white/10 prose-h2:pb-3
+                    prose-h2:text-2xl prose-h2:mt-10 prose-h2:mb-4
                     prose-h3:text-xl prose-h3:mt-8 prose-h3:mb-3 prose-h3:text-brand-green
                     prose-p:text-gray-300 prose-p:leading-8 prose-p:mb-6
                     prose-strong:text-white

@@ -105,9 +105,9 @@ export const siteContent = {
       },
       subtitle: "Tecnología de preservación probada por la industria.",
       logos: [
-        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Grupo-Bios-scaled.jpg", 
+        
         "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Cryovac.jpg", 
-        "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/SEE.jpg", 
+        
         "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Sealed-Air.jpg", 
         "https://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Novipax.jpg"
       ]
@@ -231,6 +231,16 @@ export const siteContent = {
           text: "Sus soluciones de empaque no solo protegen el producto, sino que mejoran la presentación en la vitrina. Nuestros clientes lo notan.",
           rating: 5
         }
+      ],
+      clients: [
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Cargill.jpg",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Avicola-Madrono.jpg",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Bucanero-150x150-1.png",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Piscicola-NY.jpg",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Pavos-del-Campo-scaled.jpg",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Friko.jpg",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Fazenda.jpg",
+        "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/02/Carnes-Rikatas.jpg",        
       ]
     },
     blogPreview: {

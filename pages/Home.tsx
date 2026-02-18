@@ -203,15 +203,15 @@ export const Home: React.FC = () => {
           <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-brand-dark to-transparent z-10"></div>
           
           <div className="animate-marquee whitespace-nowrap flex gap-16 items-center py-4">
-             {home.partners.logos.map((logo, index) => (
-                <div key={`p1-${index}`} className="flex-shrink-0 w-32 h-32 bg-white rounded-xl flex items-center justify-center p-4 transition-colors border border-white/5 grayscale hover:grayscale-0 hover:opacity-100 duration-300">
-                  <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain" />
-                </div>
-             ))}
-             {home.partners.logos.map((logo, index) => (
-                <div key={`p2-${index}`} className="flex-shrink-0 w-32 h-32 bg-white rounded-xl flex items-center justify-center p-4 transition-colors border border-white/5 grayscale hover:grayscale-0 hover:opacity-100 duration-300">
-                  <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain" />
-                </div>
+             {/* Repeat logos multiple times to ensure infinite loop coverage on large screens with few logos */}
+             {[...Array(8)].map((_, i) => (
+                <React.Fragment key={i}>
+                  {home.partners.logos.map((logo, index) => (
+                      <div key={`p-${i}-${index}`} className="flex-shrink-0 w-32 h-32 bg-white rounded-xl flex items-center justify-center p-4 transition-colors border border-white/5 grayscale hover:grayscale-0 hover:opacity-100 duration-300">
+                        <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain" />
+                      </div>
+                  ))}
+                </React.Fragment>
              ))}
           </div>
         </div>
@@ -366,6 +366,25 @@ export const Home: React.FC = () => {
               <p className="text-glass-muted text-lg mb-8 max-w-lg">
                 {home.testimonials.description}
               </p>
+
+              {/* Clients Marquee */}
+              <div className="mt-8 relative w-full overflow-hidden group">
+                <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10"></div>
+                <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-transparent to-transparent z-10"></div>
+                
+                <div className="animate-marquee whitespace-nowrap flex gap-8 items-center py-4">
+                  {/* Repeat clients multiple times for infinite loop */}
+                  {[...Array(6)].map((_, i) => (
+                    <React.Fragment key={i}>
+                      {(home.testimonials as any).clients?.map((client: string, index: number) => (
+                        <div key={`c-${i}-${index}`} className="flex-shrink-0 w-32 h-20 bg-white rounded-xl flex items-center justify-center p-4 border  transition-colors duration-300">
+                          <img src={client} alt="Cliente" className="max-h-full max-w-full object-contain" />
+                        </div>
+                      ))}
+                    </React.Fragment>
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* Right Column: Cards */}

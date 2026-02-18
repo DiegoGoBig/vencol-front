@@ -1,20 +1,49 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# VENCOL - Hacemos visible la frescura
 
-# Run and deploy your AI Studio app
+Aplicación web moderna desarrollada para VENCOL, expertos en soluciones de empaque y preservación para la industria de alimentos frescos en Latinoamérica. Esta plataforma presenta el catálogo de productos, tecnologías como Cryovac y Novipax, y recursos educativos a través de un blog integrado.
 
-This contains everything you need to run your app locally.
+## Características Principales
 
-View your app in AI Studio: https://ai.studio/apps/drive/1EdSazMDtjdNT5Bpseqavd1Xp1CGNJlIy
+- **Catálogo de Soluciones**: Información detallada sobre bolsas termoencogibles, films y absorbentes.
+- **Blog Educativo**: Artículos sobre tendencias, tecnología y sostenibilidad, integrados desde WordPress.
+- **Diseño Moderno**: Interfaz con efectos de Glassmorphism, animaciones suaves y diseño totalmente responsivo.
+- **Sección de Aliados**: Marquee infinito con logos de partners y clientes.
+- **Contacto**: Formularios y accesos directos a canales de atención.
 
-## Run Locally
+## Tecnologías Utilizadas
 
-**Prerequisites:**  Node.js
+- **React + TypeScript**: Para una arquitectura de componentes robusta y tipada.
+- **Vite**: Entorno de desarrollo rápido y optimizado.
+- **Tailwind CSS**: Estilizado mediante CDN con plugin de tipografía para el blog.
+- **Lucide React**: Iconografía moderna y ligera.
+- **React Router**: Navegación SPA (Single Page Application).
 
+## Instalación y Ejecución
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Para correr el proyecto localmente:
+
+1.  **Instalar dependencias**:
+
+    ```bash
+    npm install
+    # o
+    pnpm install
+    ```
+
+2.  **Iniciar el servidor de desarrollo**:
+
+    ```bash
+    npm run dev
+    # o
+    pnpm run dev
+    ```
+
+3.  Abrir `http://localhost:5173` en tu navegador.
+
+## Despliegue
+
+El proyecto está configurado para desplegarse fácilmente en plataformas como Vercel o Netlify.
+
+---
+
+Desarrollado para VENCOL.

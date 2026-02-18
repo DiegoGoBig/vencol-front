@@ -429,7 +429,7 @@ export const Home: React.FC = () => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {blogPosts.slice(0, 3).map((post) => (
               <GlassCard key={post.id} hoverEffect className="p-0 overflow-hidden group border-white/10 bg-black/40 backdrop-blur-xl">
-                <div className="relative h-48 overflow-hidden">
+                <Link to={`/blog/${post.slug}`} className="block relative h-48 overflow-hidden">
                   <img 
                     src={post.image} 
                     alt={post.title} 
@@ -438,12 +438,14 @@ export const Home: React.FC = () => {
                   <div className="absolute top-4 left-4 bg-black/60 backdrop-blur-md px-3 py-1 rounded-full text-xs font-bold text-white uppercase tracking-wide border border-white/10">
                     {post.category}
                   </div>
-                </div>
+                </Link>
                 <div className="p-6">
                   <span className="text-xs text-brand-green font-semibold mb-2 block">{post.date}</span>
-                  <h3 className="text-xl font-bold text-white mb-3 group-hover:text-brand-green transition-colors">{post.title}</h3>
+                  <Link to={`/blog/${post.slug}`} className="block">
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-brand-green transition-colors">{post.title}</h3>
+                  </Link>
                   <p className="text-glass-muted text-sm line-clamp-2 mb-4">{post.excerpt}</p>
-                  <Link to="/blog" className="text-white text-sm font-medium border-b border-brand-green pb-0.5 hover:text-brand-green transition-colors">
+                  <Link to={`/blog/${post.slug}`} className="text-white text-sm font-medium border-b border-brand-green pb-0.5 hover:text-brand-green transition-colors">
                     Leer más
                   </Link>
                 </div>

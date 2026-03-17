@@ -10,11 +10,18 @@ import { Blog } from './pages/Blog';
 import { BlogDetail } from './pages/BlogDetail';
 import { Contact } from './pages/Contact';
 import { PageDetail } from './pages/PageDetail';
+import { WhatsAppButton } from './components/WhatsAppButton';
 
 function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Track page view in GA4
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('config', 'G-Q0KFRNTKJV', {
+        page_path: pathname,
+      });
+    }
   }, [pathname]);
   return null;
 }
@@ -40,6 +47,7 @@ function App() {
           </Routes>
         </main>
         <Footer />
+        <WhatsAppButton />
       </div>
     </Router>
   );

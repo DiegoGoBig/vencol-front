@@ -48,7 +48,7 @@ export const siteContent = {
     { label: 'Blog', path: '/blog' },
   ],
   header: {
-    logo: "https://vencol.com/wp-content/uploads/2024/12/LOGO-VENCOL-0437300-300x116.webp",
+    logo: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/03/Logo-Vencol-02.png",
     cta: {
       label: "Contacto",
       path: "/contacto"

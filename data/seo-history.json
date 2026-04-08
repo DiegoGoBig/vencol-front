@@ -1,0 +1,76 @@
+[
+  {
+    "id": "april-2026",
+    "monthLabel": "Abril 2026",
+    "year": 2026,
+    "month": 4,
+    "topKeywords": [
+      { "keyword": "Soluciones Empresariales", "position": 1, "volume": "5.2k", "difficulty": "Medium" },
+      { "keyword": "Plataforma B2B", "position": 3, "volume": "3.8k", "difficulty": "Hard" },
+      { "keyword": "Vencol Integraciones", "position": 2, "volume": "1.2k", "difficulty": "Easy" },
+      { "keyword": "Software de Gestión Colombia", "position": 5, "volume": "850", "difficulty": "Medium" },
+      { "keyword": "Facturación Electrónica Cloud", "position": 8, "volume": "1.6k", "difficulty": "Hard" }
+    ],
+    "topProducts": [
+      { "name": "Vencol Core", "label": "Líder en tráfico", "value": 94 },
+      { "name": "Vencol Móvil", "label": "Alta conversión", "value": 78 },
+      { "name": "Integraciones SAP", "label": "Crecimiento", "value": 65 },
+      { "name": "Data Analytics", "label": "Nicho", "value": 40 }
+    ],
+    "trendingContent": [
+      { "title": "Uso de la facturación en la nube B2B", "pct": "+178%", "clicks": "+105 clicks" },
+      { "title": "Vencol Hub | Inicio", "pct": "+194%", "clicks": "+31 clicks" },
+      { "title": "API para integradores | Uso", "pct": "+104%", "clicks": "+28 clicks" },
+      { "title": "Soporte Técnico | FAQ", "pct": "+24%", "clicks": "+18 clicks" },
+      { "title": "Casos de Éxito Empresariales", "pct": "+160%", "clicks": "+16 clicks" }
+    ],
+    "optimizingContent": [
+      { "title": "Versiones Legacy | Descargas", "pct": "-31%", "clicks": "-71 clicks" },
+      { "title": "Directorio de Partners en Colombia", "pct": "-10%", "clicks": "-57 clicks" },
+      { "title": "Beneficios Servidores Físicos", "pct": "-20%", "clicks": "-55 clicks" },
+      { "title": "Módulo Antiguo | Documentación", "pct": "-30%", "clicks": "-53 clicks" },
+      { "title": "Portal de Empleados | Info", "pct": "-18%", "clicks": "-33 clicks" }
+    ],
+    "seoSettings": {
+      "robotsTxt": true,
+      "sitemapXml": true,
+      "sslCertificate": true,
+      "noindexTags": true,
+      "schemaMarkup": true
+    }
+  },
+  {
+    "id": "march-2026",
+    "monthLabel": "Marzo 2026",
+    "year": 2026,
+    "month": 3,
+    "topKeywords": [
+      { "keyword": "Soluciones Empresariales", "position": 3, "volume": "5.1k", "difficulty": "Medium" },
+      { "keyword": "Plataforma B2B", "position": 5, "volume": "3.8k", "difficulty": "Hard" },
+      { "keyword": "Vencol Integraciones", "position": 4, "volume": "1.0k", "difficulty": "Easy" },
+      { "keyword": "Software de Gestión Colombia", "position": 12, "volume": "900", "difficulty": "Medium" },
+      { "keyword": "Facturación Electrónica Cloud", "position": 15, "volume": "1.5k", "difficulty": "Hard" }
+    ],
+    "topProducts": [
+      { "name": "Vencol Core", "label": "Líder en tráfico", "value": 85 },
+      { "name": "Vencol Móvil", "label": "Alta conversión", "value": 70 },
+      { "name": "Integraciones SAP", "label": "Crecimiento", "value": 55 },
+      { "name": "Data Analytics", "label": "Nicho", "value": 30 }
+    ],
+    "trendingContent": [
+      { "title": "Uso de la facturación en la nube B2B", "pct": "+120%", "clicks": "+80 clicks" },
+      { "title": "Vencol Hub | Inicio", "pct": "+150%", "clicks": "+25 clicks" }
+    ],
+    "optimizingContent": [
+      { "title": "Versiones Legacy | Descargas", "pct": "-20%", "clicks": "-45 clicks" },
+      { "title": "Directorio de Partners en Colombia", "pct": "-5%", "clicks": "-30 clicks" }
+    ],
+    "seoSettings": {
+      "robotsTxt": true,
+      "sitemapXml": true,
+      "sslCertificate": true,
+      "noindexTags": false,
+      "schemaMarkup": false
+    }
+  }
+]

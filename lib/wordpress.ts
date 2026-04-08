@@ -6,6 +6,7 @@ interface WPPost {
   id: number;
   date: string;
   slug: string;
+  status: string;
   title: { rendered: string };
   excerpt: { rendered: string };
   content: { rendered: string };
@@ -38,6 +39,9 @@ function mapWPPostToBlogPost(post: WPPost): BlogPost {
   const category =
     post._embedded?.['wp:term']?.[0]?.[0]?.name || 'General';
 
+  // mock keywords from title for demo purposes
+  const keywords = post.title.rendered.split(' ').filter(w => w.length > 4).slice(0, 3).join(', ').toLowerCase();
+
   return {
     id: post.id,
     slug: post.slug,
@@ -47,6 +51,8 @@ function mapWPPostToBlogPost(post: WPPost): BlogPost {
     date: formatDate(post.date),
     image: featuredImage,
     category,
+    status: post.status === 'publish' ? 'Publicado' : 'Borrador',
+    keywords
   };
 }
 
@@ -69,6 +75,23 @@ function mapWPPageToWPPage(page: WPPost): WPPage {
 export async function fetchBlogPosts(perPage = 10): Promise<BlogPost[]> {
   const res = await fetch(
     `${WP_API_URL}/posts?per_page=${perPage}&_embed`
+  );
+
+  if (!res.ok) {
+    throw new Error(`WordPress API error: ${res.status}`);
+  }
+
+  const posts: WPPost[] = await res.json();
+  return posts.map(mapWPPostToBlogPost);
+}
+
+export async function fetchBlogPostsByMonth(year: number, month: number, perPage = 10): Promise<BlogPost[]> {
+  const startDate = new Date(year, month - 1, 1).toISOString();
+  // Get the first day of the next month
+  const endDate = new Date(year, month, 1).toISOString();
+
+  const res = await fetch(
+    `${WP_API_URL}/posts?per_page=${perPage}&after=${startDate}&before=${endDate}&_embed`
   );
 
   if (!res.ok) {

@@ -11,6 +11,8 @@ import { BlogDetail } from './pages/BlogDetail';
 import { Contact } from './pages/Contact';
 import { PageDetail } from './pages/PageDetail';
 import { WhatsAppButton } from './components/WhatsAppButton';
+import { LiveReport } from './pages/LiveReport';
+import { Analytics } from "@vercel/analytics/react";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -42,12 +44,15 @@ function App() {
             <Route path="/blog" element={<Blog />} />
             <Route path="/blog/:slug" element={<BlogDetail />} />
             <Route path="/contacto" element={<Contact />} />
+            {/* Internal hidden page */}
+            <Route path="/reporte-en-vivo" element={<LiveReport />} />
             {/* Catch-all: WordPress pages by slug — must be last */}
             <Route path="/:slug" element={<PageDetail />} />
           </Routes>
         </main>
         <Footer />
         <WhatsAppButton />
+        <Analytics />
       </div>
     </Router>
   );

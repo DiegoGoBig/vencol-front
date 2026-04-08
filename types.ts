@@ -14,6 +14,8 @@ export interface BlogPost {
   date: string;
   image: string;
   category: string;
+  status?: string;
+  keywords?: string;
 }
 
 export interface Service {

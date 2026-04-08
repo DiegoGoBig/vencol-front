@@ -90,8 +90,20 @@ export async function fetchBlogPostsByMonth(year: number, month: number, perPage
   // Get the first day of the next month
   const endDate = new Date(year, month, 1).toISOString();
 
+  const user = import.meta.env.VITE_WORDPRESS_USER;
+  const pass = import.meta.env.VITE_WORDPRESS_APP_PASSWORD;
+  
+  const headers: HeadersInit = {};
+  let statusParam = '';
+
+  if (user && pass) {
+    headers['Authorization'] = 'Basic ' + btoa(`${user}:${pass}`);
+    statusParam = '&status=any';
+  }
+
   const res = await fetch(
-    `${WP_API_URL}/posts?per_page=${perPage}&after=${startDate}&before=${endDate}&_embed`
+    `${WP_API_URL}/posts?per_page=${perPage}&after=${startDate}&before=${endDate}&_embed${statusParam}`,
+    { headers }
   );
 
   if (!res.ok) {

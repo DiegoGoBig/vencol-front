@@ -48,7 +48,7 @@ const products = [
   { name: 'Sistemas de Control', value: 45, label: 'Crecimiento' },
 ];
 
-const tabs = ['Resumen General', 'Salud del Sitio', 'SEO y Contenidos', 'Seguridad y Web', 'Looker Studio'];
+const tabs = ['Salud del Sitio', 'SEO y Contenidos', 'Seguridad y Web', 'Looker Studio'];
 
 const LighthouseGauge = ({ score, label }: { score: number, label: string }) => {
   const isRed = score < 50;
@@ -257,13 +257,13 @@ export function LiveReport() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <div className="w-12 h-12 bg-brand-green rounded flex items-center justify-center font-bold text-white text-2xl tracking-tighter">
+              {/* <div className="w-12 h-12 bg-brand-green rounded flex items-center justify-center font-bold text-white text-2xl tracking-tighter">
                 V
               </div>
               <div>
                 <h2 className="text-xl font-bold leading-none text-slate-900">VENCOL</h2>
                 <p className="text-xs text-slate-500 tracking-wider">FRESCURA VISIBLE</p>
-              </div>
+              </div> */}
             </div>
             <h1 className="text-4xl font-bold text-slate-900 mb-2">Estadisticas en vivo - 2026</h1>
             <p className="text-slate-500">Marca Activa: <span className="font-medium text-brand-green">Vencol</span> | Periodo: Enero - Diciembre</p>
@@ -299,7 +299,7 @@ export function LiveReport() {
               <button 
                 onClick={fetchPageSpeed}
                 disabled={loadingSpeed}
-                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2 bg-brand-green text-brand-dark font-medium rounded-lg hover:bg-brand-green/90 transition-all disabled:opacity-50"
+                className="w-full sm:w-auto flex items-center justify-center gap-2 px-6 py-2 bg-brand-green text-white font-medium rounded-lg hover:bg-brand-green/90 transition-all disabled:opacity-50"
               >
                 {loadingSpeed ? <RefreshCw size={18} className="animate-spin" /> : <Search size={18} />}
                 {loadingSpeed ? 'Auditando Web...' : 'Ejecutar PageSpeed'}

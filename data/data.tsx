@@ -11,7 +11,7 @@ export const siteContent = {
     siteUrl: "https://vencol-demo.vercel.app", // Reemplazar con dominio real
     siteName: "Vencol",
     defaultImage: "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=1200",
-    favicon: "https://cdn-icons-png.flaticon.com/512/32/32223.png", // Icono de hoja genérico para demo
+    favicon: "http://cms.gobigagency.co/vencol/wp-content/uploads/sites/3/2026/03/Logo-Vencol-02.png",
     titleTemplate: "%s | Vencol - Frescura Visible",
     defaultTitle: "Vencol - Tecnología de Empaque y Frescura",
     defaultDescription: "Expertos en soluciones de empaque, bolsas termoencogibles y absorbentes para la industria de alimentos frescos en Latinoamérica."

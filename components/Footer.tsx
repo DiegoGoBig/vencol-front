@@ -29,9 +29,8 @@ export const Footer: React.FC = () => {
           
           {/* Brand */}
           <div className="col-span-1">
-             <div className="flex items-center gap-2 mb-4">
-              <Leaf className="text-brand-green h-6 w-6" />
-              <span className="text-xl font-bold text-white">{brand.name}</span>
+            <div className="flex items-center gap-2 mb-4">
+              <img src={siteContent.header.logo} alt={brand.name} width={100} height={100} />
             </div>
             <p className="text-glass-muted text-sm leading-relaxed mb-6">
               {brand.description}

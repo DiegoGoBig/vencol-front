@@ -13,7 +13,7 @@ import { PageDetail } from './pages/PageDetail';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { LiveReport } from './pages/LiveReport';
 import { Analytics } from "@vercel/analytics/react";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/react";
 
 function ScrollToTop() {
   const { pathname } = useLocation();

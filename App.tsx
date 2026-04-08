@@ -13,6 +13,7 @@ import { PageDetail } from './pages/PageDetail';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { LiveReport } from './pages/LiveReport';
 import { Analytics } from "@vercel/analytics/react";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -53,6 +54,7 @@ function App() {
         <Footer />
         <WhatsAppButton />
         <Analytics />
+        <SpeedInsights />
       </div>
     </Router>
   );

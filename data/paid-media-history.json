@@ -1,0 +1,25 @@
+[
+  {
+    "id": "march-2026",
+    "monthLabel": "Marzo 2026",
+    "year": 2026,
+    "month": 3,
+    "platforms": {
+      "linkedinAds": {
+        "status": "Configurada",
+        "note": "La cuenta de LinkedIn Ads se encuentra configurada, se va realizar la activación una vez que el resto de las plataformas se encuentren configuradas.",
+        "metrics": { "impressions": 0, "clicks": 0, "spend": 0 }
+      },
+      "googleAds": {
+        "status": "Verificada",
+        "note": "La cuenta de Google Ads ya esta verificada, queda pendiente la subida de la cedula de identidad para poder activar campañas",
+        "metrics": { "impressions": 0, "clicks": 0, "spend": 0 }
+      },
+      "metaAds": {
+        "status": "Proximamente",
+        "note": "Integración de Facebook e Instagram Ads en proceso.",
+        "metrics": { "impressions": 0, "clicks": 0, "spend": 0 }
+      }
+    }
+  }
+]

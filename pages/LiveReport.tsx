@@ -6,8 +6,11 @@ import {
 import { Download, CheckCircle, Search, Globe, TrendingUp, Shield, Activity, RefreshCw, Zap, Smartphone, Layout, ArrowRight, Link2, ArrowUpRight, ArrowDownRight, FileText, AlertCircle, Check } from 'lucide-react';
 import { Helmet } from 'react-helmet-async';
 import seoHistory from '../data/seo-history.json';
+import socialHistory from '../data/social-media-history.json';
+import paidHistory from '../data/paid-media-history.json';
 import { fetchBlogPostsByMonth } from '../lib/wordpress';
 import { BlogPost } from '../types';
+import { Share2, Megaphone, DollarSign, Facebook, Instagram, Linkedin as LinkedinIcon, Twitter } from 'lucide-react';
 
 // Static Data
 const effortData = [
@@ -48,7 +51,7 @@ const products = [
   { name: 'Sistemas de Control', value: 45, label: 'Crecimiento' },
 ];
 
-const tabs = ['Salud del Sitio', 'SEO y Contenidos', 'Seguridad y Web', 'Looker Studio'];
+const tabs = ['Salud del Sitio', 'SEO y Contenidos', 'Social Media', 'Paid Media', 'Seguridad y Web', 'Looker Studio'];
 
 const LighthouseGauge = ({ score, label }: { score: number, label: string }) => {
   const isRed = score < 50;
@@ -155,10 +158,15 @@ export function LiveReport() {
 
   // SEO History and Wordpress State
   const [selectedMonthId, setSelectedMonthId] = useState(seoHistory[0].id);
+  const [selectedSocialMonthId, setSelectedSocialMonthId] = useState(socialHistory[0].id);
+  const [selectedPaidMonthId, setSelectedPaidMonthId] = useState(paidHistory[0].id);
+  
   const [monthPosts, setMonthPosts] = useState<BlogPost[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
 
   const selectedSeoData = seoHistory.find((h) => h.id === selectedMonthId) || seoHistory[0];
+  const selectedSocialData = socialHistory.find((h) => h.id === selectedSocialMonthId) || socialHistory[0];
+  const selectedPaidData = paidHistory.find((h) => h.id === selectedPaidMonthId) || paidHistory[0];
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
@@ -328,6 +336,8 @@ export function LiveReport() {
               {tab === 'Resumen General' && <Activity size={16} />}
               {tab === 'Salud del Sitio' && <Globe size={16} />}
               {tab === 'SEO y Contenidos' && <TrendingUp size={16} />}
+              {tab === 'Social Media' && <Share2 size={16} />}
+              {tab === 'Paid Media' && <Megaphone size={16} />}
               {tab === 'Seguridad y Web' && <Shield size={16} />}
               {tab === 'Looker Studio' && <Activity size={16} className="text-blue-500" />}
               {tab}
@@ -824,7 +834,226 @@ export function LiveReport() {
             </div>
           )}
 
-          {/* TAB 4: Seguridad y Web */}
+          {/* TAB 4: Social Media */}
+          {activeTab === 'Social Media' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-100 gap-4">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900">Rendimiento Social Media ({selectedSocialData.monthLabel})</h2>
+                  <p className="text-sm text-slate-500">Métricas de alcance orgánico y engagement en redes.</p>
+                </div>
+                <div>
+                  <select 
+                    value={selectedSocialMonthId}
+                    onChange={(e) => setSelectedSocialMonthId(e.target.value)}
+                    className="px-4 py-2 border border-slate-200 rounded-lg text-sm bg-slate-50 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-green/50 w-full sm:w-auto"
+                  >
+                    {socialHistory.map((h) => (
+                      <option key={h.id} value={h.id}>{h.monthLabel}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {/* LinkedIn Organic Stats */}
+                <div className="lg:col-span-2 space-y-6">
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <div className="flex items-center gap-3 mb-6">
+                      <div className="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                        <LinkedinIcon size={20} />
+                      </div>
+                      <h3 className="text-lg font-semibold text-slate-800">LinkedIn Organic</h3>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">Impresiones</p>
+                        <h4 className="text-2xl font-bold text-slate-900">{selectedSocialData.linkedin.organic.impressions.toLocaleString()}</h4>
+                      </div>
+                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">Clics</p>
+                        <h4 className="text-2xl font-bold text-slate-900">{selectedSocialData.linkedin.organic.clicks.toLocaleString()}</h4>
+                      </div>
+                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
+                        <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">Engagement</p>
+                        <h4 className="text-2xl font-bold text-slate-900">{selectedSocialData.linkedin.organic.engagementRate}</h4>
+                      </div>
+                    </div>
+
+                    <div className="h-[250px] w-full">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <BarChart data={selectedSocialData.linkedin.organic.dailyData}>
+                          <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
+                          <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 10 }} dy={10} />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 10 }} />
+                          <RechartsTooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
+                          <Bar dataKey="impressions" fill="#2563eb" radius={[4, 4, 0, 0]} />
+                        </BarChart>
+                      </ResponsiveContainer>
+                    </div>
+                  </div>
+
+                  {/* Top Posts */}
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                    <h3 className="text-lg font-semibold text-slate-800 mb-4">Posteos Destacados</h3>
+                    <div className="space-y-4">
+                      {selectedSocialData.linkedin.organic.topPosts.map((post: any, i: number) => (
+                        <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition-colors">
+                          <p className="text-sm font-medium text-slate-800 mb-3 line-clamp-2 leading-relaxed">"{post.title}"</p>
+                          <div className="flex gap-6">
+                            <div className="flex flex-col">
+                              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Impresiones</span>
+                              <span className="text-sm font-bold text-slate-700">{post.impressions}</span>
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Clics</span>
+                              <span className="text-sm font-bold text-slate-700">{post.clicks}</span>
+                            </div>
+                            <div className="flex flex-col">
+                              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Engagement</span>
+                              <span className="text-sm font-bold text-blue-600">{post.engagement}</span>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+
+                {/* FB/IG Coming Soon */}
+                <div className="space-y-6">
+                  <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center h-[280px]">
+                    <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mb-4">
+                      <Facebook size={32} className="text-slate-200" />
+                    </div>
+                    <h4 className="text-lg font-bold text-slate-400 mb-2">Facebook</h4>
+                    <span className="px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold rounded-full uppercase tracking-widest">Próximamente</span>
+                  </div>
+
+                  <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center h-[280px]">
+                    <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mb-4">
+                      <Instagram size={32} className="text-slate-200" />
+                    </div>
+                    <h4 className="text-lg font-bold text-slate-400 mb-2">Instagram</h4>
+                    <span className="px-3 py-1 bg-slate-100 text-slate-500 text-[10px] font-bold rounded-full uppercase tracking-widest">Próximamente</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 5: Paid Media */}
+          {activeTab === 'Paid Media' && (
+            <div className="space-y-6">
+              <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center bg-white p-6 rounded-2xl shadow-sm border border-slate-100 gap-4">
+                <div>
+                  <h2 className="text-xl font-bold text-slate-900">Estrategia Paid Media ({selectedPaidData.monthLabel})</h2>
+                  <p className="text-sm text-slate-500">Estado de cuentas publicitarias y campañas activas.</p>
+                </div>
+                <div>
+                  <select 
+                    value={selectedPaidMonthId}
+                    onChange={(e) => setSelectedPaidMonthId(e.target.value)}
+                    className="px-4 py-2 border border-slate-200 rounded-lg text-sm bg-slate-50 font-medium text-slate-700 focus:outline-none focus:ring-2 focus:ring-brand-green/50 w-full sm:w-auto"
+                  >
+                    {paidHistory.map((h) => (
+                      <option key={h.id} value={h.id}>{h.monthLabel}</option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* LinkedIn Ads Card */}
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <LinkedinIcon size={120} />
+                  </div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center">
+                      <LinkedinIcon size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-900">LinkedIn Ads</h3>
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-amber-500"></span>
+                        <span className="text-xs font-semibold text-amber-600 uppercase tracking-wider">{selectedPaidData.platforms.linkedinAds.status}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-slate-600 leading-relaxed mb-8 text-sm">
+                    {selectedPaidData.platforms.linkedinAds.note}
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-50">
+                    <div className="text-center">
+                      <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Alcance</p>
+                      <span className="text-lg font-bold text-slate-300">0</span>
+                    </div>
+                    <div className="text-center border-x border-slate-50">
+                      <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Clics</p>
+                      <span className="text-lg font-bold text-slate-300">0</span>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Inversión</p>
+                      <span className="text-lg font-bold text-slate-300">$0</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Google Ads Card */}
+                <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 relative overflow-hidden group">
+                  <div className="absolute top-0 right-0 p-6 opacity-5 group-hover:opacity-10 transition-opacity">
+                    <Globe size={120} />
+                  </div>
+                  <div className="flex items-center gap-3 mb-6">
+                    <div className="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center">
+                      <Globe size={24} />
+                    </div>
+                    <div>
+                      <h3 className="text-xl font-bold text-slate-900">Google Ads</h3>
+                      <div className="flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-full bg-emerald-500"></span>
+                        <span className="text-xs font-semibold text-emerald-600 uppercase tracking-wider">{selectedPaidData.platforms.googleAds.status}</span>
+                      </div>
+                    </div>
+                  </div>
+                  <p className="text-slate-600 leading-relaxed mb-8 text-sm">
+                    {selectedPaidData.platforms.googleAds.note}
+                  </p>
+                  <div className="grid grid-cols-3 gap-4 pt-6 border-t border-slate-50">
+                    <div className="text-center">
+                      <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Alcance</p>
+                      <span className="text-lg font-bold text-slate-300">0</span>
+                    </div>
+                    <div className="text-center border-x border-slate-50">
+                      <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Clics</p>
+                      <span className="text-lg font-bold text-slate-300">0</span>
+                    </div>
+                    <div className="text-center">
+                      <p className="text-[10px] text-slate-400 font-bold uppercase mb-1">Inversión</p>
+                      <span className="text-lg font-bold text-slate-300">$0</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* General Spending Alert */}
+              <div className="bg-blue-50 border border-blue-100 p-6 rounded-2xl flex items-start gap-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-100 text-blue-600 flex items-center justify-center flex-shrink-0">
+                  <Megaphone size={20} />
+                </div>
+                <div>
+                  <h4 className="font-bold text-blue-900 mb-1">Próximos Pasos - Q2 2026</h4>
+                  <p className="text-sm text-blue-800/70 leading-relaxed">
+                    Se proyecta el inicio de campañas de consideración para LinkedIn y búsqueda en Google una vez se complete la verificación de identidad. Estamos en fase de configuración de audiencias B2B segmentadas por industria cárnica y logística.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* TAB 6: Seguridad y Web */}
           {activeTab === 'Seguridad y Web' && (
             <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 text-center py-20">
               <Shield size={64} className="mx-auto text-emerald-500 mb-6 opacity-30" />

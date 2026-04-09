@@ -1,0 +1,47 @@
+[
+  {
+    "id": "march-2026",
+    "monthLabel": "Marzo 2026",
+    "year": 2026,
+    "month": 3,
+    "linkedin": {
+      "organic": {
+        "impressions": 6251,
+        "clicks": 4580,
+        "engagementRate": "73.5%",
+        "dailyData": [
+          { "date": "03/12", "impressions": 203, "clicks": 142 },
+          { "date": "03/13", "impressions": 1786, "clicks": 1243 },
+          { "date": "03/14", "impressions": 399, "clicks": 282 },
+          { "date": "03/15", "impressions": 327, "clicks": 319 },
+          { "date": "03/16", "impressions": 963, "clicks": 696 },
+          { "date": "03/17", "impressions": 977, "clicks": 705 },
+          { "date": "03/18", "impressions": 895, "clicks": 651 },
+          { "date": "03/19", "impressions": 658, "clicks": 526 },
+          { "date": "03/30", "impressions": 15, "clicks": 10 },
+          { "date": "03/31", "impressions": 11, "clicks": 4 }
+        ],
+        "topPosts": [
+          {
+            "title": "El desperdicio de alimentos no es un problema de falta de tecnología...",
+            "impressions": 135,
+            "clicks": 68,
+            "engagement": "50.3%"
+          },
+          {
+            "title": "¿Cuántas ventas estás perdiendo porque tu cliente cree que la carne 'viene con sangre'?",
+            "impressions": 6217,
+            "clicks": 4566,
+            "engagement": "73.5%"
+          }
+        ]
+      }
+    },
+    "facebook": {
+      "status": "proximamente"
+    },
+    "instagram": {
+      "status": "proximamente"
+    }
+  }
+]

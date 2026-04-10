@@ -9,17 +9,41 @@
         "impressions": 6251,
         "clicks": 4580,
         "engagementRate": "73.5%",
+        "followersNew": 9,
+        "totalFollowers": 58,
+        "postsCount": 1,
+        "reactions": 5,
+        "pageViews": 19,
+        "uniqueVisitors": 9,
+        "searchAppearances": 12,
+        "followersByFunction": [
+          { "name": "Desarrollo empresarial", "count": 13, "pct": "22.4%" },
+          { "name": "Ventas", "count": 13, "pct": "22.4%" },
+          { "name": "Operaciones", "count": 6, "pct": "10.3%" },
+          { "name": "Marketing", "count": 3, "pct": "5.2%" }
+        ],
+        "followersByLocation": [
+          { "name": "D.C., Colombia", "count": 26, "pct": "44.8%" },
+          { "name": "Shenzhen, China", "count": 2, "pct": "3.4%" },
+          { "name": "Barranquilla, Colombia", "count": 2, "pct": "3.4%" },
+          { "name": "Miami-Fort Lauderdale", "count": 2, "pct": "3.4%" }
+        ],
+        "pageSearchSectors": [
+          { "name": "Fotografía", "pct": "53.8%" },
+          { "name": "Servicios de publicidad", "pct": "46.2%" }
+        ],
+        "popularSearchTerms": ["Postres", "Restaurante", "Afluente", "Luisa"],
         "dailyData": [
-          { "date": "03/12", "impressions": 203, "clicks": 142 },
-          { "date": "03/13", "impressions": 1786, "clicks": 1243 },
-          { "date": "03/14", "impressions": 399, "clicks": 282 },
-          { "date": "03/15", "impressions": 327, "clicks": 319 },
-          { "date": "03/16", "impressions": 963, "clicks": 696 },
-          { "date": "03/17", "impressions": 977, "clicks": 705 },
-          { "date": "03/18", "impressions": 895, "clicks": 651 },
-          { "date": "03/19", "impressions": 658, "clicks": 526 },
-          { "date": "03/30", "impressions": 15, "clicks": 10 },
-          { "date": "03/31", "impressions": 11, "clicks": 4 }
+          { "date": "03/12", "impressions": 203, "clicks": 142, "engagement": 0.704 },
+          { "date": "03/13", "impressions": 1786, "clicks": 1243, "engagement": 0.696 },
+          { "date": "03/14", "impressions": 399, "clicks": 282, "engagement": 0.709 },
+          { "date": "03/15", "impressions": 327, "clicks": 319, "engagement": 0.978 },
+          { "date": "03/16", "impressions": 963, "clicks": 696, "engagement": 0.722 },
+          { "date": "03/17", "impressions": 977, "clicks": 705, "engagement": 0.722 },
+          { "date": "03/18", "impressions": 895, "clicks": 651, "engagement": 0.727 },
+          { "date": "03/19", "impressions": 658, "clicks": 526, "engagement": 0.799 },
+          { "date": "03/30", "impressions": 15, "clicks": 10, "engagement": 0.666 },
+          { "date": "03/31", "impressions": 11, "clicks": 4, "engagement": 0.363 }
         ],
         "topPosts": [
           {

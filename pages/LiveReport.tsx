@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import {
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer,
+  LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip as RechartsTooltip, Legend, ResponsiveContainer,
   Radar, RadarChart, PolarGrid, PolarAngleAxis, PolarRadiusAxis, PieChart, Pie, Cell,
 } from 'recharts';
 import { Download, CheckCircle, Search, Globe, TrendingUp, Shield, Activity, RefreshCw, Zap, Smartphone, Layout, ArrowRight, Link2, ArrowUpRight, ArrowDownRight, FileText, AlertCircle, Check } from 'lucide-react';
@@ -154,12 +154,14 @@ export function LiveReport() {
   // PageSpeed API State
   const [speedData, setSpeedData] = useState<{ mobile: any; desktop: any } | null>(null);
   const [loadingSpeed, setLoadingSpeed] = useState(false);
-  const [targetUrl, setTargetUrl] = useState('https://vencol.com'); // default to a safe value or real domain
+  const [targetUrl, setTargetUrl] = useState('https://www.vencol.com'); // default to a safe value or real domain
 
   // SEO History and Wordpress State
   const [selectedMonthId, setSelectedMonthId] = useState(seoHistory[0].id);
   const [selectedSocialMonthId, setSelectedSocialMonthId] = useState(socialHistory[0].id);
   const [selectedPaidMonthId, setSelectedPaidMonthId] = useState(paidHistory[0].id);
+  const [activeSocialMetric, setActiveSocialMetric] = useState<'impressions' | 'clicks' | 'engagement'>('impressions');
+  const [activeStrategy, setActiveStrategy] = useState<'mobile' | 'desktop'>('mobile');
   
   const [monthPosts, setMonthPosts] = useState<BlogPost[]>([]);
   const [loadingPosts, setLoadingPosts] = useState(false);
@@ -202,11 +204,13 @@ export function LiveReport() {
       const apiKey = import.meta.env.VITE_PAGESPEED_API_KEY;
       const keyParam = apiKey ? `&key=${apiKey}` : '';
       
-      const mobileRes = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&strategy=mobile${keyParam}`);
+      const categories = '&category=performance&category=accessibility&category=best-practices&category=seo';
+      
+      const mobileRes = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&strategy=mobile${categories}${keyParam}`);
       if (mobileRes.status === 429) throw new Error('Limit');
       const mobileData = await mobileRes.json();
       
-      const desktopRes = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&strategy=desktop${keyParam}`);
+      const desktopRes = await fetch(`https://www.googleapis.com/pagespeedonline/v5/runPagespeed?url=${encodeURIComponent(targetUrl)}&strategy=desktop${categories}${keyParam}`);
       if (desktopRes.status === 429) throw new Error('Limit');
       const desktopData = await desktopRes.json();
       
@@ -464,13 +468,29 @@ export function LiveReport() {
                   <h2 className="text-xl font-bold text-slate-900">Evolución de Salud del Sitio (Google API)</h2>
                   <p className="text-sm text-slate-500">Comparativa Enero 2025 vs. Estado Extraído en Vivo</p>
                 </div>
-                <div className="flex items-center gap-4 text-sm font-medium">
-                  {speedData && (
-                    <>
-                      <div className="flex items-center gap-1.5 text-slate-400"><div className="w-2.5 h-2.5 rounded-full bg-slate-300"></div> Enero</div>
-                      <div className="flex items-center gap-1.5 text-blue-600"><div className="w-2.5 h-2.5 rounded-full bg-blue-500"></div> Actual (API)</div>
-                    </>
-                  )}
+                <div className="flex flex-col md:flex-row md:items-center gap-4">
+                  <div className="flex bg-slate-100 p-1 rounded-xl">
+                    <button 
+                      onClick={() => setActiveStrategy('mobile')}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeStrategy === 'mobile' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                    >
+                      <Smartphone size={16} /> Móvil
+                    </button>
+                    <button 
+                      onClick={() => setActiveStrategy('desktop')}
+                      className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-bold transition-all ${activeStrategy === 'desktop' ? 'bg-white text-blue-600 shadow-sm' : 'text-slate-500 hover:text-slate-700'}`}
+                    >
+                      <Layout size={16} /> Escritorio
+                    </button>
+                  </div>
+                  <div className="flex items-center gap-4 text-sm font-medium pr-2">
+                    {speedData && (
+                      <>
+                        <div className="flex items-center gap-1.5 text-slate-400"><div className="w-2.5 h-2.5 rounded-full bg-slate-300"></div> Enero</div>
+                        <div className="flex items-center gap-1.5 text-blue-600"><div className="w-2.5 h-2.5 rounded-full bg-blue-500"></div> Actual (API)</div>
+                      </>
+                    )}
+                  </div>
                 </div>
               </div>
 
@@ -492,10 +512,10 @@ export function LiveReport() {
                 <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100">
                   {/* Top Gauges */}
                   <div className="flex flex-wrap justify-center gap-8 md:gap-16 pb-12 border-b border-slate-100">
-                    <LighthouseGauge score={getVal(speedData.mobile, 'performance')} label="Performance" />
-                    <LighthouseGauge score={getVal(speedData.desktop, 'accessibility')} label="Accessibility" />
-                    <LighthouseGauge score={Math.round((speedData?.mobile?.categories?.['best-practices']?.score || 0.5) * 100)} label="Best Practices" />
-                    <LighthouseGauge score={getVal(speedData.desktop, 'seo')} label="SEO" />
+                    <LighthouseGauge score={getVal(speedData[activeStrategy], 'performance')} label="Performance" />
+                    <LighthouseGauge score={getVal(speedData[activeStrategy], 'accessibility')} label="Accessibility" />
+                    <LighthouseGauge score={getVal(speedData[activeStrategy], 'best-practices')} label="Best Practices" />
+                    <LighthouseGauge score={getVal(speedData[activeStrategy], 'seo')} label="SEO" />
                   </div>
 
                   {/* Details section */}
@@ -503,31 +523,31 @@ export function LiveReport() {
                     <div className="flex flex-col">
                       <MetricItem 
                         label="First Contentful Paint" 
-                        value={`${getMetricS(speedData.mobile, 'first-contentful-paint')} s`} 
-                        type={getMetricS(speedData.mobile, 'first-contentful-paint') <= 1.8 ? 'green' : getMetricS(speedData.mobile, 'first-contentful-paint') <= 3.0 ? 'orange' : 'red'} 
+                        value={`${getMetricS(speedData[activeStrategy], 'first-contentful-paint')} s`} 
+                        type={getMetricS(speedData[activeStrategy], 'first-contentful-paint') <= 1.8 ? 'green' : getMetricS(speedData[activeStrategy], 'first-contentful-paint') <= 3.0 ? 'orange' : 'red'} 
                       />
                       <MetricItem 
                         label="Total Blocking Time" 
-                        value={`${(speedData.mobile?.audits?.['total-blocking-time']?.numericValue || 0).toFixed(0)} ms`} 
-                        type={(speedData.mobile?.audits?.['total-blocking-time']?.numericValue || 0) <= 200 ? 'green' : (speedData.mobile?.audits?.['total-blocking-time']?.numericValue || 0) <= 600 ? 'orange' : 'red'} 
+                        value={`${(speedData[activeStrategy]?.audits?.['total-blocking-time']?.numericValue || 0).toFixed(0)} ms`} 
+                        type={(speedData[activeStrategy]?.audits?.['total-blocking-time']?.numericValue || 0) <= 200 ? 'green' : (speedData[activeStrategy]?.audits?.['total-blocking-time']?.numericValue || 0) <= 600 ? 'orange' : 'red'} 
                       />
                       <MetricItem 
                         label="Speed Index" 
-                        value={`${getMetricS(speedData.mobile, 'speed-index')} s`} 
-                        type={getMetricS(speedData.mobile, 'speed-index') <= 3.4 ? 'green' : getMetricS(speedData.mobile, 'speed-index') <= 5.8 ? 'orange' : 'red'} 
+                        value={`${getMetricS(speedData[activeStrategy], 'speed-index')} s`} 
+                        type={getMetricS(speedData[activeStrategy], 'speed-index') <= 3.4 ? 'green' : getMetricS(speedData[activeStrategy], 'speed-index') <= 5.8 ? 'orange' : 'red'} 
                       />
                     </div>
                     
                     <div className="flex flex-col">
                       <MetricItem 
                         label="Largest Contentful Paint" 
-                        value={`${getMetricS(speedData.mobile, 'largest-contentful-paint')} s`} 
-                        type={getMetricS(speedData.mobile, 'largest-contentful-paint') <= 2.5 ? 'green' : getMetricS(speedData.mobile, 'largest-contentful-paint') <= 4.0 ? 'orange' : 'red'} 
+                        value={`${getMetricS(speedData[activeStrategy], 'largest-contentful-paint')} s`} 
+                        type={getMetricS(speedData[activeStrategy], 'largest-contentful-paint') <= 2.5 ? 'green' : getMetricS(speedData[activeStrategy], 'largest-contentful-paint') <= 4.0 ? 'orange' : 'red'} 
                       />
                       <MetricItem 
                         label="Cumulative Layout Shift" 
-                        value={`${(speedData.mobile?.audits?.['cumulative-layout-shift']?.numericValue || 0).toFixed(3)}`} 
-                        type={(speedData.mobile?.audits?.['cumulative-layout-shift']?.numericValue || 0) <= 0.1 ? 'green' : (speedData.mobile?.audits?.['cumulative-layout-shift']?.numericValue || 0) <= 0.25 ? 'orange' : 'red'} 
+                        value={`${(speedData[activeStrategy]?.audits?.['cumulative-layout-shift']?.numericValue || 0).toFixed(3)}`} 
+                        type={(speedData[activeStrategy]?.audits?.['cumulative-layout-shift']?.numericValue || 0) <= 0.1 ? 'green' : (speedData[activeStrategy]?.audits?.['cumulative-layout-shift']?.numericValue || 0) <= 0.25 ? 'orange' : 'red'} 
                       />
                     </div>
                   </div>
@@ -867,62 +887,201 @@ export function LiveReport() {
                     </div>
 
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
-                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">Impresiones</p>
-                        <h4 className="text-2xl font-bold text-slate-900">{selectedSocialData.linkedin.organic.impressions.toLocaleString()}</h4>
-                      </div>
-                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">Clics</p>
-                        <h4 className="text-2xl font-bold text-slate-900">{selectedSocialData.linkedin.organic.clicks.toLocaleString()}</h4>
-                      </div>
-                      <div className="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <p className="text-xs font-medium text-slate-500 mb-1 uppercase tracking-wider">Engagement</p>
-                        <h4 className="text-2xl font-bold text-slate-900">{selectedSocialData.linkedin.organic.engagementRate}</h4>
-                      </div>
+                      <button 
+                        onClick={() => setActiveSocialMetric('impressions')}
+                        className={`p-6 rounded-2xl border transition-all text-left group ${activeSocialMetric === 'impressions' ? 'bg-blue-50 border-blue-200 ring-4 ring-blue-50' : 'bg-white border-slate-100 hover:border-blue-100'}`}
+                      >
+                        <p className="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1 border-l-2 border-blue-400/30">Impresiones</p>
+                        <h4 className={`text-3xl font-bold transition-colors ${activeSocialMetric === 'impressions' ? 'text-blue-700' : 'text-slate-900 group-hover:text-blue-600'}`}>{selectedSocialData.linkedin.organic.impressions.toLocaleString()}</h4>
+                      </button>
+                      <button 
+                        onClick={() => setActiveSocialMetric('clicks')}
+                        className={`p-6 rounded-2xl border transition-all text-left group ${activeSocialMetric === 'clicks' ? 'bg-blue-50 border-blue-200 ring-4 ring-blue-50' : 'bg-white border-slate-100 hover:border-blue-100'}`}
+                      >
+                        <p className="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1 border-l-2 border-emerald-400/30">Clics</p>
+                        <h4 className={`text-3xl font-bold transition-colors ${activeSocialMetric === 'clicks' ? 'text-emerald-700' : 'text-slate-900 group-hover:text-emerald-600'}`}>{selectedSocialData.linkedin.organic.clicks.toLocaleString()}</h4>
+                      </button>
+                      <button 
+                        onClick={() => setActiveSocialMetric('engagement')}
+                        className={`p-6 rounded-2xl border transition-all text-left group ${activeSocialMetric === 'engagement' ? 'bg-blue-50 border-blue-200 ring-4 ring-blue-50' : 'bg-white border-slate-100 hover:border-blue-100'}`}
+                      >
+                        <p className="text-[10px] font-bold text-slate-400 mb-2 uppercase tracking-widest pl-1 border-l-2 border-amber-400/30">Engagement</p>
+                        <h4 className={`text-3xl font-bold transition-colors ${activeSocialMetric === 'engagement' ? 'text-amber-700' : 'text-slate-900 group-hover:text-amber-600'}`}>{selectedSocialData.linkedin.organic.engagementRate}</h4>
+                      </button>
                     </div>
 
-                    <div className="h-[250px] w-full">
+                    <div className="h-[300px] w-full mt-4">
                       <ResponsiveContainer width="100%" height="100%">
-                        <BarChart data={selectedSocialData.linkedin.organic.dailyData}>
+                        <LineChart data={selectedSocialData.linkedin.organic.dailyData}>
                           <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#E2E8F0" />
-                          <XAxis dataKey="date" axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 10 }} dy={10} />
-                          <YAxis axisLine={false} tickLine={false} tick={{ fill: '#64748b', fontSize: 10 }} />
-                          <RechartsTooltip contentStyle={{ borderRadius: '8px', border: 'none', boxShadow: '0 4px 6px -1px rgb(0 0 0 / 0.1)' }} />
-                          <Bar dataKey="impressions" fill="#2563eb" radius={[4, 4, 0, 0]} />
-                        </BarChart>
+                          <XAxis 
+                            dataKey="date" 
+                            axisLine={false} 
+                            tickLine={false} 
+                            tick={{ fill: '#94a3b8', fontSize: 11 }} 
+                            dy={15}
+                            tickFormatter={(val) => {
+                              const [m, d] = val.split('/');
+                              const months = ['ene.', 'feb.', 'mar.', 'abr.', 'may.', 'jun.', 'jul.', 'ago.', 'sep.', 'oct.', 'nov.', 'dic.'];
+                              return `${d} ${months[parseInt(m) - 1]}`;
+                            }}
+                          />
+                          <YAxis axisLine={false} tickLine={false} tick={{ fill: '#94a3b8', fontSize: 11 }} />
+                          <RechartsTooltip 
+                            contentStyle={{ borderRadius: '12px', border: 'none', boxShadow: '0 10px 15px -3px rgb(0 0 0 / 0.1)' }}
+                            formatter={(value: any) => [
+                              activeSocialMetric === 'engagement' ? `${(value * 100).toFixed(1)}%` : value.toLocaleString(), 
+                              activeSocialMetric.charAt(0).toUpperCase() + activeSocialMetric.slice(1)
+                            ]}
+                          />
+                          <Line 
+                            type="monotone"
+                            dataKey={activeSocialMetric} 
+                            stroke={activeSocialMetric === 'impressions' ? '#2563eb' : activeSocialMetric === 'clicks' ? '#10b981' : '#f59e0b'} 
+                            strokeWidth={3}
+                            dot={{ fill: activeSocialMetric === 'impressions' ? '#2563eb' : activeSocialMetric === 'clicks' ? '#10b981' : '#f59e0b', r: 4, strokeWidth: 2, stroke: '#fff' }}
+                            activeDot={{ r: 6, strokeWidth: 0 }}
+                          />
+                          <Line 
+                            type="monotone"
+                            dataKey={() => 0} // Baseline simulation
+                            stroke="#e2e8f0"
+                            strokeWidth={1}
+                            strokeDasharray="5 5"
+                            dot={false}
+                            activeDot={false}
+                          />
+                        </LineChart>
                       </ResponsiveContainer>
+                    </div>
+
+                    {/* Complementary Metrics Section */}
+                    <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mt-12 pt-8 border-t border-slate-100">
+                      <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Publicaciones</p>
+                        <h4 className="text-xl font-bold text-slate-700">{selectedSocialData.linkedin.organic.postsCount || 0}</h4>
+                      </div>
+                      <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Reacciones</p>
+                        <h4 className="text-xl font-bold text-slate-700">{selectedSocialData.linkedin.organic.reactions || 0}</h4>
+                      </div>
+                      <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Visitas Página</p>
+                        <h4 className="text-xl font-bold text-slate-700">{selectedSocialData.linkedin.organic.pageViews || 0}</h4>
+                      </div>
+                      <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Visitantes Únicos</p>
+                        <h4 className="text-xl font-bold text-slate-700">{selectedSocialData.linkedin.organic.uniqueVisitors || 0}</h4>
+                      </div>
+                      <div className="bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                        <p className="text-[10px] font-bold text-slate-400 mb-1 uppercase tracking-wider">Búsquedas</p>
+                        <h4 className="text-xl font-bold text-slate-700">{selectedSocialData.linkedin.organic.searchAppearances || 0}</h4>
+                      </div>
                     </div>
                   </div>
 
-                  {/* Top Posts */}
-                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
-                    <h3 className="text-lg font-semibold text-slate-800 mb-4">Posteos Destacados</h3>
-                    <div className="space-y-4">
-                      {selectedSocialData.linkedin.organic.topPosts.map((post: any, i: number) => (
-                        <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition-colors">
-                          <p className="text-sm font-medium text-slate-800 mb-3 line-clamp-2 leading-relaxed">"{post.title}"</p>
-                          <div className="flex gap-6">
-                            <div className="flex flex-col">
-                              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Impresiones</span>
-                              <span className="text-sm font-bold text-slate-700">{post.impressions}</span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Clics</span>
-                              <span className="text-sm font-bold text-slate-700">{post.clicks}</span>
-                            </div>
-                            <div className="flex flex-col">
-                              <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Engagement</span>
-                              <span className="text-sm font-bold text-blue-600">{post.engagement}</span>
+                  {/* Top Posts & Demographics */}
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                      <h3 className="text-lg font-semibold text-slate-800 mb-4">Posteos Destacados</h3>
+                      <div className="space-y-4">
+                        {selectedSocialData.linkedin.organic.topPosts.map((post: any, i: number) => (
+                          <div key={i} className="p-4 bg-slate-50 rounded-xl border border-slate-100 hover:border-blue-200 transition-colors">
+                            <p className="text-sm font-medium text-slate-800 mb-3 line-clamp-2 leading-relaxed">"{post.title}"</p>
+                            <div className="flex gap-6">
+                              <div className="flex flex-col">
+                                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Impresiones</span>
+                                <span className="text-sm font-bold text-slate-700">{post.impressions}</span>
+                              </div>
+                              <div className="flex flex-col">
+                                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Clics</span>
+                                <span className="text-sm font-bold text-slate-700">{post.clicks}</span>
+                              </div>
+                              <div className="flex flex-col">
+                                <span className="text-[10px] text-slate-400 uppercase font-bold tracking-tighter">Engagement</span>
+                                <span className="text-sm font-bold text-blue-600">{post.engagement}</span>
+                              </div>
                             </div>
                           </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                      <h3 className="text-lg font-semibold text-slate-800 mb-4">Top Función Laboral</h3>
+                      <div className="space-y-4">
+                        {selectedSocialData.linkedin.organic.followersByFunction?.map((f: any, i: number) => (
+                          <div key={i}>
+                            <div className="flex justify-between text-xs mb-1">
+                              <span className="font-semibold text-slate-700">{f.name}</span>
+                              <span className="text-slate-400 font-bold">{f.count} ({f.pct})</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                              <div className="h-full bg-blue-500 rounded-full" style={{ width: f.pct }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                      <h3 className="text-lg font-semibold text-slate-800 mb-4">Ubicación de Seguidores</h3>
+                      <div className="space-y-4">
+                        {selectedSocialData.linkedin.organic.followersByLocation?.map((loc: any, i: number) => (
+                          <div key={i} className="flex items-center justify-between py-2 border-b border-slate-50 last:border-0">
+                            <div className="flex items-center gap-2">
+                              <Globe size={14} className="text-slate-400" />
+                              <span className="text-sm font-medium text-slate-700">{loc.name}</span>
+                            </div>
+                            <span className="text-xs font-bold text-slate-500">{loc.pct}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+
+                    <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100">
+                      <h3 className="text-lg font-semibold text-slate-800 mb-4">Buscadores de Páginas (Sectores)</h3>
+                      <div className="space-y-4">
+                        {selectedSocialData.linkedin.organic.pageSearchSectors?.map((s: any, i: number) => (
+                          <div key={i}>
+                            <div className="flex justify-between text-xs mb-1">
+                              <span className="font-semibold text-slate-700">{s.name}</span>
+                              <span className="text-slate-400 font-bold">{s.pct}</span>
+                            </div>
+                            <div className="h-1.5 w-full bg-slate-100 rounded-full overflow-hidden">
+                              <div className="h-full bg-emerald-500 rounded-full" style={{ width: s.pct }} />
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                      <div className="mt-6">
+                        <h4 className="text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Términos Populares</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedSocialData.linkedin.organic.popularSearchTerms?.map((term: string, i: number) => (
+                            <span key={i} className="px-3 py-1 bg-slate-50 text-slate-600 text-xs font-medium rounded-full border border-slate-100 flex items-center gap-1.5">
+                              <Search size={12} className="text-slate-300" /> {term}
+                            </span>
+                          ))}
                         </div>
-                      ))}
+                      </div>
                     </div>
                   </div>
                 </div>
 
-                {/* FB/IG Coming Soon */}
+                {/* FB/IG Coming Soon & Follower Summary */}
                 <div className="space-y-6">
+                  <div className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center">
+                    <div className="w-16 h-16 rounded-full bg-blue-50 flex items-center justify-center mb-4">
+                      <LinkedinIcon size={32} className="text-blue-600" />
+                    </div>
+                    <h4 className="text-lg font-bold text-slate-900 mb-1">{selectedSocialData.linkedin.organic.totalFollowers || 0}</h4>
+                    <p className="text-xs text-slate-500 font-medium mb-4">Seguidores Totales</p>
+                    <div className="flex items-center gap-1 text-emerald-600 bg-emerald-50 px-2 py-1 rounded-md text-[10px] font-bold">
+                      <ArrowUpRight size={12} /> +{selectedSocialData.linkedin.organic.followersNew || 0} este mes
+                    </div>
+                  </div>
                   <div className="bg-white p-8 rounded-2xl shadow-sm border border-slate-100 flex flex-col items-center justify-center text-center h-[280px]">
                     <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mb-4">
                       <Facebook size={32} className="text-slate-200" />

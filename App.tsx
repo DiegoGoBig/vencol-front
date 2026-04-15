@@ -12,6 +12,7 @@ import { Contact } from './pages/Contact';
 import { PageDetail } from './pages/PageDetail';
 import { WhatsAppButton } from './components/WhatsAppButton';
 import { LiveReport } from './pages/LiveReport';
+import { Landing } from './pages/Landing';
 import { Analytics } from "@vercel/analytics/react";
 import { SpeedInsights } from "@vercel/speed-insights/react";
 
@@ -47,6 +48,8 @@ function App() {
             <Route path="/contacto" element={<Contact />} />
             {/* Internal hidden page */}
             <Route path="/reporte-en-vivo" element={<LiveReport />} />
+            {/* Landing page */}
+            <Route path="/landing" element={<Landing />} />
             {/* Catch-all: WordPress pages by slug — must be last */}
             <Route path="/:slug" element={<PageDetail />} />
           </Routes>

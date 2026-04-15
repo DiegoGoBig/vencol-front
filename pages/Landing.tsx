@@ -1,0 +1,442 @@
+import React, { useState } from 'react';
+import { ArrowRight, CheckCircle2, Shield, Clock, Eye, AlertTriangle, Check, FileCheck, Truck, Cog, MessageSquare, Star } from 'lucide-react';
+import { GlassCard } from '../components/ui/GlassCard';
+import { siteContent } from '../data/data';
+import { SEO } from '../components/SEO';
+import { Link } from 'react-router-dom';
+
+export const Landing: React.FC = () => {
+    const { home } = siteContent;
+
+    return (
+        <div className="relative z-10 pt-20">
+            <SEO 
+                title="Agenda tu Asesoría Gratuita | Vencol" 
+                description="Optimice su cadena de suministro de proteínas con ingeniería de empaque."
+                image={home.hero.images[0]}
+            />
+            
+            {/* 1. Hero Section */}
+            <section className="relative pt-16 pb-20 overflow-hidden">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                        <div className="relative z-10">
+                            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-brand-green uppercase border border-brand-green/30 rounded-full bg-brand-green/10">
+                                Eficiencia en Empaque 2024
+                            </span>
+                            <h1 className="text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
+                                Lo que no se ve en el empaque es lo que más le está costando a <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-lime-300">tu negocio.</span>
+                            </h1>
+                            <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-lg">
+                                Optimice su cadena de suministro de proteínas con ingeniería de empaque de precisión y cumplimiento normativo internacional.
+                            </p>
+                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                                <a href="#asesoria" className="glass-button px-8 py-4 rounded-full text-white font-bold hover:bg-brand-green/90 hover:!border-brand-green transition-all flex items-center justify-center group shadow-lg shadow-brand-green/20">
+                                    AGENDAR ASESORÍA GRATUITA
+                                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                                </a>
+                                <div className="flex items-center gap-2 text-sm font-semibold text-gray-300">
+                                    <CheckCircle2 className="w-5 h-5 text-brand-green" />
+                                    <span className="max-w-[150px] leading-tight">CERTIFICADOS POR INVIMA O GLOBALGAP</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="relative h-[400px] lg:h-[600px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 group">
+                            <div className="absolute inset-0 bg-brand-dark/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                            <img 
+                                src={home.hero.images[0]} 
+                                alt="Warehouse" 
+                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 2. Partners / Allies Section (From Home) */}
+            <section className="py-16 border-y border-white/5 bg-black/20 backdrop-blur-sm relative overflow-hidden">
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
+                       <h3 className="text-2xl md:text-3xl font-bold text-white">
+                         <span className="text-brand-green text-3xl md:text-4xl mr-2">{home.partners.stats.value}</span>              
+                       </h3>
+                       <h3 className="text-2xl md:text-3xl font-bold text-white">             
+                        {home.partners.stats.text}
+                      </h3>
+                       <br></br>
+                       <p className="text-glass-muted mt-2">{home.partners.subtitle}</p>
+                    </div>
+                    
+                    <div className="relative flex overflow-x-hidden group">
+                      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10"></div>
+                      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-brand-dark to-transparent z-10"></div>
+                      
+                      <div className="animate-marquee whitespace-nowrap flex gap-16 items-center py-4">
+                         {/* Repeat logos multiple times to ensure infinite loop coverage on large screens with few logos */}
+                         {[...Array(8)].map((_, i) => (
+                            <React.Fragment key={i}>
+                              {home.partners.logos.map((logo, index) => (
+                                  <div key={`p-${i}-${index}`} className="flex-shrink-0 w-32 h-32 bg-white rounded-xl flex items-center justify-center p-4 transition-colors border border-white/5 grayscale hover:grayscale-0 hover:opacity-100 duration-300">
+                                    <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain" />
+                                  </div>
+                              ))}
+                            </React.Fragment>
+                         ))}
+                      </div>
+                    </div>
+                  </section>
+
+            {/* 3. Problem & Form Section */}
+            <section className="py-24 relative overflow-hidden z-10" id="asesoria">
+                <div className="absolute -left-40 top-40 w-96 h-96 bg-red-900/10 rounded-full blur-[100px] pointer-events-none" />
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
+                        
+                        {/* Left Column: Problem & 3Ps (Takes 7 columns on large screens) */}
+                        <div className="lg:col-span-7 space-y-16">
+                            
+                            {/* Problem */}
+                            <div>
+                                <span className="text-brand-green font-bold text-sm tracking-widest uppercase mb-4 block">El Problema</span>
+                                <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">¿Cuánto le cuesta el empaque equivocado?</h2>
+                                <p className="text-gray-300 text-lg mb-8 leading-relaxed">
+                                    En la industria de proteínas, un error de 0.5mm en el sellado o una micra menos en el calibre del film no es solo un detalle técnico; es la diferencia entre la rentabilidad y el desperdicio masivo.
+                                </p>
+
+                                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12">
+                                    <div className="bg-white/5 border-l-4 border-l-brand-green p-6 rounded-r-xl border-t border-r border-b border-white/5">
+                                        <div className="text-4xl font-bold text-brand-green mb-2">30%</div>
+                                        <div className="font-bold text-white mb-2">Pérdida por Merma</div>
+                                        <p className="text-sm text-gray-400 leading-relaxed">Promedio de pérdida en producto final por fallas en atmósfera controlada.</p>
+                                    </div>
+                                    <div className="bg-white/5 border-l-4 border-l-red-500 p-6 rounded-r-xl border-t border-r border-b border-white/5">
+                                        <div className="text-4xl font-bold text-red-500 mb-2">High</div>
+                                        <div className="font-bold text-white mb-2">Riesgo Regulatorio</div>
+                                        <p className="text-sm text-gray-400 leading-relaxed">Multas y devoluciones por incumplimiento de normativas INVIMA e ICA.</p>
+                                    </div>
+                                </div>
+
+                                <span className="text-brand-green font-bold text-sm tracking-widest uppercase mb-4 block">Diagnóstico Rápido</span>
+                                <h3 className="text-2xl font-bold text-white mb-6">¿Esto te suena familiar?</h3>
+                                
+                                <div className="space-y-6">
+                                    <div className="flex items-start gap-4">
+                                        <div className="p-3 bg-red-500/10 rounded-xl text-red-400 shrink-0">
+                                            <AlertTriangle className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-white mb-1">Fugas microscópicas constantes</h4>
+                                            <p className="text-gray-400 text-sm">El empaque pierde vacío antes de llegar al punto de venta, reduciendo la vida útil.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start gap-4">
+                                        <div className="p-3 bg-yellow-500/10 rounded-xl text-yellow-400 shrink-0">
+                                            <FileCheck className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-white mb-1">Variabilidad en la calidad del proveedor</h4>
+                                            <p className="text-gray-400 text-sm">Lotes que no cumplen con las especificaciones de calibre contratadas originalmente.</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-start gap-4">
+                                        <div className="p-3 bg-orange-500/10 rounded-xl text-orange-400 shrink-0">
+                                            <Clock className="w-6 h-6" />
+                                        </div>
+                                        <div>
+                                            <h4 className="font-bold text-white mb-1">Tiempos de entrega impredecibles</h4>
+                                            <p className="text-gray-400 text-sm">Quiebres de stock en insumos críticos que paralizan su línea de producción.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                           
+                        </div>
+
+                        {/* Right Column: Sticky Form (Takes 5 columns) */}
+                        <div className="lg:col-span-5">
+                            <div className="sticky top-24">
+                                <GlassCard className="bg-white/5 border border-white/10 backdrop-blur-xl p-8 !rounded-3xl shadow-2xl">
+                                    <h3 className="text-2xl font-bold text-white mb-2">Agenda tu asesoría técnica gratuita</h3>
+                                    <p className="text-sm text-gray-400 mb-8">Nuestros ingenieros analizarán tu línea de empaque sin costo.</p>
+                                    
+                                    <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                                        <div>
+                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Nombre completo</label>
+                                            <input 
+                                                type="text" 
+                                                placeholder="Ej. Juan Pérez"
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                            />
+                                        </div>
+                                        <div className="grid grid-cols-2 gap-4">
+                                            <div>
+                                                <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Empresa</label>
+                                                <input 
+                                                    type="text" 
+                                                    placeholder="Nombre de Cía."
+                                                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                                />
+                                            </div>
+                                            <div>
+                                                <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Cargo</label>
+                                                <input 
+                                                    type="text" 
+                                                    placeholder="Ej. Gerente Planta"
+                                                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Correo corporativo</label>
+                                            <input 
+                                                type="email" 
+                                                placeholder="jperez@empresa.com"
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Whatsapp de contacto</label>
+                                            <div className="flex gap-2">
+                                                <input 
+                                                    type="text" 
+                                                    value="+57"
+                                                    disabled
+                                                    className="w-16 bg-white/10 border border-white/10 rounded-xl px-3 py-3 text-gray-300 text-center cursor-not-allowed"
+                                                />
+                                                <input 
+                                                    type="tel" 
+                                                    placeholder="300 000 0000"
+                                                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Tu mayor reto (opcional)</label>
+                                            <textarea 
+                                                placeholder="¿Qué problema buscas resolver?"
+                                                rows={3}
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors resize-none"
+                                            ></textarea>
+                                        </div>
+
+                                        <button type="submit" className="w-full bg-brand-green hover:bg-lime-500 text-brand-dark font-bold py-4 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 group mt-4">
+                                            QUIERO MI ASESORÍA GRATUITA
+                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                                        </button>
+
+                                        <p className="text-[10px] text-gray-500 text-center uppercase tracking-wider mt-4">
+                                            Al enviar, aceptas nuestras políticas de tratamiento de datos.
+                                        </p>
+                                    </form>
+                                </GlassCard>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            {/* 3P's Section */}
+            <section className="py-24 relative">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="text-center mb-16">
+                <h2 className="text-4xl font-bold text-white mb-4">{home.threePs.title}</h2>
+                <p className="text-glass-muted text-lg">{home.threePs.subtitle}</p>
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                {home.threePs.items.map((item) => (
+                    <GlassCard key={item.id} hoverEffect className={`text-center py-12 border-brand-green/30 shadow-[0_0_20px_rgba(86,181,1,0.1)]`}>
+                    <div className="absolute inset-0 z-[-1] w-full h-full">
+                        <img  
+                        src={item.bgImage} 
+                        alt="3P's" 
+                        className="w-full h-full object-cover rounded-2xl"
+                        />
+                        <div className="absolute inset-0 bg-brand-dark/80 backdrop-blur-[2px]" />
+                        {/* <div className="absolute inset-0 bg-gradient-to-b from-transparent to-brand-dark" /> */}
+                    </div>
+                    <div className={`mx-auto w-20 h-20 rounded-full flex items-center justify-center mb-6 ${item.iconBg}`}>
+                        <item.icon className={`h-10 w-10 ${item.iconColor}`} />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-4">{item.title}</h3>
+                    <p className="text-glass-muted mb-4">
+                        {item.description}
+                    </p>
+                    <span className="text-brand-green font-medium block">{item.result}</span>
+                    </GlassCard>
+                ))}
+                </div>
+            </div>
+            </section>
+            
+
+            {/* 4. Impact / Metrics (From Home) */}
+            <section className="relative z-10 pt-24 pb-12">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div className="bg-gradient-to-r from-emerald-950 to-brand-green/80 rounded-3xl p-12 shadow-2xl relative overflow-hidden">
+                        {/* Background Details */}
+                        <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+                        <div className="absolute bottom-0 left-0 w-64 h-64 bg-black/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2"></div>
+                        
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10 divide-y md:divide-y-0 md:divide-x divide-white/10">
+                            {home.impact.metrics.map((metric, idx) => (
+                                <div key={idx} className={`flex flex-col items-center text-center px-4 ${idx !== 0 ? 'pt-8 md:pt-0' : ''}`}>
+                                    <div className="flex items-start mb-2">
+                                        <span className="text-4xl lg:text-5xl font-bold text-white tracking-tight">{metric.value}</span>
+                                    </div>
+                                    <p className="text-white font-semibold text-sm uppercase tracking-wide mb-1">{metric.label}</p>
+                                    <p className="text-emerald-100/60 text-xs">{metric.subLabel}</p>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 5. Difference Section */}
+            <section className="py-12 relative">
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    
+                    <div className="mb-16 max-w-3xl">
+                        <span className="text-brand-green font-bold text-sm tracking-widest uppercase mb-4 block">Diferencial</span>
+                        <h2 className="text-4xl md:text-5xl font-bold text-white leading-tight">
+                            ¿Por qué Vencol es diferente. Y por qué eso cambia los resultados?
+                        </h2>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 mb-20">
+                        <GlassCard className="p-8 bg-zinc-900/60 border border-white/5 hover:border-brand-green/30 transition-colors">
+                            <div className="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center mb-6">
+                                <Truck className="w-6 h-6 text-brand-green" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-4">Logística propia y cumplimiento real</h3>
+                            <p className="text-gray-400 leading-relaxed">
+                                Operamos con logística propia y compromisos de entrega concretos. Sin excusas. Sin improvisaciones. Sin desabasto.
+                            </p>
+                        </GlassCard>
+
+                        <GlassCard className="p-8 bg-zinc-900/60 border border-white/5 hover:border-brand-green/30 transition-colors">
+                            <div className="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center mb-6">
+                                <Cog className="w-6 h-6 text-brand-green" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-4">Asesoría técnica incluida</h3>
+                            <p className="text-gray-400 leading-relaxed">
+                                Analizamos tu proceso, te explicamos qué tecnología necesita tu proteína y te acompañamos hasta que los resultados sean visibles.
+                            </p>
+                        </GlassCard>
+
+                        <GlassCard className="p-8 bg-zinc-900/60 border border-white/5 hover:border-brand-green/30 transition-colors">
+                            <div className="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center mb-6">
+                                <CheckCircle2 className="w-6 h-6 text-brand-green" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-4">Certificaciones vigentes para tu mercado</h3>
+                            <p className="text-gray-400 leading-relaxed">
+                                Nuestros materiales cuentan con las certificaciones exigidas por INVIMA, ICA y los mercados internacionales de referencia.
+                            </p>
+                        </GlassCard>
+
+                        <GlassCard className="p-8 bg-zinc-900/60 border border-white/5 hover:border-brand-green/30 transition-colors">
+                            <div className="w-12 h-12 bg-brand-green/10 rounded-xl flex items-center justify-center mb-6">
+                                <FileCheck className="w-6 h-6 text-brand-green" />
+                            </div>
+                            <h3 className="text-xl font-bold text-white mb-4">Te acompañamos ante auditorías</h3>
+                            <p className="text-gray-400 leading-relaxed">
+                                Si tienes una visita de auditoría, podemos respaldarte con la documentación técnica necesaria.
+                            </p>
+                        </GlassCard>
+                    </div>                    
+                </div>
+            </section>
+
+            {/* Testimonials Section (New) */}
+            <section className="py-12 relative overflow-hidden bg-gradient-to-b from-brand-dark to-zinc-900">
+                {/* Background glow */}
+                <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-zinc-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    {/* Left Column: Text */}
+                    <div className="relative z-10">
+                    <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-white text-xs font-bold tracking-wider backdrop-blur-md mb-6 uppercase">
+                        <MessageSquare className="w-3 h-3 mr-2" /> 
+                        {home.testimonials.badge}
+                    </div>
+                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                        {home.testimonials.title.prefix} <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-brand-green">{home.testimonials.title.highlight}</span>{home.testimonials.title.suffix}
+                    </h2>
+                    <p className="text-glass-muted text-lg mb-8 max-w-lg">
+                        {home.testimonials.description}
+                    </p>
+
+                    {/* Clients Marquee */}
+                    <div className="mt-8 relative w-full overflow-hidden group">
+                        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10"></div>
+                        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-transparent to-transparent z-10"></div>
+                        
+                        <div className="animate-marquee whitespace-nowrap flex gap-8 items-center py-4">
+                        {/* Repeat clients multiple times for infinite loop */}
+                        {[...Array(6)].map((_, i) => (
+                            <React.Fragment key={i}>
+                            {(home.testimonials as any).clients?.map((client: string, index: number) => (
+                                <div key={`c-${i}-${index}`} className="flex-shrink-0 w-32 h-20 bg-white rounded-xl flex items-center justify-center p-4 border  transition-colors duration-300">
+                                <img src={client} alt="Cliente" className="max-h-full max-w-full object-contain" />
+                                </div>
+                            ))}
+                            </React.Fragment>
+                        ))}
+                        </div>
+                    </div>
+                    </div>
+
+                    {/* Right Column: Cards */}
+                    <div className="flex flex-col md:flex-row gap-6 relative">
+                        {/* Decorative Element */}
+                        {home.testimonials.items.map((testimonial, idx) => (
+                        <div key={testimonial.id} className={`relative z-10 flex-1 md:mt-12`}>
+                            <GlassCard className="bg-zinc-800/40 backdrop-blur-xl border-white/5 h-full">
+                                <div className="flex gap-1 text-yellow-400 mb-6">
+                                {[...Array(testimonial.rating)].map((_, i) => (
+                                    <Star key={i} className="w-4 h-4 fill-current" />
+                                ))}
+                                </div>
+                                <p className="text-gray-300 italic mb-8 text-sm leading-relaxed min-h-[80px]">
+                                "{testimonial.text}"
+                                </p>
+                                <div className="flex items-center gap-4 mt-auto">
+                                <img 
+                                    src={testimonial.image} 
+                                    alt={testimonial.name} 
+                                    className="w-12 h-12 rounded-full object-cover border-2 border-white/10"
+                                />
+                                <div>
+                                    <h4 className="font-bold text-white text-sm">{testimonial.name}</h4>
+                                    <span className="text-[10px] text-brand-green uppercase font-bold tracking-wider block">{testimonial.role}</span>
+                                    <span className="text-[10px] text-gray-500 uppercase tracking-wider block">{testimonial.company}</span>
+                                </div>
+                                </div>
+                            </GlassCard>
+                        </div>
+                        ))}
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            {/* 6. Bottom CTA */}
+            <section className="bg-gradient-to-b from-brand-dark to-zinc-950 py-24 mt-12 border-t border-white/5">
+                <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
+                        No deje que el empaque drene su margen de utilidad.
+                    </h2>
+                    <p className="text-xl text-gray-400 mb-10">
+                        Hable hoy con un experto en cadena de frío y optimización de materiales.
+                    </p>
+                    <a href="#asesoria" className="inline-block bg-brand-green hover:bg-lime-500 text-brand-dark font-bold px-10 py-5 rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(86,181,1,0.2)]">
+                        SOLICITAR ANÁLISIS TÉCNICO
+                    </a>
+                </div>
+            </section>
+            
+        </div>
+    );
+};

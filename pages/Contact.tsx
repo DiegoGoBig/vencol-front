@@ -4,12 +4,57 @@ import { Send, MapPin, Mail, Phone } from 'lucide-react';
 import { siteContent } from '../data/data';
 import { SEO } from '../components/SEO';
 
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'] as const;
+type UtmKey = typeof UTM_KEYS[number];
+const UTM_STORAGE_KEY = 'vencol_utm';
+
+const captureUtmsFromUrl = (): Record<UtmKey, string> => {
+  if (typeof window === 'undefined') return {} as Record<UtmKey, string>;
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl: Partial<Record<UtmKey, string>> = {};
+  UTM_KEYS.forEach((key) => {
+    const val = params.get(key);
+    if (val) fromUrl[key] = val;
+  });
+
+  let stored: Partial<Record<UtmKey, string>> = {};
+  try {
+    const raw = sessionStorage.getItem(UTM_STORAGE_KEY);
+    if (raw) stored = JSON.parse(raw);
+  } catch {
+    stored = {};
+  }
+
+  if (Object.keys(fromUrl).length > 0) {
+    try {
+      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(fromUrl));
+    } catch {
+      // ignore quota errors
+    }
+    return { ...stored, ...fromUrl } as Record<UtmKey, string>;
+  }
+  return stored as Record<UtmKey, string>;
+};
+
+const readCookie = (name: string): string | undefined => {
+  if (typeof document === 'undefined') return undefined;
+  const match = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith(`${name}=`));
+  return match ? decodeURIComponent(match.split('=')[1]) : undefined;
+};
+
 export const Contact: React.FC = () => {
   const { contact } = siteContent;
   const [status, setStatus] = React.useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = React.useState('');
+  const [utms, setUtms] = React.useState<Record<string, string>>({});
 
   const recaptchaRef = React.useRef<HTMLDivElement>(null);
+
+  React.useEffect(() => {
+    setUtms(captureUtmsFromUrl());
+  }, []);
 
   React.useEffect(() => {
     // Explicitly render reCAPTCHA when the component mounts
@@ -64,7 +109,11 @@ export const Contact: React.FC = () => {
         },
         body: JSON.stringify({
           ...data,
-          recaptchaToken: recaptchaResponse
+          recaptchaToken: recaptchaResponse,
+          ...utms,
+          liFatId: readCookie('li_fat_id'),
+          pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
+          referrer: typeof document !== 'undefined' ? document.referrer : undefined,
         }),
       });
 

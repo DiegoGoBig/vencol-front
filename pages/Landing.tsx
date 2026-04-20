@@ -17,12 +17,23 @@ export const Landing: React.FC = () => {
             />
             
             {/* 1. Hero Section */}
-            <section className="relative pt-16 pb-20 overflow-hidden">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <section className="relative pt-16 pb-20 overflow-hidden" id="asesoria">
+                {/* Background Image & Overlay */}
+                <div className="absolute inset-0 z-0">
+                    <img 
+                        src={home.hero.images[2]} 
+                        alt="Background" 
+                        className="w-full h-full object-cover opacity-100"
+                    />
+                    <div className="absolute inset-0 bg-brand-dark/80 backdrop-blur-[2px]" />
+                    <div className="absolute inset-0 bg-gradient-to-b from-brand-dark/20 via-transparent to-brand-dark" />
+                </div>
+
+                <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div className="relative z-10">
                             <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-brand-green uppercase border border-brand-green/30 rounded-full bg-brand-green/10">
-                                Eficiencia en Empaque 2024
+                                Eficiencia en Empaque 2026
                             </span>
                             <h1 className="text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
                                 Lo que no se ve en el empaque es lo que más le está costando a <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-lime-300">tu negocio.</span>
@@ -31,23 +42,105 @@ export const Landing: React.FC = () => {
                                 Optimice su cadena de suministro de proteínas con ingeniería de empaque de precisión y cumplimiento normativo internacional.
                             </p>
                             <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                                <a href="#asesoria" className="glass-button px-8 py-4 rounded-full text-white font-bold hover:bg-brand-green/90 hover:!border-brand-green transition-all flex items-center justify-center group shadow-lg shadow-brand-green/20">
-                                    AGENDAR ASESORÍA GRATUITA
-                                    <ArrowRight className="ml-2 h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                                </a>
                                 <div className="flex items-center gap-2 text-sm font-semibold text-gray-300">
-                                    <CheckCircle2 className="w-5 h-5 text-brand-green" />
-                                    <span className="max-w-[150px] leading-tight">CERTIFICADOS POR INVIMA O GLOBALGAP</span>
+                                    {/* <CheckCircle2 className="w-5 h-5 text-brand-green" />
+                                    <span className="max-w-[200px] leading-tight">ASESORÍA TÉCNICA ESPECIALIZADA</span> */}
                                 </div>
                             </div>
                         </div>
-                        <div className="relative h-[400px] lg:h-[600px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 group">
-                            <div className="absolute inset-0 bg-brand-dark/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
-                            <img 
-                                src={home.hero.images[0]} 
-                                alt="Warehouse" 
-                                className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
-                            />
+                        <div className="relative z-10">
+                            <GlassCard className="bg-white/5 border border-white/10 backdrop-blur-xl p-8 !rounded-3xl shadow-2xl">
+                                <h3 className="text-2xl font-bold text-white mb-2">Agenda tu asesoría técnica gratuita</h3>
+                                <p className="text-sm text-gray-400 mb-8">Nuestros ingenieros analizarán tu línea de empaque sin costo.</p>
+                                
+                                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+                                    <div>
+                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Nombre completo</label>
+                                        <input 
+                                            type="text" 
+                                            placeholder="Ej. Juan Pérez"
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                        />
+                                    </div>
+                                    <div className="grid grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Empresa</label>
+                                            <input 
+                                                type="text" 
+                                                placeholder="Nombre de Cía."
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Cargo</label>
+                                            <input 
+                                                type="text" 
+                                                placeholder="Ej. Gerente Planta"
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Correo corporativo</label>
+                                        <input 
+                                            type="email" 
+                                            placeholder="jperez@empresa.com"
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                        />
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Whatsapp de contacto</label>
+                                        <div className="flex gap-2">
+                                            <input 
+                                                type="text" 
+                                                value="+57"
+                                                disabled
+                                                className="w-16 bg-white/10 border border-white/10 rounded-xl px-3 py-3 text-gray-300 text-center cursor-not-allowed"
+                                            />
+                                            <input 
+                                                type="tel" 
+                                                placeholder="300 000 0000"
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                            />
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Producto de interés</label>
+                                        <div className="relative">
+                                            <select 
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors appearance-none cursor-pointer"
+                                                defaultValue=""
+                                            >
+                                                <option value="" disabled>Seleccione una opción</option>
+                                                <option value="Almohadillas" className="bg-zinc-900">Almohadillas</option>
+                                                <option value="Empaque flexible" className="bg-zinc-900">Empaque flexible</option>
+                                            </select>
+                                            <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-brand-green">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Tu mayor reto (opcional)</label>
+                                        <textarea 
+                                            placeholder="¿Qué problema buscas resolver?"
+                                            rows={3}
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors resize-none"
+                                        ></textarea>
+                                    </div>
+
+                                    <button type="submit" className="w-full bg-brand-green hover:bg-lime-500 text-brand-dark font-bold py-4 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 group mt-4">
+                                        AGENDAR ASESORÍA
+                                        {/* <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /> */}
+                                    </button>
+
+                                    <p className="text-[10px] text-gray-500 text-center uppercase tracking-wider mt-4">
+                                        Al enviar, aceptas nuestras políticas de tratamiento de datos.
+                                    </p>
+                                </form>
+                            </GlassCard>
                         </div>
                     </div>
                 </div>
@@ -86,7 +179,7 @@ export const Landing: React.FC = () => {
                   </section>
 
             {/* 3. Problem & Form Section */}
-            <section className="py-24 relative overflow-hidden z-10" id="asesoria">
+            <section className="py-24 relative overflow-hidden z-10">
                 <div className="absolute -left-40 top-40 w-96 h-96 bg-red-900/10 rounded-full blur-[100px] pointer-events-none" />
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
@@ -146,88 +239,31 @@ export const Landing: React.FC = () => {
                                             <p className="text-gray-400 text-sm">Quiebres de stock en insumos críticos que paralizan su línea de producción.</p>
                                         </div>
                                     </div>
-                                </div>
+                                </div>                                
                             </div>                           
                         </div>
 
-                        {/* Right Column: Sticky Form (Takes 5 columns) */}
+                        {/* Right Column: Visual Anchor (Sticky Image) */}
                         <div className="lg:col-span-5">
-                            <div className="sticky top-24">
-                                <GlassCard className="bg-white/5 border border-white/10 backdrop-blur-xl p-8 !rounded-3xl shadow-2xl">
-                                    <h3 className="text-2xl font-bold text-white mb-2">Agenda tu asesoría técnica gratuita</h3>
-                                    <p className="text-sm text-gray-400 mb-8">Nuestros ingenieros analizarán tu línea de empaque sin costo.</p>
-                                    
-                                    <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
-                                        <div>
-                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Nombre completo</label>
-                                            <input 
-                                                type="text" 
-                                                placeholder="Ej. Juan Pérez"
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
-                                            />
-                                        </div>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            <div>
-                                                <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Empresa</label>
-                                                <input 
-                                                    type="text" 
-                                                    placeholder="Nombre de Cía."
-                                                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
-                                                />
-                                            </div>
-                                            <div>
-                                                <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Cargo</label>
-                                                <input 
-                                                    type="text" 
-                                                    placeholder="Ej. Gerente Planta"
-                                                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Correo corporativo</label>
-                                            <input 
-                                                type="email" 
-                                                placeholder="jperez@empresa.com"
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
-                                            />
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Whatsapp de contacto</label>
-                                            <div className="flex gap-2">
-                                                <input 
-                                                    type="text" 
-                                                    value="+57"
-                                                    disabled
-                                                    className="w-16 bg-white/10 border border-white/10 rounded-xl px-3 py-3 text-gray-300 text-center cursor-not-allowed"
-                                                />
-                                                <input 
-                                                    type="tel" 
-                                                    placeholder="300 000 0000"
-                                                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
-                                                />
-                                            </div>
-                                        </div>
-                                        <div>
-                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Tu mayor reto (opcional)</label>
-                                            <textarea 
-                                                placeholder="¿Qué problema buscas resolver?"
-                                                rows={3}
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors resize-none"
-                                            ></textarea>
-                                        </div>
-
-                                        <button type="submit" className="w-full bg-brand-green hover:bg-lime-500 text-brand-dark font-bold py-4 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 group mt-4">
-                                            QUIERO MI ASESORÍA GRATUITA
-                                            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-                                        </button>
-
-                                        <p className="text-[10px] text-gray-500 text-center uppercase tracking-wider mt-4">
-                                            Al enviar, aceptas nuestras políticas de tratamiento de datos.
-                                        </p>
-                                    </form>
-                                </GlassCard>
+                            <div className="sticky top-12">
+                                <div className="relative h-[400px] lg:h-[600px] rounded-[2rem] overflow-hidden shadow-2xl border border-white/10 group">
+                                    <div className="absolute inset-0 bg-brand-dark/20 group-hover:bg-transparent transition-colors duration-500 z-10" />
+                                    <img 
+                                        src={home.hero.images[0]} 
+                                        alt="Warehouse" 
+                                        className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700"
+                                    />
+                                </div>
                             </div>
+                            {/* Link to Form CTA */}
+                                <div className="mt-12 pt-8 border-t border-white/10">
+                                    <a href="#asesoria" className="inline-flex items-center gap-2 bg-brand-green hover:bg-lime-500 text-brand-dark font-bold px-8 py-4 rounded-xl transition-all hover:scale-105 shadow-lg shadow-brand-green/20 group">
+                                        AGENDAR ASESORÍA                                        
+                                    </a>
+                                    <p className="mt-4 text-xs text-gray-500 uppercase tracking-widest font-bold">
+                                        
+                                    </p>
+                                </div>
                         </div>
 
                     </div>
@@ -343,7 +379,13 @@ export const Landing: React.FC = () => {
                                 Si tienes una visita de auditoría, podemos respaldarte con la documentación técnica necesaria.
                             </p>
                         </GlassCard>
-                    </div>                    
+                    </div>
+
+                    <div className="flex justify-center mt-16">
+                        <a href="#asesoria" className="inline-flex items-center gap-2 bg-brand-green hover:bg-lime-500 text-brand-dark font-bold px-10 py-5 rounded-xl transition-all hover:scale-105 shadow-xl shadow-brand-green/20 group">
+                            AGENDAR ASESORÍA                            
+                        </a>
+                    </div>
                 </div>
             </section>
 
@@ -432,7 +474,7 @@ export const Landing: React.FC = () => {
                         Hable hoy con un experto en cadena de frío y optimización de materiales.
                     </p>
                     <a href="#asesoria" className="inline-block bg-brand-green hover:bg-lime-500 text-brand-dark font-bold px-10 py-5 rounded-xl transition-all hover:scale-105 shadow-[0_0_30px_rgba(86,181,1,0.2)]">
-                        SOLICITAR ANÁLISIS TÉCNICO
+                        AGENDAR ASESORÍA    
                     </a>
                 </div>
             </section>

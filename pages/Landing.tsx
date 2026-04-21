@@ -1,12 +1,156 @@
-import React, { useState } from 'react';
-import { ArrowRight, CheckCircle2, Shield, Clock, Eye, AlertTriangle, Check, FileCheck, Truck, Cog, MessageSquare, Star } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { ArrowRight, CheckCircle2, Shield, Clock, Eye, AlertTriangle, Check, FileCheck, Truck, Cog, MessageSquare, Star, Send } from 'lucide-react';
 import { GlassCard } from '../components/ui/GlassCard';
 import { siteContent } from '../data/data';
 import { SEO } from '../components/SEO';
 import { Link } from 'react-router-dom';
 
+const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content'] as const;
+type UtmKey = typeof UTM_KEYS[number];
+const UTM_STORAGE_KEY = 'vencol_utm';
+
+const captureUtmsFromUrl = (): Record<UtmKey, string> => {
+  if (typeof window === 'undefined') return {} as Record<UtmKey, string>;
+  const params = new URLSearchParams(window.location.search);
+  const fromUrl: Partial<Record<UtmKey, string>> = {};
+  UTM_KEYS.forEach((key) => {
+    const val = params.get(key);
+    if (val) fromUrl[key] = val;
+  });
+
+  let stored: Partial<Record<UtmKey, string>> = {};
+  try {
+    const raw = sessionStorage.getItem(UTM_STORAGE_KEY);
+    if (raw) stored = JSON.parse(raw);
+  } catch {
+    stored = {};
+  }
+
+  if (Object.keys(fromUrl).length > 0) {
+    try {
+      sessionStorage.setItem(UTM_STORAGE_KEY, JSON.stringify(fromUrl));
+    } catch {
+      // ignore quota errors
+    }
+    return { ...stored, ...fromUrl } as Record<UtmKey, string>;
+  }
+  return stored as Record<UtmKey, string>;
+};
+
+const readCookie = (name: string): string | undefined => {
+  if (typeof document === 'undefined') return undefined;
+  const match = document.cookie
+    .split('; ')
+    .find((row) => row.startsWith(`${name}=`));
+  return match ? decodeURIComponent(match.split('=')[1]) : undefined;
+};
+
 export const Landing: React.FC = () => {
     const { home } = siteContent;
+    const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
+    const [errorMessage, setErrorMessage] = useState('');
+    const [utms, setUtms] = useState<Record<string, string>>({});
+    const recaptchaRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        setUtms(captureUtmsFromUrl());
+    }, []);
+
+    useEffect(() => {
+        const renderRecaptcha = () => {
+            if ((window as any).grecaptcha && recaptchaRef.current) {
+                try {
+                    (window as any).grecaptcha.render(recaptchaRef.current, {
+                        sitekey: '6Lcrzo0sAAAAALxW-ABUWMU11aS-fpGDoa7cWItp',
+                    });
+                } catch {
+                    // already rendered
+                }
+            }
+        };
+
+        if ((window as any).grecaptcha) {
+            renderRecaptcha();
+        } else {
+            const checkInterval = setInterval(() => {
+                if ((window as any).grecaptcha) {
+                    renderRecaptcha();
+                    clearInterval(checkInterval);
+                }
+            }, 500);
+            return () => clearInterval(checkInterval);
+        }
+    }, []);
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setStatus('loading');
+        setErrorMessage('');
+
+        const recaptchaResponse = (window as any).grecaptcha?.getResponse();
+        if (!recaptchaResponse) {
+            setStatus('error');
+            setErrorMessage('Por favor, completa el reCAPTCHA.');
+            return;
+        }
+
+        const formData = new FormData(e.currentTarget);
+        const fullName = (formData.get('fullName') as string || '').trim();
+        const nameParts = fullName.split(' ');
+        const firstName = nameParts[0] || fullName;
+        const lastName = nameParts.slice(1).join(' ') || firstName;
+
+        const empresa = formData.get('empresa') as string || '';
+        const cargo = formData.get('cargo') as string || '';
+        const phone = formData.get('phone') as string || '';
+        const producto = formData.get('producto') as string || '';
+        const reto = formData.get('reto') as string || '';
+        const email = formData.get('email') as string || '';
+
+        const messageParts = [
+            empresa && `Empresa: ${empresa}`,
+            cargo && `Cargo: ${cargo}`,
+            phone && `WhatsApp: +57 ${phone}`,
+            reto && `Mayor reto: ${reto}`,
+        ].filter(Boolean);
+
+        try {
+            const res = await fetch('/api/send-email', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    firstName,
+                    lastName,
+                    email,
+                    topic: producto || 'Asesoría Técnica',
+                    message: messageParts.join('\n') || 'Sin detalles adicionales.',
+                    recaptchaToken: recaptchaResponse,
+                    ...utms,
+                    liFatId: readCookie('li_fat_id'),
+                    pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
+                    referrer: typeof document !== 'undefined' ? document.referrer : undefined,
+                }),
+            });
+
+            if (res.ok) {
+                setStatus('success');
+                if (typeof (window as any).gtag === 'function') {
+                    (window as any).gtag('event', 'landing_form_submit', {
+                        event_category: 'Lead',
+                        event_label: 'Landing Asesoria Form',
+                    });
+                }
+                (window as any).grecaptcha?.reset();
+            } else {
+                const err = await res.json().catch(() => ({ message: 'Error en el servidor.' }));
+                setStatus('error');
+                setErrorMessage(err.message || 'Hubo un error al enviar. Inténtalo de nuevo.');
+            }
+        } catch {
+            setStatus('error');
+            setErrorMessage('Error de conexión. Inténtalo de nuevo más tarde.');
+        }
+    };
 
     return (
         <div className="relative z-10 pt-20">
@@ -52,12 +196,29 @@ export const Landing: React.FC = () => {
                             <GlassCard className="bg-white/5 border border-white/10 backdrop-blur-xl p-8 !rounded-3xl shadow-2xl">
                                 <h3 className="text-2xl font-bold text-white mb-2">Agenda tu asesoría técnica gratuita</h3>
                                 <p className="text-sm text-gray-400 mb-8">Nuestros ingenieros analizarán tu línea de empaque sin costo.</p>
-                                
-                                <form className="space-y-5" onSubmit={(e) => e.preventDefault()}>
+
+                                {status === 'success' ? (
+                                    <div className="text-center py-12">
+                                        <div className="w-16 h-16 bg-brand-green rounded-full flex items-center justify-center mx-auto mb-6">
+                                            <Send className="text-brand-dark w-8 h-8" />
+                                        </div>
+                                        <h3 className="text-2xl font-bold text-white mb-4">¡Asesoría Agendada!</h3>
+                                        <p className="text-gray-400 mb-8">Un ingeniero de Vencol se comunicará contigo muy pronto.</p>
+                                        <button
+                                            onClick={() => setStatus('idle')}
+                                            className="bg-brand-green text-brand-dark font-bold px-8 py-3 rounded-xl hover:bg-lime-500 transition-all"
+                                        >
+                                            Enviar otra solicitud
+                                        </button>
+                                    </div>
+                                ) : (
+                                <form className="space-y-5" onSubmit={handleSubmit}>
                                     <div>
                                         <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Nombre completo</label>
-                                        <input 
-                                            type="text" 
+                                        <input
+                                            type="text"
+                                            name="fullName"
+                                            required
                                             placeholder="Ej. Juan Pérez"
                                             className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                         />
@@ -65,16 +226,20 @@ export const Landing: React.FC = () => {
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
                                             <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Empresa</label>
-                                            <input 
-                                                type="text" 
+                                            <input
+                                                type="text"
+                                                name="empresa"
+                                                required
                                                 placeholder="Nombre de Cía."
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                             />
                                         </div>
                                         <div>
                                             <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Cargo</label>
-                                            <input 
-                                                type="text" 
+                                            <input
+                                                type="text"
+                                                name="cargo"
+                                                required
                                                 placeholder="Ej. Gerente Planta"
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                             />
@@ -82,8 +247,10 @@ export const Landing: React.FC = () => {
                                     </div>
                                     <div>
                                         <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Correo corporativo</label>
-                                        <input 
-                                            type="email" 
+                                        <input
+                                            type="email"
+                                            name="email"
+                                            required
                                             placeholder="jperez@empresa.com"
                                             className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                         />
@@ -91,14 +258,16 @@ export const Landing: React.FC = () => {
                                     <div>
                                         <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Whatsapp de contacto</label>
                                         <div className="flex gap-2">
-                                            <input 
-                                                type="text" 
+                                            <input
+                                                type="text"
                                                 value="+57"
                                                 disabled
                                                 className="w-16 bg-white/10 border border-white/10 rounded-xl px-3 py-3 text-gray-300 text-center cursor-not-allowed"
                                             />
-                                            <input 
-                                                type="tel" 
+                                            <input
+                                                type="tel"
+                                                name="phone"
+                                                required
                                                 placeholder="300 000 0000"
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                             />
@@ -107,7 +276,9 @@ export const Landing: React.FC = () => {
                                     <div>
                                         <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Producto de interés</label>
                                         <div className="relative">
-                                            <select 
+                                            <select
+                                                name="producto"
+                                                required
                                                 className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors appearance-none cursor-pointer"
                                                 defaultValue=""
                                             >
@@ -124,22 +295,35 @@ export const Landing: React.FC = () => {
                                     </div>
                                     <div>
                                         <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Tu mayor reto (opcional)</label>
-                                        <textarea 
+                                        <textarea
+                                            name="reto"
                                             placeholder="¿Qué problema buscas resolver?"
                                             rows={3}
                                             className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors resize-none"
                                         ></textarea>
                                     </div>
 
-                                    <button type="submit" className="w-full bg-brand-green hover:bg-lime-500 text-brand-dark font-bold py-4 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 group mt-4">
-                                        AGENDAR ASESORÍA
-                                        {/* <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" /> */}
+                                    <div className="flex justify-center">
+                                        <div ref={recaptchaRef}></div>
+                                    </div>
+
+                                    {status === 'error' && (
+                                        <p className="text-red-400 text-sm font-medium text-center">{errorMessage}</p>
+                                    )}
+
+                                    <button
+                                        type="submit"
+                                        disabled={status === 'loading'}
+                                        className={`w-full bg-brand-green hover:bg-lime-500 text-brand-dark font-bold py-4 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 group mt-4 ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                    >
+                                        {status === 'loading' ? 'Enviando...' : 'AGENDAR ASESORÍA'}
                                     </button>
 
                                     <p className="text-[10px] text-gray-500 text-center uppercase tracking-wider mt-4">
                                         Al enviar, aceptas nuestras políticas de tratamiento de datos.
                                     </p>
                                 </form>
+                                )}
                             </GlassCard>
                         </div>
                     </div>

@@ -118,14 +118,16 @@ export default async function handler(
   }
 
   // 4. Fire LinkedIn conversion event (non-blocking for the user response)
+  console.log('[LinkedIn] payload:', { email: email ? `${email.slice(0,3)}***` : 'MISSING', firstName, lastName, liFatId: liFatId || 'MISSING' });
   const linkedInResult = await sendLinkedInConversion({
     email,
     firstName,
     lastName,
     liFatId,
   });
+  console.log('[LinkedIn] result:', JSON.stringify(linkedInResult));
   if (!linkedInResult.ok) {
-    console.error('LinkedIn conversion failed:', linkedInResult);
+    console.error('[LinkedIn] conversion failed:', linkedInResult);
   }
 
   // 5. TODO: persist lead to Excel (pending backend decision from user)

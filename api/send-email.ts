@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
-import { sendLinkedInConversion } from './_lib/linkedin';
+import { sendLinkedInConversion } from './_lib/linkedin.js';
 
 interface ContactPayload {
   firstName?: string;

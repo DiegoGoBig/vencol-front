@@ -101,43 +101,43 @@ export const Contact: React.FC = () => {
     const formData = new FormData(e.currentTarget);
     const data = Object.fromEntries(formData.entries());
 
-    try {
-      const response = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          ...data,
-          recaptchaToken: recaptchaResponse,
-          ...utms,
-          liFatId: readCookie('li_fat_id'),
-          pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
-          referrer: typeof document !== 'undefined' ? document.referrer : undefined,
-        }),
-      });
-
-      if (response.ok) {
-        setStatus('success');
-        // Track GA4 Event
-        if (typeof (window as any).gtag === 'function') {
-          (window as any).gtag('event', 'contact_form_submit', {
-            'event_category': 'Contact',
-            'event_label': 'Contact Form'
-          });
-        }
-        // Reset reCAPTCHA
-        (window as any).grecaptcha?.reset();
-      } else {
-        const errorData = await response.json().catch(() => ({ message: 'Error en el servidor.' }));
-        setStatus('error');
-        setErrorMessage(errorData.message || 'Hubo un error al enviar el mensaje.');
-      }
-    } catch (error) {
-      console.error('Error submitting form:', error);
-      setStatus('error');
-      setErrorMessage('Error de conexión. Inténtalo de nuevo más tarde.');
-    }
+    // API connection disabled — uncomment to reactivate
+    // try {
+    //   const response = await fetch('/api/send-email', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({
+    //       ...data,
+    //       recaptchaToken: recaptchaResponse,
+    //       ...utms,
+    //       liFatId: readCookie('li_fat_id'),
+    //       pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
+    //       referrer: typeof document !== 'undefined' ? document.referrer : undefined,
+    //     }),
+    //   });
+    //   if (response.ok) {
+    //     setStatus('success');
+    //     if (typeof (window as any).gtag === 'function') {
+    //       (window as any).gtag('event', 'contact_form_submit', {
+    //         'event_category': 'Contact',
+    //         'event_label': 'Contact Form'
+    //       });
+    //     }
+    //     (window as any).grecaptcha?.reset();
+    //   } else {
+    //     const errorData = await response.json().catch(() => ({ message: 'Error en el servidor.' }));
+    //     setStatus('error');
+    //     setErrorMessage(errorData.message || 'Hubo un error al enviar el mensaje.');
+    //   }
+    // } catch (error) {
+    //   console.error('Error submitting form:', error);
+    //   setStatus('error');
+    //   setErrorMessage('Error de conexión. Inténtalo de nuevo más tarde.');
+    // }
+    setStatus('success');
+    (window as any).grecaptcha?.reset();
   };
 
   return (

@@ -16,6 +16,7 @@ interface LinkedInConversionPayload {
   liFatId?: string;
   conversionValue?: { currencyCode: string; amount: string };
   happenedAt?: number;
+  eventId?: string;
 }
 
 interface LinkedInConversionResult {
@@ -55,7 +56,7 @@ export async function sendLinkedInConversion(
   const body = {
     conversion: `urn:lla:llaPartnerConversion:${conversionId}`,
     conversionHappenedAt: payload.happenedAt ?? Date.now(),
-    conversionValue: payload.conversionValue ?? { currencyCode: 'USD', amount: '0' },
+    conversionValue: payload.conversionValue ?? { currencyCode: 'USD', amount: '0.0' },
     user: {
       userIds,
       ...(payload.firstName || payload.lastName
@@ -67,6 +68,7 @@ export async function sendLinkedInConversion(
           }
         : {}),
     },
+    eventId: payload.eventId ?? crypto.randomUUID(),
   };
 
   try {

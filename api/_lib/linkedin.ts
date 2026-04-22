@@ -1,7 +1,7 @@
 import crypto from 'crypto';
 
 const LINKEDIN_API_BASE = 'https://api.linkedin.com/rest/conversionEvents';
-const LINKEDIN_API_VERSION = '202408';
+const LINKEDIN_API_VERSION = '202504';
 
 type LinkedInUserId =
   | { idType: 'SHA256_EMAIL'; idValue: string }

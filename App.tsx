@@ -20,9 +20,9 @@ function ScrollToTop() {
   const { pathname } = useLocation();
   useEffect(() => {
     window.scrollTo(0, 0);
-    // Track page view in GA4
+    // Track page view in GTM (optional, GTM usually handles this automatically)
     if (typeof (window as any).gtag === 'function') {
-      (window as any).gtag('config', 'G-Q0KFRNTKJV', {
+      (window as any).gtag('event', 'page_view', {
         page_path: pathname,
       });
     }

@@ -1,50 +1,55 @@
+import { google } from 'googleapis';
 
 export async function appendToSheet(spreadsheetId: string, values: any[]) {
-  const apiKey = process.env.PAGESPEED_API_KEY || process.env.VITE_PAGESPEED_API_KEY;
-  
-  if (!apiKey) {
-    console.error('[Sheets] Missing Google API Key in environment variables');
-    return { ok: false, error: 'Missing API Key' };
-  }
-
-  // We use Sheet1!A1 as a starting point. The append logic will find the first empty row.
-  // Note: The sheet must be "Anyone with the link can edit" for an API Key to work.
-  const range = 'Sheet1!A1'; 
-  const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${range}:append?valueInputOption=USER_ENTERED&key=${apiKey}`;
-
   try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        values: [values],
-      }),
+    const base64Auth = process.env.GOOGLE_SERVICE_ACCOUNT;
+    if (!base64Auth) {
+      console.error('[Sheets] Missing GOOGLE_SERVICE_ACCOUNT environment variable');
+      return { ok: false, error: 'Missing Service Account' };
+    }
+
+    const credentials = JSON.parse(Buffer.from(base64Auth, 'base64').toString());
+
+    const auth = new google.auth.GoogleAuth({
+      credentials,
+      scopes: ['https://www.googleapis.com/auth/spreadsheets'],
     });
 
-    const data = await response.json();
+    const sheets = google.sheets({ version: 'v4', auth });
 
-    if (!response.ok) {
-      console.error('[Sheets] Google API Error:', JSON.stringify(data));
-      
-      // If Sheet1 doesn't exist, it might be "Hoja 1"
-      if (data.error?.message?.includes('Sheet1')) {
-          const fallbackUrl = url.replace('Sheet1', 'Hoja%201');
-          const fallbackRes = await fetch(fallbackUrl, {
-              method: 'POST',
-              headers: { 'Content-Type': 'application/json' },
-              body: JSON.stringify({ values: [values] }),
-          });
-          if (fallbackRes.ok) return { ok: true };
+    // Default range is Sheet1. We'll try to append.
+    // The Service Account must have "Editor" access to the Spreadsheet ID provided.
+    let range = 'Sheet1!A1';
+    
+    try {
+      await sheets.spreadsheets.values.append({
+        spreadsheetId,
+        range,
+        valueInputOption: 'USER_ENTERED',
+        requestBody: {
+          values: [values],
+        },
+      });
+    } catch (err: any) {
+      // Fallback for Spanish default sheet name
+      if (err.message?.includes('Sheet1')) {
+        range = 'Hoja 1!A1';
+        await sheets.spreadsheets.values.append({
+          spreadsheetId,
+          range,
+          valueInputOption: 'USER_ENTERED',
+          requestBody: {
+            values: [values],
+          },
+        });
+      } else {
+        throw err;
       }
-      
-      return { ok: false, error: data };
     }
 
     return { ok: true };
-  } catch (error) {
-    console.error('[Sheets] Fetch Error:', error);
+  } catch (error: any) {
+    console.error('[Sheets] Service Account Error:', error.message || error);
     return { ok: false, error };
   }
 }

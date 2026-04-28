@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
 import { sendLinkedInConversion } from './_lib/linkedin.js';
+import { appendToSheet } from './_lib/sheets.js';
 
 interface ContactPayload {
   firstName?: string;
@@ -130,10 +131,36 @@ export default async function handler(
     console.error('[LinkedIn] conversion failed:', linkedInResult);
   }
 
-  // 5. TODO: persist lead to Excel (pending backend decision from user)
+  // 5. Persist lead to Google Sheets
+  const spreadsheetId = '1ARjwatClsCWcSzrCSZ66-fE89_34sEI8T86Cvk7p4_w';
+  const timestamp = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
+  const sheetValues = [
+    timestamp,
+    `${firstName} ${lastName}`,
+    email,
+    topic,
+    message,
+    utm_source || '',
+    utm_medium || '',
+    utm_campaign || '',
+    utm_content || '',
+    pageUrl || '',
+    referrer || ''
+  ];
+
+  try {
+    const sheetResult = await appendToSheet(spreadsheetId, sheetValues);
+    if (!sheetResult.ok) {
+      console.error('[Sheets] Failed to append:', sheetResult.error);
+    } else {
+      console.log('[Sheets] Lead appended successfully');
+    }
+  } catch (err) {
+    console.error('[Sheets] Integration error:', err);
+  }
 
   return response.status(200).json({
-    message: 'Email sent successfully',
+    message: 'Email sent and lead captured successfully',
     linkedIn: linkedInResult.ok ? 'tracked' : 'skipped',
   });
 }

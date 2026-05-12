@@ -161,7 +161,7 @@ export const Landing: React.FC = () => {
             />
             
             {/* 1. Hero Section */}
-            <section className="relative pt-16 pb-20 overflow-hidden" id="asesoria">
+            <section className="relative pt-10 pb-12 overflow-hidden" id="asesoria">
                 {/* Background Image & Overlay */}
                 <div className="absolute inset-0 z-0">
                     <img 
@@ -176,26 +176,33 @@ export const Landing: React.FC = () => {
                 <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                         <div className="relative z-10">
-                            <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-brand-green uppercase border border-brand-green/30 rounded-full bg-brand-green/10">
-                                Eficiencia en Empaque 2026
-                            </span>
-                            <h1 className="text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
-                                Lo que no se ve en el empaque es lo que más le está costando a <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-lime-300">tu negocio.</span>
-                            </h1>
-                            <p className="text-xl text-gray-300 mb-8 leading-relaxed max-w-lg">
+                            <div className="text-center lg:text-left mb-10">
+                                <h3 className="text-2xl md:text-3xl font-bold text-white">
+                                    <span className="text-brand-green text-3xl md:text-4xl mr-2">{home.partners.stats.value}</span>
+                                </h3>
+                                <h3 className="text-2xl md:text-3xl font-bold text-white">
+                                    {home.partners.stats.text}
+                                </h3>
+                                <br />
+                                <p className="text-glass-muted mt-2">{home.partners.subtitle}</p>
+                            </div>
+
+                            <div className="flex flex-wrap justify-center lg:justify-start gap-4 py-2">
+                                {home.partners.logos.map((logo, index) => (
+                                    <div key={`hero-partner-${index}`} className="w-28 h-28 bg-white rounded-xl flex items-center justify-center p-4 border border-white/5 shadow-lg shadow-black/20">
+                                        <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain" />
+                                    </div>
+                                ))}
+                            </div>
+
+                            <p className="mt-8 text-lg text-gray-300 leading-relaxed max-w-lg text-center lg:text-left mx-auto lg:mx-0">
                                 Optimice su cadena de suministro de proteínas con ingeniería de empaque de precisión y cumplimiento normativo internacional.
                             </p>
-                            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6">
-                                <div className="flex items-center gap-2 text-sm font-semibold text-gray-300">
-                                    {/* <CheckCircle2 className="w-5 h-5 text-brand-green" />
-                                    <span className="max-w-[200px] leading-tight">ASESORÍA TÉCNICA ESPECIALIZADA</span> */}
-                                </div>
-                            </div>
                         </div>
                         <div className="relative z-10">
-                            <GlassCard className="bg-white/5 border border-white/10 backdrop-blur-xl p-8 !rounded-3xl shadow-2xl">
-                                <h3 className="text-2xl font-bold text-white mb-2">Agenda tu asesoría técnica gratuita</h3>
-                                <p className="text-sm text-gray-400 mb-8">Nuestros ingenieros analizarán tu línea de empaque sin costo.</p>
+                            <GlassCard className="bg-white/5 border border-white/10 backdrop-blur-xl p-6 !rounded-3xl shadow-2xl">
+                                <h3 className="text-xl font-bold text-white mb-1">Agenda tu asesoría técnica gratuita</h3>
+                                <p className="text-xs text-gray-400 mb-4">Nuestros ingenieros analizarán tu línea de empaque sin costo.</p>
 
                                 {status === 'success' ? (
                                     <div className="text-center py-12">
@@ -212,74 +219,76 @@ export const Landing: React.FC = () => {
                                         </button>
                                     </div>
                                 ) : (
-                                <form className="space-y-5" onSubmit={handleSubmit}>
+                                <form className="space-y-3" onSubmit={handleSubmit}>
                                     <div>
-                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Nombre completo</label>
+                                        <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Nombre completo</label>
                                         <input
                                             type="text"
                                             name="fullName"
                                             required
                                             placeholder="Ej. Juan Pérez"
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                         />
                                     </div>
                                     <div className="grid grid-cols-2 gap-4">
                                         <div>
-                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Empresa</label>
+                                            <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Empresa</label>
                                             <input
                                                 type="text"
                                                 name="empresa"
                                                 required
                                                 placeholder="Nombre de Cía."
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Cargo</label>
+                                            <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Cargo</label>
                                             <input
                                                 type="text"
                                                 name="cargo"
                                                 required
                                                 placeholder="Ej. Gerente Planta"
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                             />
                                         </div>
                                     </div>
-                                    <div>
-                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Correo corporativo</label>
-                                        <input
-                                            type="email"
-                                            name="email"
-                                            required
-                                            placeholder="jperez@empresa.com"
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
-                                        />
-                                    </div>
-                                    <div>
-                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Whatsapp de contacto</label>
-                                        <div className="flex gap-2">
+                                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                        <div>
+                                            <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Correo corporativo</label>
                                             <input
-                                                type="text"
-                                                value="+57"
-                                                disabled
-                                                className="w-16 bg-white/10 border border-white/10 rounded-xl px-3 py-3 text-gray-300 text-center cursor-not-allowed"
-                                            />
-                                            <input
-                                                type="tel"
-                                                name="phone"
+                                                type="email"
+                                                name="email"
                                                 required
-                                                placeholder="300 000 0000"
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                                placeholder="jperez@empresa.com"
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
                                             />
+                                        </div>
+                                        <div>
+                                            <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Whatsapp de contacto</label>
+                                            <div className="flex gap-2">
+                                                <input
+                                                    type="text"
+                                                    value="+57"
+                                                    disabled
+                                                    className="w-12 bg-white/10 border border-white/10 rounded-xl px-1 py-2.5 text-sm text-gray-300 text-center cursor-not-allowed"
+                                                />
+                                                <input
+                                                    type="tel"
+                                                    name="phone"
+                                                    required
+                                                    placeholder="300 000 0000"
+                                                    className="w-full min-w-0 bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
+                                                />
+                                            </div>
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Producto de interés</label>
+                                        <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Producto de interés</label>
                                         <div className="relative">
                                             <select
                                                 name="producto"
                                                 required
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors appearance-none cursor-pointer"
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors appearance-none cursor-pointer"
                                                 defaultValue=""
                                             >
                                                 <option value="" disabled>Seleccione una opción</option>
@@ -294,12 +303,12 @@ export const Landing: React.FC = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-xs font-bold text-brand-green uppercase tracking-wide mb-2">Tu mayor reto (opcional)</label>
+                                        <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Tu mayor reto (opcional)</label>
                                         <textarea
                                             name="reto"
                                             placeholder="¿Qué problema buscas resolver?"
-                                            rows={3}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors resize-none"
+                                            rows={2}
+                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors resize-none"
                                         ></textarea>
                                     </div>
 
@@ -314,12 +323,12 @@ export const Landing: React.FC = () => {
                                     <button
                                         type="submit"
                                         disabled={status === 'loading'}
-                                        className={`w-full bg-brand-green hover:bg-lime-500 text-brand-dark font-bold py-4 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 group mt-4 ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
+                                        className={`w-full bg-brand-green hover:bg-lime-500 text-brand-dark font-bold py-3 px-6 rounded-xl transition-colors flex justify-center items-center gap-2 group mt-1 ${status === 'loading' ? 'opacity-70 cursor-not-allowed' : ''}`}
                                     >
                                         {status === 'loading' ? 'Enviando...' : 'AGENDAR ASESORÍA'}
                                     </button>
 
-                                    <p className="text-[10px] text-gray-500 text-center uppercase tracking-wider mt-4">
+                                    <p className="text-[10px] text-gray-500 text-center uppercase tracking-wider mt-2">
                                         Al enviar, aceptas nuestras políticas de tratamiento de datos.
                                     </p>
                                 </form>
@@ -330,37 +339,97 @@ export const Landing: React.FC = () => {
                 </div>
             </section>
 
-            {/* 2. Partners / Allies Section (From Home) */}
-            <section className="py-16 border-y border-white/5 bg-black/20 backdrop-blur-sm relative overflow-hidden">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-10">
-                       <h3 className="text-2xl md:text-3xl font-bold text-white">
-                         <span className="text-brand-green text-3xl md:text-4xl mr-2">{home.partners.stats.value}</span>              
-                       </h3>
-                       <h3 className="text-2xl md:text-3xl font-bold text-white">             
-                        {home.partners.stats.text}
-                      </h3>
-                       <br></br>
-                       <p className="text-glass-muted mt-2">{home.partners.subtitle}</p>
-                    </div>
+            {/* Testimonials Section (New) */}
+            <section className="py-12 relative overflow-hidden bg-gradient-to-b from-brand-dark to-zinc-900">
+                {/* Background glow */}
+                <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-zinc-600/10 rounded-full blur-[100px] pointer-events-none"></div>
+
+                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
                     
-                    <div className="relative flex overflow-x-hidden group">
-                      <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10"></div>
-                      <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-brand-dark to-transparent z-10"></div>
-                      
-                      <div className="animate-marquee whitespace-nowrap flex gap-16 items-center py-4">
-                         {/* Repeat logos multiple times to ensure infinite loop coverage on large screens with few logos */}
-                         {[...Array(8)].map((_, i) => (
-                            <React.Fragment key={i}>
-                              {home.partners.logos.map((logo, index) => (
-                                  <div key={`p-${i}-${index}`} className="flex-shrink-0 w-32 h-32 bg-white rounded-xl flex items-center justify-center p-4 transition-colors border border-white/5 grayscale hover:grayscale-0 hover:opacity-100 duration-300">
-                                    <img src={logo} alt="Partner Logo" className="max-h-full max-w-full object-contain" />
-                                  </div>
-                              ))}
-                            </React.Fragment>
-                         ))}
-                      </div>
+                    {/* Left Column: Text */}
+                    <div className="relative z-10">
+                    <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-white text-xs font-bold tracking-wider backdrop-blur-md mb-6 uppercase">
+                        <MessageSquare className="w-3 h-3 mr-2" /> 
+                        {home.testimonials.badge}
                     </div>
-                  </section>
+                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+                        {home.testimonials.title.prefix} <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-brand-green">{home.testimonials.title.highlight}</span>{home.testimonials.title.suffix}
+                    </h2>
+                    <p className="text-glass-muted text-lg mb-8 max-w-lg">
+                        {home.testimonials.description}
+                    </p>
+
+                    {/* Clients Marquee */}
+                    <div className="mt-8 relative w-full overflow-hidden group">
+                        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10"></div>
+                        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-transparent to-transparent z-10"></div>
+                        
+                        <div className="animate-marquee whitespace-nowrap flex gap-8 items-center py-4">
+                        {/* Repeat clients multiple times for infinite loop */}
+                        {[...Array(6)].map((_, i) => (
+                            <React.Fragment key={i}>
+                            {(home.testimonials as any).clients?.map((client: string, index: number) => (
+                                <div key={`c-${i}-${index}`} className="flex-shrink-0 w-32 h-20 bg-white rounded-xl flex items-center justify-center p-4 border  transition-colors duration-300">
+                                <img src={client} alt="Cliente" className="max-h-full max-w-full object-contain" />
+                                </div>
+                            ))}
+                            </React.Fragment>
+                        ))}
+                        </div>
+                    </div>
+                    </div>
+
+                    {/* Right Column: Cards */}
+                    <div className="flex flex-col md:flex-row gap-6 relative">
+                        {/* Decorative Element */}
+                        {home.testimonials.items.map((testimonial, idx) => (
+                        <div key={testimonial.id} className={`relative z-10 flex-1 md:mt-12`}>
+                            <GlassCard className="bg-zinc-800/40 backdrop-blur-xl border-white/5 h-full">
+                                <div className="flex gap-1 text-yellow-400 mb-6">
+                                {[...Array(testimonial.rating)].map((_, i) => (
+                                    <Star key={i} className="w-4 h-4 fill-current" />
+                                ))}
+                                </div>
+                                <p className="text-gray-300 italic mb-8 text-sm leading-relaxed min-h-[80px]">
+                                "{testimonial.text}"
+                                </p>
+                                <div className="flex items-center gap-4 mt-auto">
+                                <img 
+                                    src={testimonial.image} 
+                                    alt={testimonial.name} 
+                                    className="w-12 h-12 rounded-full object-cover border-2 border-white/10"
+                                />
+                                <div>
+                                    <h4 className="font-bold text-white text-sm">{testimonial.name}</h4>
+                                    <span className="text-[10px] text-brand-green uppercase font-bold tracking-wider block">{testimonial.role}</span>
+                                    <span className="text-[10px] text-gray-500 uppercase tracking-wider block">{testimonial.company}</span>
+                                </div>
+                                </div>
+                            </GlassCard>
+                        </div>
+                        ))}
+                    </div>
+                </div>
+                </div>
+            </section>
+
+            {/* 2. Hero Headline Section */}
+            <section className="py-16 border-y border-white/5 bg-black/20 backdrop-blur-sm relative overflow-hidden">
+                <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+                    <span className="inline-block px-4 py-1.5 mb-6 text-xs font-bold tracking-widest text-brand-green uppercase border border-brand-green/30 rounded-full bg-brand-green/10">
+                        Eficiencia en Empaque 2026
+                    </span>
+                    <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-6">
+                        Lo que no se ve en el empaque es lo que más le está costando a <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-green to-lime-300">tu negocio.</span>
+                    </h1>
+                    <p className="text-xl text-gray-300 leading-relaxed max-w-2xl mx-auto">
+                        Optimice su cadena de suministro de proteínas con ingeniería de empaque de precisión y cumplimiento normativo internacional.
+                    </p>
+                </div>
+            </section>
+
+            
 
             {/* 3. Problem & Form Section */}
             <section className="py-24 relative overflow-hidden z-10">
@@ -373,7 +442,7 @@ export const Landing: React.FC = () => {
                             
                             {/* Problem */}
                             <div>
-                                <span className="text-brand-green font-bold text-sm tracking-widest uppercase mb-4 block">El Problema</span>
+                                {/* <span className="text-brand-green font-bold text-sm tracking-widest uppercase mb-4 block">El Problema</span> */}
                                 <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">¿Cuánto le cuesta el empaque equivocado?</h2>
                                 <p className="text-gray-300 text-lg mb-8 leading-relaxed">
                                     En la industria de proteínas, un error de 0.5mm en el sellado o una micra menos en el calibre del film no es solo un detalle técnico; es la diferencia entre la rentabilidad y el desperdicio masivo.
@@ -392,7 +461,7 @@ export const Landing: React.FC = () => {
                                     </div>
                                 </div>
 
-                                <span className="text-brand-green font-bold text-sm tracking-widest uppercase mb-4 block">Diagnóstico Rápido</span>
+                                {/* <span className="text-brand-green font-bold text-sm tracking-widest uppercase mb-4 block">Diagnóstico Rápido</span> */}
                                 <h3 className="text-2xl font-bold text-white mb-6">¿Esto te suena familiar?</h3>
                                 
                                 <div className="space-y-6">
@@ -571,82 +640,7 @@ export const Landing: React.FC = () => {
                         </a>
                     </div>
                 </div>
-            </section>
-
-            {/* Testimonials Section (New) */}
-            <section className="py-12 relative overflow-hidden bg-gradient-to-b from-brand-dark to-zinc-900">
-                {/* Background glow */}
-                <div className="absolute top-1/2 left-0 -translate-y-1/2 w-96 h-96 bg-zinc-600/10 rounded-full blur-[100px] pointer-events-none"></div>
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-                    
-                    {/* Left Column: Text */}
-                    <div className="relative z-10">
-                    <div className="inline-flex items-center px-4 py-1.5 rounded-full border border-white/10 bg-white/5 text-white text-xs font-bold tracking-wider backdrop-blur-md mb-6 uppercase">
-                        <MessageSquare className="w-3 h-3 mr-2" /> 
-                        {home.testimonials.badge}
-                    </div>
-                    <h2 className="text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
-                        {home.testimonials.title.prefix} <span className="text-transparent bg-clip-text bg-gradient-to-r from-gray-400 to-brand-green">{home.testimonials.title.highlight}</span>{home.testimonials.title.suffix}
-                    </h2>
-                    <p className="text-glass-muted text-lg mb-8 max-w-lg">
-                        {home.testimonials.description}
-                    </p>
-
-                    {/* Clients Marquee */}
-                    <div className="mt-8 relative w-full overflow-hidden group">
-                        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-brand-dark to-transparent z-10"></div>
-                        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-transparent to-transparent z-10"></div>
-                        
-                        <div className="animate-marquee whitespace-nowrap flex gap-8 items-center py-4">
-                        {/* Repeat clients multiple times for infinite loop */}
-                        {[...Array(6)].map((_, i) => (
-                            <React.Fragment key={i}>
-                            {(home.testimonials as any).clients?.map((client: string, index: number) => (
-                                <div key={`c-${i}-${index}`} className="flex-shrink-0 w-32 h-20 bg-white rounded-xl flex items-center justify-center p-4 border  transition-colors duration-300">
-                                <img src={client} alt="Cliente" className="max-h-full max-w-full object-contain" />
-                                </div>
-                            ))}
-                            </React.Fragment>
-                        ))}
-                        </div>
-                    </div>
-                    </div>
-
-                    {/* Right Column: Cards */}
-                    <div className="flex flex-col md:flex-row gap-6 relative">
-                        {/* Decorative Element */}
-                        {home.testimonials.items.map((testimonial, idx) => (
-                        <div key={testimonial.id} className={`relative z-10 flex-1 md:mt-12`}>
-                            <GlassCard className="bg-zinc-800/40 backdrop-blur-xl border-white/5 h-full">
-                                <div className="flex gap-1 text-yellow-400 mb-6">
-                                {[...Array(testimonial.rating)].map((_, i) => (
-                                    <Star key={i} className="w-4 h-4 fill-current" />
-                                ))}
-                                </div>
-                                <p className="text-gray-300 italic mb-8 text-sm leading-relaxed min-h-[80px]">
-                                "{testimonial.text}"
-                                </p>
-                                <div className="flex items-center gap-4 mt-auto">
-                                <img 
-                                    src={testimonial.image} 
-                                    alt={testimonial.name} 
-                                    className="w-12 h-12 rounded-full object-cover border-2 border-white/10"
-                                />
-                                <div>
-                                    <h4 className="font-bold text-white text-sm">{testimonial.name}</h4>
-                                    <span className="text-[10px] text-brand-green uppercase font-bold tracking-wider block">{testimonial.role}</span>
-                                    <span className="text-[10px] text-gray-500 uppercase tracking-wider block">{testimonial.company}</span>
-                                </div>
-                                </div>
-                            </GlassCard>
-                        </div>
-                        ))}
-                    </div>
-                </div>
-                </div>
-            </section>
+            </section>           
 
             {/* 6. Bottom CTA */}
             <section className="bg-gradient-to-b from-brand-dark to-zinc-950 py-24 mt-12 border-t border-white/5">

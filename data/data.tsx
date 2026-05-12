@@ -100,8 +100,8 @@ export const siteContent = {
     },
     partners: {
       stats: {
-        value: "Aliados Corporativos",
-        text: "confían en nosotros."
+        value: "Distribuidor Oficial",
+        text: "de las marcas lideres globales de empaques."
       },
       subtitle: "Tecnología de preservación probada por la industria.",
       logos: [

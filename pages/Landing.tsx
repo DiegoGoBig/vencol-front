@@ -129,6 +129,7 @@ export const Landing: React.FC = () => {
                     liFatId: readCookie('li_fat_id'),
                     pageUrl: typeof window !== 'undefined' ? window.location.href : undefined,
                     referrer: typeof document !== 'undefined' ? document.referrer : undefined,
+                    source: 'landing',
                 }),
             });
 

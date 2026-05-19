@@ -17,7 +17,10 @@ interface ContactPayload {
   liFatId?: string;
   pageUrl?: string;
   referrer?: string;
+  source?: string;
 }
+
+const LANDING_EXTRA_RECIPIENTS = ['diego@gobigagency.co','rolando.castiblanco@vencol.com', 'info@vencol.com'];
 
 export default async function handler(
   request: VercelRequest,
@@ -41,6 +44,7 @@ export default async function handler(
     liFatId,
     pageUrl,
     referrer,
+    source,
   } = (request.body || {}) as ContactPayload;
 
   if (!firstName || !lastName || !email || !topic || !message) {
@@ -81,10 +85,14 @@ export default async function handler(
   ].filter(Boolean) as string[];
 
   // 3. Send Email
+  const primaryRecipient = process.env.CONTACT_EMAIL || 'forms@cms.gobigagency.co';
+  const ccRecipients = source === 'landing' ? LANDING_EXTRA_RECIPIENTS : [];
+
   try {
     await transporter.sendMail({
       from: `"Vencol Website" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_EMAIL || 'forms@cms.gobigagency.co',
+      to: primaryRecipient,
+      cc: ccRecipients.length ? ccRecipients : undefined,
       subject: `Nuevo mensaje de contacto: ${topic}`,
       text: `
         Nombre: ${firstName} ${lastName}

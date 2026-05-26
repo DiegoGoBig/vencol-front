@@ -20,7 +20,7 @@ interface ContactPayload {
   source?: string;
 }
 
-const LANDING_EXTRA_RECIPIENTS = ['diego@gobigagency.co','rolando.castiblanco@vencol.com', 'info@vencol.com'];
+const LANDING_EXTRA_RECIPIENTS = ['diego@gobigagency.co','rolando.castiblanco@vencol.com', 'info@vencol.com', 'Alberto@vencol.com', 'michelle.mendez@gobigagency.co'];
 
 export default async function handler(
   request: VercelRequest,

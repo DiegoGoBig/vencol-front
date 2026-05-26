@@ -122,6 +122,7 @@ export const Landing: React.FC = () => {
                     firstName,
                     lastName,
                     email,
+                    phone,
                     topic: producto || 'Asesoría Técnica',
                     message: messageParts.join('\n') || 'Sin detalles adicionales.',
                     recaptchaToken: recaptchaResponse,

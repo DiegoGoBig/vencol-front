@@ -2,11 +2,16 @@ import type { VercelRequest, VercelResponse } from '@vercel/node';
 import nodemailer from 'nodemailer';
 import { sendLinkedInConversion } from './_lib/linkedin.js';
 import { appendToSheet } from './_lib/sheets.js';
+import { buildWelcomeEmail } from './_lib/welcome-email.js';
+import { sendHostingerReachContact } from './_lib/hostinger.js';
+
+const HOSTINGER_LANDING_NOTE = 'landing';
 
 interface ContactPayload {
   firstName?: string;
   lastName?: string;
   email?: string;
+  phone?: string;
   topic?: string;
   message?: string;
   recaptchaToken?: string;
@@ -34,6 +39,7 @@ export default async function handler(
     firstName,
     lastName,
     email,
+    phone,
     topic,
     message,
     recaptchaToken,
@@ -124,6 +130,37 @@ export default async function handler(
   } catch (error) {
     console.error('SMTP Error:', error);
     return response.status(500).json({ message: 'Error sending email' });
+  }
+
+  // 3b. Send welcome email to the lead (non-blocking — failure should not break the form flow)
+  try {
+    const welcome = buildWelcomeEmail(firstName);
+    await transporter.sendMail({
+      from: `"VENCOL" <${process.env.SMTP_USER}>`,
+      to: email,
+      subject: welcome.subject,
+      text: welcome.text,
+      html: welcome.html,
+    });
+    console.log('[Welcome] Sent to', email);
+  } catch (welcomeError) {
+    console.error('[Welcome] Failed to send welcome email:', welcomeError);
+  }
+
+  // 3c. Create contact in Hostinger Reach (landing form only — segment matches by note)
+  if (source === 'landing') {
+    const hostingerResult = await sendHostingerReachContact({
+      email,
+      firstName,
+      lastName,
+      phone,
+      note: HOSTINGER_LANDING_NOTE,
+    });
+    if (hostingerResult.ok) {
+      console.log('[Hostinger] Contact created for', email);
+    } else {
+      console.error('[Hostinger] Failed:', hostingerResult.status, hostingerResult.error);
+    }
   }
 
   // 4. Fire LinkedIn conversion event (non-blocking for the user response)

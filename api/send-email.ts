@@ -5,7 +5,10 @@ import { appendToSheet } from './_lib/sheets.js';
 import { buildWelcomeEmail } from './_lib/welcome-email.js';
 import { sendHostingerReachContact } from './_lib/hostinger.js';
 
-const HOSTINGER_LANDING_NOTE = 'landing';
+const HOSTINGER_NOTE_BY_SOURCE: Record<string, string> = {
+  landing: 'landing',
+  contact: 'contacto',
+};
 
 interface ContactPayload {
   firstName?: string;
@@ -147,61 +150,67 @@ export default async function handler(
     console.error('[Welcome] Failed to send welcome email:', welcomeError);
   }
 
-  // 3c. Create contact in Hostinger Reach (landing form only — segment matches by note)
-  if (source === 'landing') {
+  // 3c. Create contact in Hostinger Reach — segments match contacts by the `note` field
+  const hostingerNote = source ? HOSTINGER_NOTE_BY_SOURCE[source] : undefined;
+  if (hostingerNote) {
     const hostingerResult = await sendHostingerReachContact({
       email,
       firstName,
       lastName,
       phone,
-      note: HOSTINGER_LANDING_NOTE,
+      note: hostingerNote,
     });
     if (hostingerResult.ok) {
-      console.log('[Hostinger] Contact created for', email);
+      console.log('[Hostinger] Contact created for', email, '(note:', hostingerNote + ')');
     } else {
       console.error('[Hostinger] Failed:', hostingerResult.status, hostingerResult.error);
     }
   }
 
-  // 4. Fire LinkedIn conversion event (non-blocking for the user response)
-  console.log('[LinkedIn] payload:', { email: email ? `${email.slice(0,3)}***` : 'MISSING', firstName, lastName, liFatId: liFatId || 'MISSING' });
-  const linkedInResult = await sendLinkedInConversion({
-    email,
-    firstName,
-    lastName,
-    liFatId,
-  });
-  console.log('[LinkedIn] result:', JSON.stringify(linkedInResult));
-  if (!linkedInResult.ok) {
-    console.error('[LinkedIn] conversion failed:', linkedInResult);
+  // 4. Fire LinkedIn conversion event (landing only — contact form is excluded)
+  let linkedInResult: { ok: boolean; status?: number; error?: string } = { ok: false, error: 'skipped' };
+  if (source === 'landing') {
+    console.log('[LinkedIn] payload:', { email: email ? `${email.slice(0,3)}***` : 'MISSING', firstName, lastName, liFatId: liFatId || 'MISSING' });
+    linkedInResult = await sendLinkedInConversion({
+      email,
+      firstName,
+      lastName,
+      liFatId,
+    });
+    console.log('[LinkedIn] result:', JSON.stringify(linkedInResult));
+    if (!linkedInResult.ok) {
+      console.error('[LinkedIn] conversion failed:', linkedInResult);
+    }
   }
 
-  // 5. Persist lead to Google Sheets
-  const spreadsheetId = '1ARjwatClsCWcSzrCSZ66-fE89_34sEI8T86Cvk7p4_w';
-  const timestamp = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
-  const sheetValues = [
-    timestamp,
-    `${firstName} ${lastName}`,
-    email,
-    topic,
-    message,
-    utm_source || '',
-    utm_medium || '',
-    utm_campaign || '',
-    utm_content || '',
-    pageUrl || '',
-    referrer || ''
-  ];
+  // 5. Persist lead to Google Sheets (landing only — contact form is excluded)
+  if (source === 'landing') {
+    const spreadsheetId = '1ARjwatClsCWcSzrCSZ66-fE89_34sEI8T86Cvk7p4_w';
+    const timestamp = new Date().toLocaleString('es-CO', { timeZone: 'America/Bogota' });
+    const sheetValues = [
+      timestamp,
+      `${firstName} ${lastName}`,
+      email,
+      topic,
+      message,
+      utm_source || '',
+      utm_medium || '',
+      utm_campaign || '',
+      utm_content || '',
+      pageUrl || '',
+      referrer || ''
+    ];
 
-  try {
-    const sheetResult = await appendToSheet(spreadsheetId, sheetValues);
-    if (!sheetResult.ok) {
-      console.error('[Sheets] Failed to append:', sheetResult.error);
-    } else {
-      console.log('[Sheets] Lead appended successfully');
+    try {
+      const sheetResult = await appendToSheet(spreadsheetId, sheetValues);
+      if (!sheetResult.ok) {
+        console.error('[Sheets] Failed to append:', sheetResult.error);
+      } else {
+        console.log('[Sheets] Lead appended successfully');
+      }
+    } catch (err) {
+      console.error('[Sheets] Integration error:', err);
     }
-  } catch (err) {
-    console.error('[Sheets] Integration error:', err);
   }
 
   return response.status(200).json({

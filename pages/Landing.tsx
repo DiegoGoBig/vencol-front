@@ -51,6 +51,7 @@ export const Landing: React.FC = () => {
     const [errorMessage, setErrorMessage] = useState('');
     const [utms, setUtms] = useState<Record<string, string>>({});
     const recaptchaRef = useRef<HTMLDivElement>(null);
+    const widgetIdRef = useRef<number | null>(null);
 
     useEffect(() => {
         setUtms(captureUtmsFromUrl());
@@ -58,26 +59,22 @@ export const Landing: React.FC = () => {
 
     useEffect(() => {
         const renderRecaptcha = () => {
-            if ((window as any).grecaptcha && recaptchaRef.current) {
-                try {
-                    (window as any).grecaptcha.render(recaptchaRef.current, {
-                        sitekey: '6Lcrzo0sAAAAALxW-ABUWMU11aS-fpGDoa7cWItp',
-                    });
-                } catch {
-                    // already rendered
-                }
+            if (recaptchaRef.current && widgetIdRef.current === null) {
+                widgetIdRef.current = (window as any).grecaptcha.render(recaptchaRef.current, {
+                    sitekey: '6Lcrzo0sAAAAALxW-ABUWMU11aS-fpGDoa7cWItp',
+                });
             }
         };
 
-        if ((window as any).grecaptcha) {
-            renderRecaptcha();
+        if ((window as any).grecaptcha?.ready) {
+            (window as any).grecaptcha.ready(renderRecaptcha);
         } else {
             const checkInterval = setInterval(() => {
-                if ((window as any).grecaptcha) {
-                    renderRecaptcha();
+                if ((window as any).grecaptcha?.ready) {
+                    (window as any).grecaptcha.ready(renderRecaptcha);
                     clearInterval(checkInterval);
                 }
-            }, 500);
+            }, 300);
             return () => clearInterval(checkInterval);
         }
     }, []);
@@ -87,7 +84,9 @@ export const Landing: React.FC = () => {
         setStatus('loading');
         setErrorMessage('');
 
-        const recaptchaResponse = (window as any).grecaptcha?.getResponse();
+        const recaptchaResponse = widgetIdRef.current !== null
+            ? (window as any).grecaptcha?.getResponse(widgetIdRef.current)
+            : (window as any).grecaptcha?.getResponse();
         if (!recaptchaResponse) {
             setStatus('error');
             setErrorMessage('Por favor, completa el reCAPTCHA.');
@@ -104,14 +103,14 @@ export const Landing: React.FC = () => {
         const cargo = formData.get('cargo') as string || '';
         const phone = formData.get('phone') as string || '';
         const producto = formData.get('producto') as string || '';
-        const reto = formData.get('reto') as string || '';
+        const sector = formData.get('sector') as string || '';
         const email = formData.get('email') as string || '';
 
         const messageParts = [
             empresa && `Empresa: ${empresa}`,
             cargo && `Cargo: ${cargo}`,
+            sector && `Sector: ${sector}`,
             phone && `WhatsApp: +57 ${phone}`,
-            reto && `Mayor reto: ${reto}`,
         ].filter(Boolean);
 
         try {
@@ -142,7 +141,11 @@ export const Landing: React.FC = () => {
                         event_label: 'Landing Asesoria Form',
                     });
                 }
-                (window as any).grecaptcha?.reset();
+                if (widgetIdRef.current !== null) {
+                    (window as any).grecaptcha?.reset(widgetIdRef.current);
+                } else {
+                    (window as any).grecaptcha?.reset();
+                }
             } else {
                 const err = await res.json().catch(() => ({ message: 'Error en el servidor.' }));
                 setStatus('error');
@@ -245,13 +248,30 @@ export const Landing: React.FC = () => {
                                         </div>
                                         <div>
                                             <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Cargo</label>
-                                            <input
-                                                type="text"
-                                                name="cargo"
-                                                required
-                                                placeholder="Ej. Gerente Planta"
-                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors"
-                                            />
+                                            <div className="relative">
+                                                <select
+                                                    name="cargo"
+                                                    required
+                                                    defaultValue=""
+                                                    className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors appearance-none cursor-pointer"
+                                                >
+                                                    <option value="" disabled>Seleccione</option>
+                                                    <option value="Director de Compras" className="bg-zinc-900">Director de Compras</option>
+                                                    <option value="Gerente General" className="bg-zinc-900">Gerente General</option>
+                                                    <option value="Gerente de Planta" className="bg-zinc-900">Gerente de Planta</option>
+                                                    <option value="Gerente de Operaciones" className="bg-zinc-900">Gerente de Operaciones</option>
+                                                    <option value="Coordinador de Calidad" className="bg-zinc-900">Coordinador de Calidad</option>
+                                                    <option value="Jefe de Producción" className="bg-zinc-900">Jefe de Producción</option>
+                                                    <option value="Director Técnico" className="bg-zinc-900">Director Técnico</option>
+                                                    <option value="Ingeniero de Planta" className="bg-zinc-900">Ingeniero de Planta</option>
+                                                    <option value="Otro" className="bg-zinc-900">Otro</option>
+                                                </select>
+                                                <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-brand-green">
+                                                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                                    </svg>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -305,13 +325,31 @@ export const Landing: React.FC = () => {
                                         </div>
                                     </div>
                                     <div>
-                                        <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Tu mayor reto (opcional)</label>
-                                        <textarea
-                                            name="reto"
-                                            placeholder="¿Qué problema buscas resolver?"
-                                            rows={2}
-                                            className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors resize-none"
-                                        ></textarea>
+                                        <label className="block text-[11px] font-bold text-brand-green uppercase tracking-wide mb-1">Sector</label>
+                                        <div className="relative">
+                                            <select
+                                                name="sector"
+                                                required
+                                                defaultValue=""
+                                                className="w-full bg-black/40 border border-white/10 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:border-brand-green focus:bg-black/60 transition-colors appearance-none cursor-pointer"
+                                            >
+                                                <option value="" disabled>Seleccione su sector</option>
+                                                <option value="Avícola" className="bg-zinc-900">Avícola</option>
+                                                <option value="Cárnicos" className="bg-zinc-900">Cárnicos</option>
+                                                <option value="Lácteos" className="bg-zinc-900">Lácteos</option>
+                                                <option value="Porcícola" className="bg-zinc-900">Porcícola</option>
+                                                <option value="Piscícola / Acuicultura" className="bg-zinc-900">Piscícola / Acuicultura</option>
+                                                <option value="Frutas y Verduras" className="bg-zinc-900">Frutas y Verduras</option>
+                                                <option value="Procesados / Embutidos" className="bg-zinc-900">Procesados / Embutidos</option>
+                                                <option value="Exportación" className="bg-zinc-900">Exportación</option>
+                                                <option value="Otro" className="bg-zinc-900">Otro</option>
+                                            </select>
+                                            <div className="absolute inset-y-0 right-0 flex items-center px-4 pointer-events-none text-brand-green">
+                                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div className="flex justify-center">

@@ -1,6 +1,6 @@
 import { google } from 'googleapis';
 
-export async function appendToSheet(spreadsheetId: string, values: any[]) {
+export async function appendToSheet(spreadsheetId: string, values: any[], sheetName = 'Sheet1') {
   try {
     const base64Auth = process.env.GOOGLE_SERVICE_ACCOUNT;
     if (!base64Auth) {
@@ -17,39 +17,18 @@ export async function appendToSheet(spreadsheetId: string, values: any[]) {
 
     const sheets = google.sheets({ version: 'v4', auth });
 
-    // Default range is Sheet1. We'll try to append.
-    // The Service Account must have "Editor" access to the Spreadsheet ID provided.
-    let range = 'Sheet1!A1';
-    
-    try {
-      await sheets.spreadsheets.values.append({
-        spreadsheetId,
-        range,
-        valueInputOption: 'USER_ENTERED',
-        requestBody: {
-          values: [values],
-        },
-      });
-    } catch (err: any) {
-      // Fallback for Spanish default sheet name
-      if (err.message?.includes('Sheet1')) {
-        range = 'Hoja 1!A1';
-        await sheets.spreadsheets.values.append({
-          spreadsheetId,
-          range,
-          valueInputOption: 'USER_ENTERED',
-          requestBody: {
-            values: [values],
-          },
-        });
-      } else {
-        throw err;
-      }
-    }
+    await sheets.spreadsheets.values.append({
+      spreadsheetId,
+      range: `${sheetName}!A1`,
+      valueInputOption: 'USER_ENTERED',
+      requestBody: {
+        values: [values],
+      },
+    });
 
     return { ok: true };
   } catch (error: any) {
-    console.error('[Sheets] Service Account Error:', error.message || error);
+    console.error('[Sheets] Error:', error.message || error);
     return { ok: false, error };
   }
 }

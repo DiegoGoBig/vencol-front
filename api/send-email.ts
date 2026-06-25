@@ -202,7 +202,7 @@ export default async function handler(
     ];
 
     try {
-      const sheetResult = await appendToSheet(spreadsheetId, sheetValues);
+      const sheetResult = await appendToSheet(spreadsheetId, sheetValues, 'Leads Digital');
       if (!sheetResult.ok) {
         console.error('[Sheets] Failed to append:', sheetResult.error);
       } else {
